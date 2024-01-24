@@ -56,12 +56,12 @@
 
 .appearance--default {
   padding: 0;
-  color: var(--theme-text);
+  color: var(color-dark-500);
 }
 
 .appearance--none {
   padding: 0;
-  color: var(--theme-text);
+  color: var(color-dark-500);
 
   &:local() {
     .label {

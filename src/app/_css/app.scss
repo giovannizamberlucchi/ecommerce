@@ -28,7 +28,7 @@
 
 html {
   @extend %body;
-  background: var(--theme-bg);
+  background: var( --color-dark-50);
   -webkit-font-smoothing: antialiased;
   opacity: 0;
 
@@ -46,9 +46,10 @@ body,
 
 body {
   font-family: var(--font-jost);
-  padding: 0;
   margin: 0;
-  color: var(--color-dark-50);
+  padding: 0;
+  color: var(--color-dark-500);
+
   display: flex;
   flex-flow: column;
 }
@@ -58,7 +59,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-dark-50);
+  background: var(--color-dark-500);
   color: var(--color-base-800);
 }
 
@@ -99,18 +100,18 @@ h6 {
 
 p {
   margin: 0;
-  }
-
+}
 
 ul,
 ol {
-  padding:0;
   margin: 0;
-  list-style:none;
+  padding: 0;
+  list-style: none;
 }
 
 a {
-  color: var(--color-dark-50);
+  color: var(--color-dark-500);
+  text-decoration: none;
 
   &:focus {
     opacity: .8;

@@ -1,22 +1,22 @@
 export const inclusions = [
     {
-      title: 'Free Shipping',
-      description: 'Free shipping for order above $150',
+      title: 'Livraison gratuite',
+      description: 'à partir de 100€',
       icon: '/assets/icons/shipping.svg',
     },
     {
-      title: 'Money Guarantee',
-      description: 'Within 30 days for an exchange',
+      title: 'Garantie',
+      description: '30jours',
       icon: '/assets/icons/dollar.svg',
     },
     {
-      title: 'Online Support',
-      description: '24 hours a day, 7 days a week',
+      title: 'Support en ligne',
+      description: 'par téléléphone',
       icon: '/assets/icons/support.svg',
     },
     {
-      title: 'Flexible Payment',
-      description: 'Pay with multiple credit cards',
+      title: 'Paiement facile',
+      description: 'accepte toute carte bleue',
       icon: '/assets/icons/payment.svg',
     },
   ]
