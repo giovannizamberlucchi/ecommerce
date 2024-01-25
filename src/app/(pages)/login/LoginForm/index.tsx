@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
         if (redirect?.current) router.push(redirect.current as string)
         else router.push('/account')
       } catch (_) {
-        setError('There was an error with the credentials provided. Please try again.')
+        setError('Les informations entrées ne correspondent à aucun compte. Veuilez resaisir votre identifiant et votre mot de passe.')
       }
     },
     [login, router],
@@ -47,14 +47,14 @@ const LoginForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <p>
-        {`This is where your customers will login to manage their account, review their order history, and more. To manage all users, `}
-        <Link href="/admin/collections/users">login to the admin dashboard</Link>
-        {'.'}
+        {``}
+        <Link href="/admin/collections/users">Se connecter à son compte Resovalie</Link>
+        {''}
       </p>
       <Message error={error} className={classes.message} />
       <Input
         name="email"
-        label="Email Address"
+        label="Adresse Email"
         required
         register={register}
         error={errors.email}
@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
       <Input
         name="password"
         type="password"
-        label="Password"
+        label="Mot de Passe"
         required
         register={register}
         error={errors.password}
@@ -71,14 +71,14 @@ const LoginForm: React.FC = () => {
       <Button
         type="submit"
         appearance="primary"
-        label={isLoading ? 'Processing' : 'Login'}
+        label={isLoading ? 'Processing' : 'Se connecter'}
         disabled={isLoading}
         className={classes.submit}
       />
       <div>
-        <Link href={`/create-account${allParams}`}>Create an account</Link>
+        <Link href={`/create-account${allParams}`}>Créer un compte</Link>
         <br />
-        <Link href={`/recover-password${allParams}`}>Recover your password</Link>
+        <Link href={`/recover-password${allParams}`}>Récupérer son mot de passe</Link>
       </div>
     </form>
   )
