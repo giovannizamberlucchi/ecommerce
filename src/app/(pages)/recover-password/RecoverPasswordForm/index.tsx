@@ -50,38 +50,31 @@ export const RecoverPasswordForm: React.FC = () => {
     <Fragment>
       {!success && (
         <React.Fragment>
-          <h1>Recover Password</h1>
-          <div className={classes.formWrapper}>
-            <p>
-              {`Please enter your email below. You will receive an email message with instructions on
-              how to reset your password. To manage your all users, `}
-              <Link href="/admin/collections/users">login to the admin dashboard</Link>
-              {'.'}
-            </p>
-            <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-              <Message error={error} className={classes.message} />
-              <Input
-                name="email"
-                label="Email Address"
-                required
-                register={register}
-                error={errors.email}
-                type="email"
-              />
-              <Button
-                type="submit"
-                appearance="primary"
-                label="Recover Password"
-                className={classes.submit}
-              />
-            </form>
-          </div>
+          <p>Entrer votre adresse mail enregistrée pour réinitialiser votre mot de passe.</p>
+
+          <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+            <Message error={error} className={classes.message} />
+            <Input
+              name="email"
+              label="Adresse Email"
+              required
+              register={register}
+              error={errors.email}
+              type="email"
+            />
+            <Button
+              type="submit"
+              appearance="primary"
+              label="Réinitialiser le mot de passe."
+              className={classes.submit}
+            />
+          </form>
         </React.Fragment>
       )}
       {success && (
         <React.Fragment>
-          <h1>Request submitted</h1>
-          <p>Check your email for a link that will allow you to securely reset your password.</p>
+          <h1>Demande de nouveau mot de passe envoyée.</h1>
+          <p>Un email vous a été envoyé contenant la démarche à suivre pour réinitialiser votre mot de passe.</p>
         </React.Fragment>
       )}
     </Fragment>
