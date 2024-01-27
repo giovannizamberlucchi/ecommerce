@@ -1,118 +1,89 @@
-import React, { Fragment } from 'react'
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+'use client'
 
-import { Page, Settings } from '../../../payload/payload-types'
-import { staticCart } from '../../../payload/seed/cart-static'
-import { fetchDoc } from '../../_api/fetchDoc'
-import { fetchSettings } from '../../_api/fetchGlobals'
-import { Blocks } from '../../_components/Blocks'
-import { Gutter } from '../../_components/Gutter'
-import { Hero } from '../../_components/Hero'
-import { Message } from '../../_components/Message'
-import { generateMeta } from '../../_utilities/generateMeta'
-import { CartPage } from './CartPage'
+import React, { Fragment, useEffect, useState } from 'react'
+import Link from 'next/link'
+
+import { Product } from '../../../payload/payload-types'
+import { Media } from '../Media'
+import { Price } from '../Price'
 
 import classes from './index.module.scss'
 
-// Force this page to be dynamic so that Next.js does not cache it
-// See the note in '../[slug]/page.tsx' about this
-export const dynamic = 'force-dynamic'
+const priceFromJSON = (priceJSON): string => {
+  let price = ''
 
-export default async function Cart() {
-  let page: Page | null = null
-
-  try {
-    page = await fetchDoc<Page>({
-      collection: 'pages',
-      slug: 'cart',
-    })
-  } catch (error) {
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // so swallow the error here and simply render the page with fallback data where necessary
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
+  if (priceJSON) {
+    try {
+      const parsed = JSON.parse(priceJSON)?.data[0]
+      const priceValue = parsed.unit_amount
+      const priceType = parsed.type
+      price = `${parsed.currency === 'usd' ? '$' : ''}${(priceValue / 100).toFixed(2)}`
+      if (priceType === 'recurring') {
+        price += `/${
+          parsed.recurring.interval_count > 1
+            ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+            : parsed.recurring.interval
+        }`
+      }
+    } catch (e) {
+      console.error(`Cannot parse priceJSON`) // eslint-disable-line no-console
+    }
   }
 
-  // if no `cart` page exists, render a static one using dummy content
-  // you should delete this code once you have a cart page in the CMS
-  // this is really only useful for those who are demoing this template
-  if (!page) {
-    page = staticCart
-  }
-
-  if (!page) {
-    return notFound()
-  }
-
-  let settings: Settings | null = null
-
-  try {
-    settings = await fetchSettings()
-  } catch (error) {
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // so swallow the error here and simply render the page with fallback data where necessary
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
-  }
-
-  return (
-    <Fragment>
-      {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
-        <Gutter>
-          <Message
-            className={classes.message}
-            warning={
-              <Fragment>
-                {'To enable checkout, you must '}
-                <a
-                  href="https://dashboard.stripe.com/test/apikeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {'obtain your Stripe API Keys'}
-                </a>
-                {' then set them as environment variables. See the '}
-                <a
-                  href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {'README'}
-                </a>
-                {' for more details.'}
-              </Fragment>
-            }
-          />
-        </Gutter>
-      )}
-      <Hero {...page?.hero} />
-      <Gutter>
-        <CartPage settings={settings} page={page} />
-      </Gutter>
-      <Blocks blocks={page?.layout} />
-    </Fragment>
-  )
+  return price
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  let page: Page | null = null
+export const Card: React.FC<{
+  alignItems?: 'center'
+  className?: string
+  showCategories?: boolean
+  hideImagesOnMobile?: boolean
+  title?: string
+  relationTo?: 'products'
+  doc?: Product
+}> = props => {
+  const {
+    showCategories,
+    title: titleFromProps,
+    doc,
+    doc: { slug, title, categories, meta, priceJSON } = {},
+    className,
+  } = props
 
-  try {
-    page = await fetchDoc<Page>({
-      collection: 'pages',
-      slug: 'cart',
-    })
-  } catch (error) {
-    // don't throw an error if the fetch fails
-    // this is so that we can render a static cart page for the demo
-    // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
-    // in production you may want to redirect to a 404  page or at least log the error somewhere
-  }
+  const { description, image: metaImage } = meta || {}
 
-  if (!page) {
-    page = staticCart
-  }
+  const hasCategories = categories && Array.isArray(categories) && categories.length > 0
+  const titleToUse = titleFromProps || title
+  const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
+  const href = `/products/${slug}`
 
-  return generateMeta({ doc: page })
+  const [
+    price, // eslint-disable-line no-unused-vars
+    setPrice,
+  ] = useState(() => priceFromJSON(priceJSON))
+
+  useEffect(() => {
+    setPrice(priceFromJSON(priceJSON))
+  }, [priceJSON])
+
+  return (
+    <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
+      <div className={classes.mediaWrapper}>
+        {!metaImage && <div className={classes.placeholder}>No image</div>}
+        {metaImage && typeof metaImage !== 'string' && (
+          <Media imgClassName={classes.image} resource={metaImage} fill />
+        )}
+      </div>
+
+      <div className={classes.content}>
+        {titleToUse && <h4 className={classes.title}>{titleToUse}</h4>}
+        {description && (
+          <div className={classes.body}>
+            {description && <p className={classes.description}>{sanitizedDescription}</p>}
+          </div>
+        )}
+        {doc && <Price product={doc} />}
+      </div>
+    </Link>
+  )
 }
