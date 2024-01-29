@@ -62,7 +62,7 @@ export default async function Cart() {
         <h3>Panier</h3>
         <CartPage settings={settings} page={page} />
       </Gutter>
-      <Blocks blocks={page?.layout} disableBotomPadding />
+      <Blocks blocks={page?.layout} />
     </div>
   )
 }
