@@ -87,7 +87,7 @@ export const CheckoutForm: React.FC<{}> = () => {
           }
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Something went wrong.'
+        const msg = err instanceof Error ? err.message : 'Une erreur est survenue, veuillez réessayer.'
         setError(`Error while submitting payment: ${msg}`)
         setIsLoading(false)
       }
@@ -100,9 +100,9 @@ export const CheckoutForm: React.FC<{}> = () => {
       {error && <Message error={error} />}
       <PaymentElement />
       <div className={classes.actions}>
-        <Button label="Back to cart" href="/cart" appearance="secondary" />
+        <Button label="Revenir au panier" href="/cart" appearance="secondary" />
         <Button
-          label={isLoading ? 'Loading...' : 'Checkout'}
+          label={isLoading ? 'Chargement...' : 'Paiement'}
           type="submit"
           appearance="primary"
           disabled={!stripe || isLoading}
