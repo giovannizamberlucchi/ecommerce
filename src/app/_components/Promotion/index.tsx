@@ -48,10 +48,10 @@ const Promotion = () => {
         </p>
 
         <ul className={classes.stats}>
-          <StatBox label="Days" value={time.days} />
-          <StatBox label="Hours" value={time.hours} />
+          <StatBox label="Jours" value={time.days} />
+          <StatBox label="Heures" value={time.hours} />
           <StatBox label="Minutes" value={time.minutes} />
-          <StatBox label="Seconds" value={time.seconds} />
+          <StatBox label="Secondes" value={time.seconds} />
         </ul>
       </div>
     </section>
