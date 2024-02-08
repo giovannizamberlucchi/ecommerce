@@ -2,7 +2,7 @@
 
 .card {
   position: relative;
-  background-color: var(--color-dark-50);
+  background-color: var(--color-grey-500);
   min-height: 360px;
   width: 100%;
   display: flex;
@@ -11,7 +11,7 @@
   padding: 20px;
   cursor: pointer;
 
-  background-size: cover;
+  background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -19,7 +19,8 @@
 .title {
   border-radius: 10px;
   padding: 16px;
-  width: 100%;
+  width: 80%;
   text-align: center;
-  background-color: white;
+  background-color:  var(--color-orange-500);
+  text-transform: capitalize;
 }

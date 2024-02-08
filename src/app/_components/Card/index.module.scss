@@ -25,7 +25,6 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -57,8 +56,7 @@
 .description {
   margin: 0;
   line-height: 24px;
-
-  white-space: nowrap;
+  white-space: pre-line;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -73,16 +71,26 @@
   text-decoration: none;
   display: block;
   position: relative;
-  min-height: 262px;
+  min-height: 500px;
   background-color: var(--color-dark-50);
 }
 
 .image {
-  padding: 24px;
+  padding: 1px;
   object-fit: contain;
   aspect-ratio: 1/1;
   max-width: 100%;
+  cursor: zoom-in;
+  cursor:-webkit-zoom-in;
+  transition: transform .1s;
 }
+
+.image:hover{
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5);
+  z-index: 100;
+  }
 
 .placeholder {
   background-color: var(--theme-elevation-50);
