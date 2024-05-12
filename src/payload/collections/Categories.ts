@@ -19,6 +19,16 @@ const Categories: CollectionConfig = {
       type:'upload',
       relationTo:'media',
     },
+    {
+      admin: {
+        position: 'sidebar',
+      },
+      index: true,
+      label: 'URL Slug',
+      name: 'slug',
+      type: 'text',
+      required: true,
+    }
   ],
 }
 

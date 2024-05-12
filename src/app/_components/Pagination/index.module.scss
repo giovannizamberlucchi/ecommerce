@@ -4,6 +4,7 @@
   @extend %label;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: calc(var(--base) / 2);
 }
 
@@ -16,10 +17,17 @@
   color: var(--color-elevation-500);
   border: 1px solid var(--theme-elevation-200);
 
-  &:disabled {
+  &--disabled {
     cursor: not-allowed;
+    padding: calc(var(--base) / 2);
     color: var(--theme-elevation-200);
     border-color: var(--theme-elevation-150);
+  }
+}
+
+.page {
+  a {
+    cursor: pointer;
   }
 }
 

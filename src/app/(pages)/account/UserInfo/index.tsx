@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 
-import { useAuth } from '../../../_providers/Auth'
+import { useAuth } from '../../../_providers/Auth';
 
-import classes from './index.module.scss'
+import classes from './index.module.scss';
 
 export const UserInfo = () => {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <div className={classes.profile}>
@@ -19,5 +19,5 @@ export const UserInfo = () => {
         <p className={classes.email}>{user?.email}</p>
       </div>
     </div>
-  )
-}
+  );
+};

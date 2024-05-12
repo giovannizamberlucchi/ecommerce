@@ -7,32 +7,96 @@
   gap: 20px;
 
   @include large-break {
-    flex-direction: row;
     gap: 40px;
+    width: 100%;
   }
-  
+
   @include small-break {
-    flex-direction: column;
     gap: 20px;
+    width: 100%;
   }
 
   @include small-break {
     margin-top: 16px;
+    width: 100%;
   }
 }
 
 .categories {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
+  &--desktop {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 16px;
 
-  @include large-break {
-    flex-direction: row;
+    @include large-break {
+      display: none;
+    }
   }
 
-  @include small-break {
-    flex-direction: column;
+  &--mobile {
+    display: none;
+
+    @include large-break {
+      display: block;
+    }
+
+    &--title {
+      display: flex;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    &--arrow-back {
+      font-size: 40px;
+      transform: rotate(45deg);
+    }
+
+    &--list {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+
+      @include large-break {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @include small-break {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
+
+.subcategory {
+  & ul {
+    padding-left: 20px;
+  }
+
+  @include large-break {
+    padding-left: 0;
+    display: none;
+  }
+}
+
+.item {
+  text-decoration: none;
+  padding-left: 0;
+  text-align: center;
+}
+.itemActive {
+  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.categoryCard {
+  display: none;
+
+  @include large-break {
+    display: block;
   }
 }
 
