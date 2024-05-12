@@ -1,38 +1,34 @@
-import React from 'react'
-import { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
+import React, { Suspense } from 'react';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Gutter } from '../../_components/Gutter'
-import { RenderParams } from '../../_components/RenderParams'
-import { getMeUser } from '../../_utilities/getMeUser'
-import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph'
-import LoginForm from './LoginForm'
+import { Gutter } from '../../_components/Gutter';
+import { RenderParams } from '../../_components/RenderParams';
+import { getMeUser } from '../../_utilities/getMeUser';
+import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
+import LoginForm from './LoginForm';
 
-import classes from './index.module.scss'
+import classes from './index.module.scss';
 
 export default async function Login() {
   await getMeUser({
     validUserRedirect: `/account?warning=${encodeURIComponent('You are already logged in.')}`,
-  })
+  });
 
   return (
     <section className={classes.login}>
       <div className={classes.heroImg}>
         <Link href="/">
-          <Image
-            src="/resovalie-achat-fond-noir-rvb.jpg"
-            alt="logo"
-            width={250}
-            height={23}
-            className={classes.logo}
-          />
+          <Image src="/resovalie-achat-fond-noir-rvb.jpg" alt="logo" width={250} height={23} className={classes.logo} />
         </Link>
       </div>
 
       <div className={classes.formWrapper}>
         <div className={classes.formContainer}>
-          <RenderParams className={classes.params} />
+          <Suspense>
+            <RenderParams className={classes.params} />
+          </Suspense>
 
           <div className={classes.formTitle}>
             <h3>Bienvenue</h3>
@@ -41,11 +37,13 @@ export default async function Login() {
 
           <p>Sur Resovalie Achats</p>
 
-          <LoginForm />
+          <Suspense>
+            <LoginForm />
+          </Suspense>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export const metadata: Metadata = {
@@ -55,4 +53,4 @@ export const metadata: Metadata = {
     title: 'Login',
     url: '/login',
   }),
-}
+};

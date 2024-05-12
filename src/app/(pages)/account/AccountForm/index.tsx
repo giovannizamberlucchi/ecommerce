@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
-import { Button } from '../../../_components/Button'
-import { Input } from '../../../_components/Input'
-import { Message } from '../../../_components/Message'
-import { useAuth } from '../../../_providers/Auth'
+import { Button } from '../../../_components/Button';
+import { Input } from '../../../_components/Input';
+import { Message } from '../../../_components/Message';
+import { useAuth } from '../../../_providers/Auth';
 
-import classes from './index.module.scss'
+import classes from './index.module.scss';
 
 type FormData = {
-  email: string
-  name: string
-  password: string
-  passwordConfirm: string
-}
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
+};
 
 const AccountForm: React.FC = () => {
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const { user, setUser } = useAuth()
-  const [changePassword, setChangePassword] = useState(false)
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const { user, setUser } = useAuth();
+  const [changePassword, setChangePassword] = useState(false);
 
   const {
     register,
@@ -30,12 +30,12 @@ const AccountForm: React.FC = () => {
     formState: { errors, isLoading },
     reset,
     watch,
-  } = useForm<FormData>()
+  } = useForm<FormData>();
 
-  const password = useRef({})
-  password.current = watch('password', '')
+  const password = useRef({});
+  password.current = watch('password', '');
 
-  const router = useRouter()
+  const router = useRouter();
 
   const onSubmit = useCallback(
     async (data: FormData) => {
@@ -48,27 +48,27 @@ const AccountForm: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-        })
+        });
 
         if (response.ok) {
-          const json = await response.json()
-          setUser(json.doc)
-          setSuccess('Compte modifié avec succés !')
-          setError('')
-          setChangePassword(false)
+          const json = await response.json();
+          setUser(json.doc);
+          setSuccess('Compte modifié avec succés !');
+          setError('');
+          setChangePassword(false);
           reset({
             email: json.doc.email,
             name: json.doc.name,
             password: '',
             passwordConfirm: '',
-          })
+          });
         } else {
-          setError('Une erreur est survenue lors de la modification de votre compte veuillez réésayer.')
+          setError('Une erreur est survenue lors de la modification de votre compte veuillez réésayer.');
         }
       }
     },
     [user, setUser, reset],
-  )
+  );
 
   useEffect(() => {
     if (user === null) {
@@ -76,7 +76,7 @@ const AccountForm: React.FC = () => {
         `/login?error=${encodeURIComponent(
           'Vous dever être connecté pour voir cette page.',
         )}&redirect=${encodeURIComponent('/account')}`,
-      )
+      );
     }
 
     // Once user is loaded, reset form to have default values
@@ -86,32 +86,21 @@ const AccountForm: React.FC = () => {
         name: user.name,
         password: '',
         passwordConfirm: '',
-      })
+      });
     }
-  }, [user, router, reset, changePassword])
+  }, [user, router, reset, changePassword]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <Message error={error} success={success} className={classes.message} />
       {!changePassword ? (
         <Fragment>
-          <Input
-            name="email"
-            label="Adresse email"
-            required
-            register={register}
-            error={errors.email}
-            type="email"
-          />
+          <Input name="email" label="Adresse email" required register={register} error={errors.email} type="email" />
           <Input name="name" label="Nom" register={register} error={errors.name} />
 
           <p>
             {'Modifier vos informations personnelles, ou '}
-            <button
-              type="button"
-              className={classes.changePassword}
-              onClick={() => setChangePassword(!changePassword)}
-            >
+            <button type="button" className={classes.changePassword} onClick={() => setChangePassword(!changePassword)}>
               cliquer ici
             </button>
             {' changer votre mot de passe.'}
@@ -121,11 +110,7 @@ const AccountForm: React.FC = () => {
         <Fragment>
           <p>
             {'Changer votre mot de passe sous dessous, ou '}
-            <button
-              type="button"
-              className={classes.changePassword}
-              onClick={() => setChangePassword(!changePassword)}
-            >
+            <button type="button" className={classes.changePassword} onClick={() => setChangePassword(!changePassword)}>
               annuler
             </button>
             .
@@ -144,7 +129,7 @@ const AccountForm: React.FC = () => {
             label="Confirmer le mot de passe"
             required
             register={register}
-            validate={value => value === password.current || 'Les mots de passe ne sont pas identique '}
+            validate={(value) => value === password.current || 'Les mots de passe ne sont pas identique '}
             error={errors.passwordConfirm}
           />
         </Fragment>
@@ -157,7 +142,7 @@ const AccountForm: React.FC = () => {
         className={classes.submit}
       />
     </form>
-  )
-}
+  );
+};
 
-export default AccountForm
+export default AccountForm;

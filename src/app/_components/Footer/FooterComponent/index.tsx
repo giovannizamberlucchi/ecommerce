@@ -1,34 +1,28 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Footer, Media } from '../../../../payload/payload-types'
-import { inclusions, noHeaderFooterUrls, profileNavItems } from '../../../constants'
-import { Button } from '../../Button'
-import { Gutter } from '../../Gutter'
+import { Footer, Media } from '../../../../payload/payload-types';
+import { inclusions, noHeaderFooterUrls, profileNavItems } from '../../../constants';
+import { Button } from '../../Button';
+import { Gutter } from '../../Gutter';
 
-import classes from './index.module.scss'
+import classes from './index.module.scss';
 
 const FooterComponent = ({ footer }: { footer: Footer }) => {
-  const pathname = usePathname()
-  const navItems = footer?.navItems || []
+  const pathname = usePathname();
+  const navItems = footer?.navItems || [];
 
   return (
     <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : ''}>
       <Gutter>
         <ul className={classes.inclusions}>
-          {inclusions.map(inclusion => (
+          {(inclusions || []).map((inclusion) => (
             <li key={inclusion.title}>
-              <Image
-                src={inclusion.icon}
-                alt={inclusion.title}
-                width={36}
-                height={36}
-                className={classes.icon}
-              />
+              <Image src={inclusion.icon} alt={inclusion.title} width={36} height={36} className={classes.icon} />
 
               <h5 className={classes.title}>{inclusion.title}</h5>
               <p>{inclusion.description}</p>
@@ -47,8 +41,8 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
             <p>{footer?.copyright}</p>
 
             <div className={classes.socialLinks}>
-              {navItems.map(item => {
-                const icon = item?.link?.icon as Media
+              {(navItems || []).map((item) => {
+                const icon = item?.link?.icon as Media;
 
                 return (
                   <Button
@@ -66,14 +60,14 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
                       className={classes.socialIcon}
                     />
                   </Button>
-                )
+                );
               })}
             </div>
           </div>
         </Gutter>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default FooterComponent
+export default FooterComponent;
