@@ -28,6 +28,7 @@ import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
+import { Category } from './payload-types'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Store'
@@ -136,6 +137,7 @@ export default buildConfig({
     }),
     nestedDocs({
       collections: ['categories'],
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${(doc as any as Category ).slug}`, ''),
     }),
     seo({
       collections: ['pages', 'products'],
