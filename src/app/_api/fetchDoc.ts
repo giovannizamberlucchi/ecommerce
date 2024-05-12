@@ -1,11 +1,12 @@
-import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
+import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
-import type { Config } from '../../payload/payload-types'
-import { ORDER } from '../_graphql/orders'
-import { PAGE } from '../_graphql/pages'
-import { PRODUCT } from '../_graphql/products'
-import { GRAPHQL_API_URL } from './shared'
-import { payloadToken } from './token'
+import type { Config } from '../../payload/payload-types';
+import { ORDER } from '../_graphql/orders';
+import { PAGE } from '../_graphql/pages';
+import { PRODUCT } from '../_graphql/products';
+import { GRAPHQL_API_URL } from './shared';
+import { payloadToken } from './token';
+import { CATEGORY } from '../_graphql/categories';
 
 const queryMap = {
   pages: {
@@ -20,46 +21,57 @@ const queryMap = {
     query: ORDER,
     key: 'Orders',
   },
-}
+  categories: {
+    query: CATEGORY,
+    key: 'Categories',
+  },
+};
 
-export const fetchDoc = async <T>(args: {
-  collection: keyof Config['collections']
-  slug?: string
-  id?: string
-  draft?: boolean
+export const fetchDoc = async <T>({
+  breadcrumbUrl,
+  collection,
+  draft,
+  slug,
+}: {
+  breadcrumbUrl?: string;
+  collection: keyof Config['collections'];
+  draft?: boolean;
+  id?: string;
+  slug?: string;
 }): Promise<T> => {
-  const { collection, slug, draft } = args || {}
+  if (!queryMap[collection]) throw new Error(`Collection ${collection} not found`);
 
-  if (!queryMap[collection]) throw new Error(`Collection ${collection} not found`)
-
-  let token: RequestCookie | undefined
+  let token: RequestCookie | undefined;
 
   if (draft) {
-    const { cookies } = await import('next/headers')
-    token = cookies().get(payloadToken)
+    const { cookies } = await import('next/headers.js');
+
+    token = cookies().get(payloadToken);
   }
 
   const doc: T = await fetch(`${GRAPHQL_API_URL}/api/graphql`, {
-    method: 'POST',
+    body: JSON.stringify({
+      query: queryMap[collection].query,
+      variables: {
+        breadcrumbUrl,
+        draft,
+        slug,
+      },
+    }),
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
     },
-    cache: 'no-store',
+    method: 'POST',
     next: { tags: [`${collection}_${slug}`] },
-    body: JSON.stringify({
-      query: queryMap[collection].query,
-      variables: {
-        slug,
-        draft,
-      },
-    }),
   })
-    ?.then(res => res.json())
-    ?.then(res => {
-      if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
-      return res?.data?.[queryMap[collection].key]?.docs?.[0]
-    })
+    ?.then((res) => res.json())
+    ?.then((res) => {
+      if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc');
 
-  return doc
-}
+      return res?.data?.[queryMap[collection].key]?.docs?.[0];
+    });
+
+  return doc;
+};
