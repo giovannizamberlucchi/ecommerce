@@ -1,46 +1,50 @@
-import React from 'react'
+'use client';
 
-import { Chevron } from '../Chevron'
+import clsx from 'clsx';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Paginate from 'react-paginate';
 
-import classes from './index.module.scss'
+import { Chevron } from '../Chevron';
+import classes from './index.module.scss';
 
-export const Pagination: React.FC<{
-  page: number
-  totalPages: number
-  onClick: (page: number) => void
-  className?: string
-}> = props => {
-  const { page, totalPages, onClick, className } = props
-  const hasNextPage = page < totalPages
-  const hasPrevPage = page > 1
+type SelectedItem = { selected: number };
 
+type PaginationProps = {
+  className?: string;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  totalPages: number;
+};
+
+export const Pagination: React.FC<PaginationProps> = ({ hasPrevPage, hasNextPage, totalPages, className }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const pageChange = ({ selected }: SelectedItem): void => {
+    const initialParams: string[] = [];
+
+    searchParams.forEach((value, key) => {
+      if (value && key !== 'page') initialParams.push(`${key}=${encodeURIComponent(value)}`);
+    });
+
+    router.push(initialParams.length ? `?${initialParams.join('&')}&page=${selected + 1}` : `?page=${selected + 1}`);
+  };
   return (
-    <div className={[classes.pagination, className].filter(Boolean).join(' ')}>
-      <button
-        type="button"
-        className={classes.button}
-        disabled={!hasPrevPage}
-        onClick={() => {
-          onClick(page - 1)
-        }}
-      >
-        <Chevron rotate={90} className={classes.icon} />
-      </button>
-      <div className={classes.pageRange}>
-        <span className={classes.pageRangeLabel}>
-          Page {page} of {totalPages}
-        </span>
-      </div>
-      <button
-        type="button"
-        className={classes.button}
-        disabled={!hasNextPage}
-        onClick={() => {
-          onClick(page + 1)
-        }}
-      >
-        <Chevron rotate={-90} className={classes.icon} />
-      </button>
+    <div className={clsx(classes.pagination, className)}>
+      <Paginate
+        activeClassName={classes.active}
+        activeLinkClassName={classes.active}
+        breakClassName={classes.page}
+        containerClassName={classes.pagination}
+        forcePage={(Number(searchParams.get('page')) || 1) - 1}
+        nextLabel={<Chevron rotate={-90} className={classes.icon} />}
+        nextLinkClassName={hasNextPage ? classes['button'] : classes['button--disabled']}
+        onPageChange={pageChange}
+        pageClassName={classes.page}
+        pageCount={totalPages}
+        previousLabel={<Chevron rotate={90} className={classes.icon} />}
+        previousLinkClassName={hasPrevPage ? classes['button'] : classes['button--disabled']}
+      />
     </div>
-  )
-}
+  );
+};
