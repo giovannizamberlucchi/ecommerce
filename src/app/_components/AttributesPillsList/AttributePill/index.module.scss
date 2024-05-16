@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  border: 1px solid #000;
+  gap: 20px;
+  max-width: fit-content;
+  padding: 0 10px;
+  border-radius: 999999px;
+}
+
+.attributeValue {
+  text-wrap: nowrap;
+}
