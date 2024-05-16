@@ -39,10 +39,10 @@ export default async function RecoverPassword() {
 }
 
 export const metadata: Metadata = {
-  title: 'Recover Password',
+  title: 'Récupérer mot de passe',
   description: 'Entrer votre adresse mail pour réinitialiser votre mot de passe.',
   openGraph: mergeOpenGraph({
-    title: 'Recover Password',
+    title: 'Récupérer mot de passe',
     url: '/recover-password',
   }),
 };
