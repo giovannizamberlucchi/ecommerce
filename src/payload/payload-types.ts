@@ -21,6 +21,7 @@ export type CartItems =
 export interface Config {
   collections: {
     pages: Page;
+    attributes: Attribute;
     products: Product;
     orders: Order;
     media: Media;
@@ -402,6 +403,13 @@ export interface Product {
           }
       )[]
     | null;
+  attributes?:
+    | {
+        type: string | Attribute;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   categories?: (string | Category)[] | null;
   relatedProducts?: (string | Product)[] | null;
   slug?: string | null;
@@ -414,6 +422,16 @@ export interface Product {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "attributes".
+ */
+export interface Attribute {
+  id: string;
+  attribute: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
