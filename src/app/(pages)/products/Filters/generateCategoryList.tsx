@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 const GetAllProducts = () => (
   <div>
-    <Link href="/products">All Product</Link>
+    <Link href="/products">Tous les produits</Link>
   </div>
 );
 
