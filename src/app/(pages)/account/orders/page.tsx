@@ -43,9 +43,9 @@ export default async function Orders() {
 
   return (
     <div>
-      <h5>My Orders</h5>
+      <h5>Mes commandes</h5>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-        <p className={classes.noOrders}>You have no orders.</p>
+        <p className={classes.noOrders}>Vous n'avez aucune commande.</p>
       )}
 
       <Suspense>
@@ -58,21 +58,21 @@ export default async function Orders() {
             <li key={order.id} className={classes.order}>
               <Link className={classes.item} href={`/account/orders/${order.id}`}>
                 <div className={classes.itemContent}>
-                  <h6 className={classes.itemTitle}>{`Order ${order.id}`}</h6>
+                  <h6 className={classes.itemTitle}>{`Commande ${order.id}`}</h6>
                   <div className={classes.itemMeta}>
                     <p>
-                      {'Total: '}
+                      {'Totale: '}
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'usd',
                       }).format(order.total / 100)}
                     </p>
-                    <p className={classes.orderDate}>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
+                    <p className={classes.orderDate}>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
                   </div>
                 </div>
                 <Button
                   appearance="default"
-                  label="View Order"
+                  label="Voir l'ordre"
                   className={classes.button}
                   el="link"
                   href={`/account/orders/${order.id}`}

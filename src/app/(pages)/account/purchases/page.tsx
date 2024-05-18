@@ -11,7 +11,7 @@ import classes from './index.module.scss';
 export default async function Purchases() {
   const { user } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to access your account.',
+      'Vous devez être connecté pour accéder à votre compte.',
     )}&redirect=${encodeURIComponent('/account')}`,
   });
 
@@ -37,7 +37,7 @@ export default async function Purchases() {
                       <div className={classes.itemDetails}>
                         <h6>{purchase.title}</h6>
                         <Price product={purchase} />
-                        <p className={classes.purchasedDate}>{`Purchased On: ${formatDateTime(purchase.createdAt)}`}</p>
+                        <p className={classes.purchasedDate}>{`Acheté le: ${formatDateTime(purchase.createdAt)}`}</p>
                       </div>
                     </Link>
                   )}
