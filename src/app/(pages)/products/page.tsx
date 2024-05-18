@@ -119,7 +119,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   return (
     <div className={classes.container}>
       <Gutter className={classes.products}>
-        <AttributesPillsList attributes={attributesEntries} className={classes['container-attributes-pill--desktop']} />
+        <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
 
         <div>
           <Filters categories={categories} subcategories={subcategories} />
@@ -131,10 +131,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
         <div>
           <Blocks blocks={pageCMS?.layout} disableTopPadding={true} />
-          <AttributesPillsList
-            attributes={attributesEntries}
-            className={classes['container-attributes-pill--mobile']}
-          />
+          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
           <AttributesOverlay
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--mobile']}
