@@ -8,6 +8,7 @@ type Props = {
 export const AttributesFilter: React.FC<Props> = ({ attributes, className }) => {
   return (
     <div className={className}>
+      <h6>Filtres</h6>
       {attributes.flatMap(([key, values]) => (
         <>
           <h6>{key}</h6>
@@ -16,6 +17,7 @@ export const AttributesFilter: React.FC<Props> = ({ attributes, className }) => 
           })}
         </>
       ))}
+      {attributes.length === 0 && <p>Aucun filtre disponible</p>}
     </div>
   );
 };
