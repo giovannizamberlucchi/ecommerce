@@ -3,11 +3,12 @@ import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import type { Config } from '../../payload/payload-types';
 import { ORDERS } from '../_graphql/orders';
 import { PAGES } from '../_graphql/pages';
-import { PRODUCTS } from '../_graphql/products';
+import { PRODUCTS, PRODUCTS_ATTRIBUTES } from '../_graphql/products';
 import { GRAPHQL_API_URL } from './shared';
 import { payloadToken } from './token';
 import { CATEGORIES } from '../_graphql/categories';
 import { PaginatedDocs } from 'payload/database';
+import { ATTRIBUTES } from '../_graphql/attributes';
 
 const queryMap = {
   pages: {
@@ -26,10 +27,18 @@ const queryMap = {
     query: CATEGORIES,
     key: 'Categories',
   },
+  'products-attributes': {
+    query: PRODUCTS_ATTRIBUTES,
+    key: 'Products',
+  },
+  attributes: {
+    query: ATTRIBUTES,
+    key: 'Attributes',
+  },
 };
 
 export const fetchDocs = async <T>(
-  collection: keyof Config['collections'],
+  collection: keyof Config['collections'] | 'products-attributes',
   draft?: boolean,
   variables?: Record<string, unknown>,
 ): Promise<PaginatedDocs<T>> => {
@@ -51,7 +60,10 @@ export const fetchDocs = async <T>(
     cache: 'no-store',
     next: { tags: [collection] },
     body: JSON.stringify({
-      query: queryMap[collection].query,
+      query:
+        typeof queryMap[collection].query === 'string'
+          ? queryMap[collection].query
+          : queryMap[collection].query(variables),
       variables,
     }),
   })

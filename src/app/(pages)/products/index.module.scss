@@ -2,6 +2,44 @@
 
 .container {
   width: 100%;
+
+  &-attributes-pill {
+    &--desktop {
+      display: flex;
+      gap: 20px;
+      grid-column: span 2;
+
+      @include large-break {
+        display: none;
+      }
+    }
+
+    &--mobile {
+      display: none;
+
+      @include large-break {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &-attributes-list {
+    &--desktop {
+      @include large-break {
+        display: none;
+      }
+    }
+
+    &--mobile {
+      display: none;
+
+      @include large-break {
+        display: block;
+      }
+    }
+  }
 }
 
 .products {

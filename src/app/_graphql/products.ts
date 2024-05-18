@@ -2,9 +2,18 @@ import { ARCHIVE_BLOCK, CALL_TO_ACTION, CONTENT, MEDIA_BLOCK } from './blocks';
 import { PRODUCT_CATEGORIES } from './categories';
 import { META } from './meta';
 
-export const PRODUCTS = `#graphql
+export const PRODUCTS = (variables?: Record<string, unknown>) => `
   query Products($filterCategoriesByIds: [JSON], $page: Int, $limit: Int = 300) {
-    Products(where: { categories: { in: $filterCategoriesByIds } }, limit: $limit, page: $page) {
+    Products(where: { AND: [ { categories: { in: $filterCategoriesByIds } }${
+      variables && 'attributes' in variables
+        ? Object.entries(variables.attributes as Record<string, string[]>)
+            .map(
+              ([key, values]) =>
+                `, { AND: [ { attributes__type: { equals: "${key}" } }, {attributes__value: { in: ${JSON.stringify(Array.isArray(values) ? values : [values])} } } ] }`,
+            )
+            .join('')
+        : ''
+    } ] }, limit: $limit, page: $page) {
       docs {
         id
         slug
@@ -12,12 +21,33 @@ export const PRODUCTS = `#graphql
         priceJSON
         ${PRODUCT_CATEGORIES}
         ${META}
+        attributes {
+          type {
+            attribute
+          }
+          value
+        }
       }
       hasNextPage
       hasPrevPage
       page
       totalPages
       totalDocs
+    }
+  }
+`;
+
+export const PRODUCTS_ATTRIBUTES = `#graphql
+  query ProductsAttributes($filterCategoriesByIds: [JSON]) {
+    Products(where: { categories: { in: $filterCategoriesByIds } }, limit: 10000) {
+      docs {
+        attributes {
+            type {
+              attribute
+            }
+            value
+          }
+      }
     }
   }
 `;

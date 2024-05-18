@@ -12,12 +12,8 @@
   }
 
   @include small-break {
-    gap: 20px;
-    width: 100%;
-  }
-
-  @include small-break {
     margin-top: 16px;
+    gap: 20px;
     width: 100%;
   }
 }
@@ -58,11 +54,11 @@
       margin-top: 20px;
 
       @include large-break {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
 
       @include small-break {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
       }
     }
   }

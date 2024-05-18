@@ -15,7 +15,7 @@ const Filters = ({ category, categories, subcategories, slug = [] }: FiltersProp
   return (
     <div className={classes.filters}>
       <div>
-        <h6 className={classes.title}>Categories</h6>
+        <h6 className={classes.title}>Catégories</h6>
 
         <GenerateCategoryDesktopList categories={categories} slug={slug} className={classes.subcategory} />
 

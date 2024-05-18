@@ -36,10 +36,10 @@ export default async function Checkout() {
 }
 
 export const metadata: Metadata = {
-  title: 'Account',
+  title: 'Vérifier',
   description: 'Créer un compte ou se connecter',
   openGraph: mergeOpenGraph({
-    title: 'Account',
+    title: 'Vérifier',
     url: '/account',
   }),
 };

@@ -88,7 +88,7 @@ export default async function Orders() {
 
 export const metadata: Metadata = {
   title: 'Orders',
-  description: 'Your orders.',
+  description: 'Vos commandes',
   openGraph: mergeOpenGraph({
     title: 'Orders',
     url: '/orders',

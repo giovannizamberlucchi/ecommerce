@@ -10,7 +10,7 @@ const Categories = ({ categories }: { categories: Category[] }) => {
   return (
     <section className={classes.container}>
       <div className={classes.titleWrapper}>
-        <h3>Categories</h3>
+        <h3>Catégories</h3>
         <Link href="/products">Voir</Link>
       </div>
 
