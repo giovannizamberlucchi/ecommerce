@@ -64,6 +64,8 @@ export default buildConfig({
             [path.resolve(__dirname, 'collections/Products/hooks/beforeChange')]: mockModulePath,
             [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]: mockModulePath,
             [path.resolve(__dirname, 'collections/Users/endpoints/customer')]: mockModulePath,
+            [path.resolve(__dirname, 'collections/Users/endpoints/sign-up')]: mockModulePath,
+            [path.resolve(__dirname, 'collections/Users/endpoints/success')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/create-payment-intent')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/customers')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/products')]: mockModulePath,

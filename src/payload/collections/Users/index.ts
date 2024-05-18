@@ -1,15 +1,17 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types';
 
-import { admins } from '../../access/admins'
-import { anyone } from '../../access/anyone'
-import adminsAndUser from './access/adminsAndUser'
-import { checkRole } from './checkRole'
-import { customerProxy } from './endpoints/customer'
-import { createStripeCustomer } from './hooks/createStripeCustomer'
-import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
-import { loginAfterCreate } from './hooks/loginAfterCreate'
-import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases'
-import { CustomerSelect } from './ui/CustomerSelect'
+import { admins } from '../../access/admins';
+import { anyone } from '../../access/anyone';
+import adminsAndUser from './access/adminsAndUser';
+import { checkRole } from './checkRole';
+import { customerProxy } from './endpoints/customer';
+import { createStripeCustomer } from './hooks/createStripeCustomer';
+import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin';
+import { loginAfterCreate } from './hooks/loginAfterCreate';
+import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases';
+import { CustomerSelect } from './ui/CustomerSelect';
+import { signUp } from './endpoints/signUp';
+import { success } from './endpoints/success';
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -25,7 +27,6 @@ const Users: CollectionConfig = {
     admin: ({ req: { user } }) => checkRole(['admin'], user),
   },
   hooks: {
-    beforeChange: [createStripeCustomer],
     afterChange: [loginAfterCreate],
   },
   auth: true,
@@ -36,9 +37,19 @@ const Users: CollectionConfig = {
       handler: customerProxy,
     },
     {
+      path: '/success',
+      method: 'get',
+      handler: success,
+    },
+    {
       path: '/:teamID/customer',
       method: 'patch',
       handler: customerProxy,
+    },
+    {
+      path: '/sign-up',
+      method: 'post',
+      handler: signUp,
     },
   ],
   fields: [
@@ -153,6 +164,6 @@ const Users: CollectionConfig = {
     },
   ],
   timestamps: true,
-}
+};
 
-export default Users
+export default Users;

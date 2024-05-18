@@ -39,7 +39,7 @@ const CreateAccountForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
+      const response = await fetch('/api/users/sign-up', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -54,22 +54,9 @@ const CreateAccountForm: React.FC = () => {
         return;
       }
 
-      const redirect = searchParams.get('redirect');
+      const resData = await response.json();
 
-      const timer = setTimeout(() => {
-        setLoading(true);
-      }, 1000);
-
-      try {
-        await login(data);
-        clearTimeout(timer);
-        if (redirect) router.push(redirect as string);
-        else router.push(`/`);
-        window.location.href = '/';
-      } catch (_) {
-        clearTimeout(timer);
-        setError('Erreurs avec les identifiants fournis. Veuillez essayer à nouveau.');
-      }
+      router.push(resData.url);
     },
     [login, router, searchParams],
   );
@@ -108,6 +95,7 @@ const CreateAccountForm: React.FC = () => {
         appearance="primary"
         className={classes.submit}
       />
+
       <div>
         {'Vous avez déja un compte : '}
         <Link href={`/login${allParams}`}>Se Connecter</Link>

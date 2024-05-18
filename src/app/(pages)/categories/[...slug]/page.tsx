@@ -8,7 +8,7 @@ import { fetchDocs } from '../../../_api/fetchDocs';
 import { Gutter } from '../../../_components/Gutter';
 import Filters from '../../products/Filters';
 import { HR } from '../../../_components/HR';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getLastFromArray, getPathFromSlugArr } from '../../../_api/utils';
 import { getChildrenIds } from '../../_utils';
 import { PaginatedDocs } from 'payload/database';
@@ -18,6 +18,8 @@ import { AttributesFilter } from '../../../_components/AttributesFilter';
 import { AttributesOverlay } from '../../../_components/AttributesOverlay';
 import { Metadata } from 'next';
 import { generateMeta } from '../../../_utilities/generateMeta';
+import { getMeUser } from '../../../_utilities/getMeUser';
+import { isActiveSubscription } from '../../../_utilities/isActiveSubscription';
 
 type CategoriesProps = {
   params: {
@@ -31,6 +33,12 @@ type CategoriesProps = {
 export const dynamic = 'force-dynamic';
 
 const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchParams }) => {
+  const { user } = await getMeUser({
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
+  });
+  const isActiveSubs = await isActiveSubscription(user);
+  if (!isActiveSubs) redirect('/account');
+
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
 

@@ -11,13 +11,15 @@ import Filters from './Filters';
 import classes from './index.module.scss';
 import { CollectionProducts } from '../../_components/CollectionProducts';
 import { PaginatedDocs } from 'payload/database';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { AttributesPillsList } from '../../_components/AttributesPillsList';
 import { AttributesFilter } from '../../_components/AttributesFilter';
 import { AttributesOverlay } from '../../_components/AttributesOverlay';
 import { Metadata } from 'next';
 import { generateMeta } from '../../_utilities/generateMeta';
 import { staticCart } from '../../../payload/seed/cart-static';
+import { getMeUser } from '../../_utilities/getMeUser';
+import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +30,14 @@ type ProductsProps = {
 };
 
 const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
+  const { user } = await getMeUser({
+    nullUserRedirect: `/login?error=${encodeURIComponent(
+      'Vous devez être connecté pour voir la page du magasin.',
+    )}&redirect=${encodeURIComponent('/products')}`,
+  });
+  const isActiveSubs = await isActiveSubscription(user);
+  if (!isActiveSubs) redirect('/login');
+
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
 

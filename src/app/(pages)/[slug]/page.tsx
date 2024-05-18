@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { Category, Page as PageType } from '../../../payload/payload-types';
 import { staticHome } from '../../../payload/seed/home-static';
@@ -22,6 +22,8 @@ export const dynamic = 'force-dynamic';
 import Promotion from '../../_components/Promotion';
 
 import classes from './index.module.scss';
+import { getMeUser } from '../../_utilities/getMeUser';
+import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode();
@@ -88,6 +90,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
+  if (slug !== 'home' && slug !== '') {
+    const { user } = await getMeUser({
+      nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
+    });
+    const isActiveSubs = await isActiveSubscription(user);
+    if (!isActiveSubs) redirect('/account');
+  }
+
   const { isEnabled: isDraftMode } = draftMode();
 
   let page: PageType | null = null;
