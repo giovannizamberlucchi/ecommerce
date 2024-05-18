@@ -9,13 +9,18 @@ import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 import { CheckoutPage } from './CheckoutPage';
 
 import classes from './index.module.scss';
+import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
+import { redirect } from 'next/navigation';
 
 export default async function Checkout() {
-  await getMeUser({
+  const { user } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'Vous devez être connecté à votre compte pour accéder au paiement.',
     )}&redirect=${encodeURIComponent('/checkout')}`,
   });
+
+  const isActiveSubs = await isActiveSubscription(user);
+  if (!isActiveSubs) redirect('/account');
 
   let settings: Settings | null = null;
 

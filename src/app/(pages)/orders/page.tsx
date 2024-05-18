@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { Order } from '../../../payload/payload-types';
 import { Button } from '../../_components/Button';
@@ -13,13 +13,16 @@ import { getMeUser } from '../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 
 import classes from './index.module.scss';
+import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 
 export default async function Orders() {
-  const { token } = await getMeUser({
+  const { token, user } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'You must be logged in to view your orders.',
     )}&redirect=${encodeURIComponent('/orders')}`,
   });
+  const isActiveSubs = await isActiveSubscription(user);
+  if (!isActiveSubs) redirect('/account');
 
   let orders: Order[] | null = null;
 
@@ -50,7 +53,7 @@ export default async function Orders() {
     <Gutter className={classes.orders}>
       <h1>Orders</h1>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-        <p className={classes.noOrders}>You have no orders.</p>
+        <p className={classes.noOrders}>Vous n'avez aucune commande.</p>
       )}
       <Suspense>
         <RenderParams />
