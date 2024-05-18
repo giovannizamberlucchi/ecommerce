@@ -13,7 +13,7 @@ const logs = process.env.LOGS_STRIPE_PROXY === '1';
 // body: { customer: Stripe.CustomerUpdateParams }
 export const success: PayloadHandler = async (req: PayloadRequest, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2024-04-10',
+    apiVersion: '2022-08-01',
   });
   const session_id = req.query.session_id;
 
