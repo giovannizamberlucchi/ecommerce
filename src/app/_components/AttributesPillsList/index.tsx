@@ -10,9 +10,9 @@ type AttributesListProps = {
 export const AttributesPillsList: React.FC<AttributesListProps> = ({ attributes, className }) => {
   return (
     <div className={clsx(classes.container, className)}>
-      {attributes.length !== 0 && <ClearPill text="Clear all" />}
+      {attributes.length !== 0 && <ClearPill text="Effacer tout" />}
       {attributes.flatMap(([key, values]) =>
-        values.map((value, idx) => <AttributePill key={`${key}-${idx}`} attribute={{ type: key, value: value }} />),
+        values.map((value, idx) => <AttributePill key={`pill${key}-${idx}`} attribute={{ type: key, value: value }} />),
       )}
     </div>
   );

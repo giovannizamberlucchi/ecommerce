@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 import classes from './index.module.scss';
+import { Cross } from '../../icons/Cross';
 
 type AttributePillProps = {
   attribute: { type: string; value: string };
@@ -27,14 +28,13 @@ export const AttributePill: React.FC<AttributePillProps> = ({ attribute }) => {
   return (
     <Link className={classes.container} href={newSearchParamsString ? { search: newSearchParamsString } : pathname}>
       <p className={classes.attributeValue}>{attribute.value}</p>
+      <Cross fill="black" className={classes.cross} />
     </Link>
   );
 };
 
 export const ClearPill: React.FC<{ text: string }> = ({ text }) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  console.log(searchParams);
 
   return (
     <Link className={classes.container} href={pathname}>

@@ -5,8 +5,14 @@
   max-width: fit-content;
   padding: 0 10px;
   border-radius: 999999px;
+  align-self: center;
+  cursor: pointer;
 }
 
 .attributeValue {
   text-wrap: nowrap;
+}
+
+.cross {
+  width: 13px;
 }
