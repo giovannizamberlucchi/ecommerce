@@ -2,8 +2,8 @@ import { ARCHIVE_BLOCK, CALL_TO_ACTION, CONTENT, MEDIA_BLOCK } from './blocks';
 import { PRODUCT_CATEGORIES } from './categories';
 import { META } from './meta';
 
-export const PRODUCTS = (variables?: Record<string, unknown>) => `
-  query Products($filterCategoriesByIds: [JSON], $page: Int, $limit: Int = 300) {
+export const PRODUCTS = (variables?: Record<string, unknown>) => `#graphql
+  query Products($filterCategoriesByIds: [JSON], $page: Int, $limit: Int = 300, $sort: String) {
     Products(where: { AND: [ { categories: { in: $filterCategoriesByIds } }${
       variables && 'attributes' in variables
         ? Object.entries(variables.attributes as Record<string, string[]>)
@@ -13,7 +13,7 @@ export const PRODUCTS = (variables?: Record<string, unknown>) => `
             )
             .join('')
         : ''
-    } ] }, limit: $limit, page: $page) {
+    } ] }, limit: $limit, page: $page, sort: $sort) {
       docs {
         id
         slug
