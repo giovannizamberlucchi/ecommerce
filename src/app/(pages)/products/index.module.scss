@@ -38,6 +38,43 @@
 
       @include large-break {
         display: block;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &-attributes-sorting {
+    display: flex;
+    column-gap: 200px;
+    row-gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    grid-column: span 2;
+
+    @include large-break {
+      grid-column: span 1;
+      column-gap: 100px;
+      justify-content: space-between;
+    }
+
+    @include small-break {
+      column-gap: 40px;
+      justify-content: space-between;
+    }
+
+    &--desktop {
+      display: flex;
+
+      @include large-break {
+        display: none;
+      }
+    }
+
+    &--mobile {
+      display: none;
+
+      @include large-break {
+        display: flex;
       }
     }
   }
@@ -52,4 +89,11 @@
     grid-template-columns: 100%;
     gap: 48px;
   }
+}
+
+.sorting-selector {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  border-radius: 15px;
 }

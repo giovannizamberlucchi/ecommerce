@@ -20,12 +20,15 @@ import { generateMeta } from '../../_utilities/generateMeta';
 import { staticCart } from '../../../payload/seed/cart-static';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
+import { SortingSelector } from '../../_components/SortingSelector';
+import clsx from 'clsx';
 
 export const dynamic = 'force-dynamic';
 
 type ProductsProps = {
   searchParams: {
     page?: string;
+    sort?: string;
   } & Record<string, string | string[] | undefined>;
 };
 
@@ -50,7 +53,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   const limit = 12;
   const attributesEntries = Object.entries(searchParams)
     .map<[string, string[]]>(([key, value]) => [key, Array.isArray(value) ? value : [value]])
-    .filter(([key, value]) => key !== 'page');
+    .filter(([key, value]) => key !== 'page' && key !== 'sort');
   let attributes: Record<string, string[]> = attributesEntries.reduce(
     (acc, [key, value]) => {
       acc[key] = value;
@@ -59,6 +62,13 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     },
     {} as Record<string, string[]>,
   );
+
+  const sortingObject = {
+    asc: 'title',
+    desc: '-title',
+    new: '-createdAt',
+    old: 'createdAt',
+  };
 
   try {
     pageCMS = await fetchDoc<PageType>({
@@ -83,10 +93,12 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
       }
     });
 
+    const sort = sortingObject[searchParams.sort] || sortingObject.new;
     productsData = await fetchDocs<Product>('products', isDraftMode, {
       attributes,
       page: Number(page),
       limit: limit,
+      sort,
     });
 
     AllProductsAttributes = (await fetchDocs<Product>('products-attributes', isDraftMode)).docs;
@@ -112,6 +124,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   const productsAttributesEntries = Object.entries(productsAttributesObject);
 
   if (categories === null) return notFound();
+  if (productsData === null) return notFound();
   if (Number(page) > productsData?.totalPages) return notFound();
 
   const subcategories = categories.filter((cat) => cat.parent === null);
@@ -119,7 +132,12 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   return (
     <div className={classes.container}>
       <Gutter className={classes.products}>
-        <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
+        <div
+          className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
+        >
+          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
+          <SortingSelector className={classes['sorting-selector']} />
+        </div>
 
         <div>
           <Filters categories={categories} subcategories={subcategories} />
@@ -131,7 +149,12 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
         <div>
           <Blocks blocks={pageCMS?.layout} disableTopPadding={true} />
-          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
+          <div
+            className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
+          >
+            <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
+            <SortingSelector className={classes['sorting-selector']} />
+          </div>
           <AttributesOverlay
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--mobile']}
