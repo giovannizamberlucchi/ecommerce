@@ -39,7 +39,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
   slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
   const { user } = await getMeUser({
-    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories/${getPathFromSlugArr(slug)}`)}`,
   });
   const isActiveSubs = await isActiveSubscription(user);
   if (!isActiveSubs) redirect('/account');
