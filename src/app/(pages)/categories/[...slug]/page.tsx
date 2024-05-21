@@ -103,6 +103,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
     const sort = sortingObject[searchParams.sort] || sortingObject.new;
     productsData = await fetchDocs<Product>('products', isDraftMode, {
+      attributes,
       filterCategoriesByIds: subcategoriesIds,
       page: Number(page),
       limit,
