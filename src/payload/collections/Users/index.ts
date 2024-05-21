@@ -95,9 +95,6 @@ const Users: CollectionConfig = {
       name: 'stripeCustomerID',
       label: 'Stripe Customer',
       type: 'text',
-      access: {
-        read: ({ req: { user } }) => checkRole(['admin'], user),
-      },
       admin: {
         position: 'sidebar',
         components: {
