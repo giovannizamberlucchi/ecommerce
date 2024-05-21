@@ -90,8 +90,9 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
       ).docs || [];
 
     attributesForProducts.map((attr) => {
-      if (attributes[attr.attribute] !== undefined) {
+      if (attributes[attr.attribute] && attr?.id) {
         attributes[attr.id] = attributes[attr.attribute];
+
         delete attributes[attr.attribute];
       }
     });
