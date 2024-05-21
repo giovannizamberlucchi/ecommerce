@@ -15,6 +15,7 @@ export type Props = {
 
 export const CollectionProducts: React.FC<Props> = (props) => {
   const { page, productsData, limit = 10 } = props;
+  const { totalPages = 1, hasNextPage = false, hasPrevPage = false } = productsData || {};
 
   return (
     <div className={classes.collectionArchive}>
@@ -28,13 +29,9 @@ export const CollectionProducts: React.FC<Props> = (props) => {
         ))}
       </div>
 
-      {productsData?.totalPages > 1 && (
+      {totalPages > 1 && (
         <Suspense>
-          <Pagination
-            totalPages={productsData?.totalPages as number}
-            hasPrevPage={productsData?.hasPrevPage as boolean}
-            hasNextPage={productsData?.hasNextPage as boolean}
-          />
+          <Pagination totalPages={totalPages} hasPrevPage={hasPrevPage} hasNextPage={hasNextPage} />
         </Suspense>
       )}
     </div>

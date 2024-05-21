@@ -80,6 +80,8 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
       draft: isDraftMode,
     });
 
+    if (!category) return notFound();
+
     categories = (await fetchDocs<Category>('categories')).docs;
 
     attributesForProducts =
@@ -134,10 +136,10 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
   const productsAttributesEntries = Object.entries(productsAttributesObject);
 
   if (!category) return notFound();
-  if (productsData === null) return notFound();
-  if (Number(page) > productsData?.totalPages) return notFound();
 
-  const subcategories = categories.filter((cat) => typeof cat.parent !== 'string' && cat.parent?.id === category.id);
+  const subcategories = categories.filter(
+    (cat) => cat.parent && typeof cat.parent === 'object' && cat.parent?.id === category.id,
+  );
 
   return (
     <div className={classes.container}>
