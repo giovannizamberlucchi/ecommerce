@@ -36,6 +36,8 @@ type CategoriesProps = {
 export const dynamic = 'force-dynamic';
 
 const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchParams }) => {
+  slug = slug.map((slugPart) => decodeURIComponent(slugPart));
+
   const { user } = await getMeUser({
     nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
   });
