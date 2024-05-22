@@ -46,7 +46,9 @@
     "react-hook-form": "7.51.4",
     "react-paginate": "^8.2.0",
     "react-router-dom": "5.3.4",
-    "stripe": "^15.5.0"
+    "stripe": "^15.5.0",
+    "yup": "^1.4.0",
+    "yup-phone-lite": "^2.0.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.3",
