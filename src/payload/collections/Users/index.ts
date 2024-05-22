@@ -82,6 +82,10 @@ const Users: CollectionConfig = {
       },
     },
     {
+      name: 'phone',
+      type: 'text',
+    },
+    {
       name: 'purchases',
       label: 'Purchases',
       type: 'relationship',
