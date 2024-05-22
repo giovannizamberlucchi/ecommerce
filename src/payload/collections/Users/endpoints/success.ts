@@ -24,6 +24,7 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
   const data = {
     name: req.query.name as string,
     email: req.query.email as string,
+    phone: req.query.phone as string,
     password: req.query.password as string,
     stripeCustomerID: session.customer as string,
   };
