@@ -4,6 +4,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import * as Yup from 'yup';
+import 'yup-phone-lite';
 
 import { Button } from '../../../_components/Button';
 import { Input } from '../../../_components/Input';
@@ -15,6 +17,7 @@ import classes from './index.module.scss';
 type FormData = {
   name: string;
   email: string;
+  phone: string;
   password: string;
   passwordConfirm: string;
 };
@@ -34,11 +37,20 @@ const CreateAccountForm: React.FC = () => {
     watch,
   } = useForm<FormData>();
 
+  const phoneSchema = Yup.string().phone().required();
+
   const password = useRef({});
   password.current = watch('password', '');
 
   const onSubmit = useCallback(
     async (data: FormData) => {
+      const isPhoneValid = await phoneSchema.isValidSync(data.phone);
+
+      if (!isPhoneValid) {
+        setError('Numéro de téléphone invalide.');
+        return;
+      }
+
       const response = await fetch('/api/users/sign-up', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -71,6 +83,7 @@ const CreateAccountForm: React.FC = () => {
       <Message error={error} className={classes.message} />
       <Input name="email" label="Adresse Email" required register={register} error={errors.email} type="email" />
       <Input name="name" label="Nom et prénom" required register={register} error={errors.name} type="text" />
+      <Input name="phone" label="Téléphone" required register={register} error={errors.phone} type="text" />
       <Input
         name="password"
         type="password"
