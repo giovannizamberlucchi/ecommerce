@@ -8,12 +8,15 @@ import { Button } from '../../../_components/Button';
 import { Input } from '../../../_components/Input';
 import { Message } from '../../../_components/Message';
 import { useAuth } from '../../../_providers/Auth';
+import * as Yup from 'yup';
+import 'yup-phone-lite';
 
 import classes from './index.module.scss';
 
 type FormData = {
   email: string;
   name: string;
+  phone: string;
   password: string;
   passwordConfirm: string;
 };
@@ -32,6 +35,8 @@ const AccountForm: React.FC = () => {
     watch,
   } = useForm<FormData>();
 
+  const phoneSchema = Yup.string().phone().required();
+
   const password = useRef({});
   password.current = watch('password', '');
 
@@ -40,6 +45,13 @@ const AccountForm: React.FC = () => {
   const onSubmit = useCallback(
     async (data: FormData) => {
       if (user) {
+        const isPhoneValid = phoneSchema.isValidSync(data.phone);
+
+        if (!isPhoneValid) {
+          setError('Numéro de téléphone invalide.');
+          return;
+        }
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${user.id}`, {
           // Make sure to include cookies with fetch
           credentials: 'include',
@@ -59,6 +71,7 @@ const AccountForm: React.FC = () => {
           reset({
             email: json.doc.email,
             name: json.doc.name,
+            phone: json.doc.phone,
             password: '',
             passwordConfirm: '',
           });
@@ -84,6 +97,7 @@ const AccountForm: React.FC = () => {
       reset({
         email: user.email,
         name: user.name,
+        phone: user.phone,
         password: '',
         passwordConfirm: '',
       });
@@ -97,6 +111,7 @@ const AccountForm: React.FC = () => {
         <Fragment>
           <Input name="email" label="Adresse email" required register={register} error={errors.email} type="email" />
           <Input name="name" label="Nom" register={register} error={errors.name} />
+          <Input name="phone" label="Téléphone" register={register} error={errors.phone} />
 
           <p>
             {'Modifier vos informations personnelles, ou '}
