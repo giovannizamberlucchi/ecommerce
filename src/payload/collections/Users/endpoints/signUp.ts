@@ -24,7 +24,7 @@ export const signUp: PayloadHandler = async (req: PayloadRequest, res) => {
         quantity: 1,
       },
     ],
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/success?session_id={CHECKOUT_SESSION_ID}&name=${encodeURIComponent(req.body.name)}&email=${encodeURIComponent(req.body.email)}&password=${encodeURIComponent(req.body.password)}`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/success?session_id={CHECKOUT_SESSION_ID}&name=${encodeURIComponent(req.body.name)}&email=${encodeURIComponent(req.body.email)}&password=${encodeURIComponent(req.body.password)}&phone=${req.body.phone}`,
     customer_email: req.body.email,
   });
 
