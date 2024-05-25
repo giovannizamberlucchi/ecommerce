@@ -34,6 +34,7 @@ export const SETTINGS = `
     productsPage {
       slug
     }
+    teamEmail
   }
 `;
 

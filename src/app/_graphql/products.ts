@@ -18,9 +18,13 @@ export const PRODUCTS = (variables?: Record<string, unknown>) => `#graphql
         id
         slug
         title
-        priceJSON
+        price
         ${PRODUCT_CATEGORIES}
         ${META}
+        suppliers {
+          name
+          email
+        }
         attributes {
           type {
             attribute
@@ -58,7 +62,6 @@ export const PRODUCT = `#graphql
       docs {
         id
         title
-        stripeProductID
         ${PRODUCT_CATEGORIES}
         layout {
           ${CALL_TO_ACTION}
@@ -66,8 +69,11 @@ export const PRODUCT = `#graphql
           ${MEDIA_BLOCK}
           ${ARCHIVE_BLOCK}
         }
-        priceJSON
-        enablePaywall
+        price
+        suppliers {
+          name
+          email
+        }
         relatedProducts {
           id
           slug
@@ -75,21 +81,6 @@ export const PRODUCT = `#graphql
           ${META}
         }
         ${META}
-      }
-    }
-  }
-`;
-
-export const PRODUCT_PAYWALL = `
-  query Product($slug: String, $draft: Boolean) {
-    Products(where: { slug: { equals: $slug}}, limit: 1, draft: $draft) {
-      docs {
-        paywall {
-          ${CALL_TO_ACTION}
-          ${CONTENT}
-          ${MEDIA_BLOCK}
-          ${ARCHIVE_BLOCK}
-        }
       }
     }
   }
