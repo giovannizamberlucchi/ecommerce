@@ -388,6 +388,9 @@ export interface User {
     items?: CartItems;
   };
   skipSync?: boolean | null;
+  referralCode?: string | null;
+  referrer?: (string | null) | User;
+  referrals?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
