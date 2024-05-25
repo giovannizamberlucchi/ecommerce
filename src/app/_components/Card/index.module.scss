@@ -4,16 +4,15 @@
   border-radius: 4px;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  gap: 10px;
 }
 
 .content {
   padding: 8px 0;
-  display: flex;
-  flex-direction: column;
   gap: 4px;
   background-color: white;
   width: 100%;
+  max-height: 200px;
 
   @include small-break {
     padding: calc(var(--base) / 2);
@@ -26,7 +25,7 @@
   font-size: 20px;
   font-weight: 700;
 
-  white-space: nowrap;
+  // white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -57,8 +56,16 @@
 .description {
   margin: 0;
   line-height: 24px;
+  width: 100%;
 
-  white-space: nowrap;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+
+  display: -webkit-box;
+  // max-width: 400px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -75,11 +82,13 @@
   position: relative;
   min-height: 262px;
   background-color: var(--color-dark-50);
+  min-width: 150px;
 }
 
 .image {
   object-fit: contain;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/2;
+  height: 100%;
   max-width: 100%;
 }
 
