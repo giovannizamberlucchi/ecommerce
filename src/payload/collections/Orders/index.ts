@@ -34,17 +34,6 @@ export const Orders: CollectionConfig = {
       },
     },
     {
-      name: 'stripePaymentIntentID',
-      label: 'Stripe Payment Intent ID',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        components: {
-          Field: LinkToPaymentIntent,
-        },
-      },
-    },
-    {
       name: 'total',
       type: 'number',
       required: true,
@@ -72,5 +61,23 @@ export const Orders: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'pending',
+      options: [
+        {
+          label: 'Pending',
+          value: 'pending',
+        },
+        {
+          label: 'Completed',
+          value: 'completed',
+        },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
-}
+};
