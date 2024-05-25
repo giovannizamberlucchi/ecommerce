@@ -2062,6 +2062,7 @@ __metadata:
     "@types/nodemailer": "npm:^6.4.15"
     "@types/qs": "npm:^6.9.15"
     "@types/react": "npm:18.3.1"
+    "@types/uuid": "npm:^9"
     "@typescript-eslint/eslint-plugin": "npm:^7.8.0"
     "@typescript-eslint/parser": "npm:^7.8.0"
     clsx: "npm:^2.1.1"
@@ -2096,6 +2097,7 @@ __metadata:
     typescript: "npm:^5.4.5"
     yup: "npm:^1.4.0"
     yup-phone-lite: "npm:^2.0.1"
+    uuid: "npm:^9.0.1"
   languageName: unknown
   linkType: soft
 
@@ -3303,6 +3305,13 @@ __metadata:
     "@types/mime": "npm:*"
     "@types/node": "npm:*"
   checksum: 10c0/811d1a2f7e74a872195e7a013bcd87a2fb1edf07eaedcb9dcfd20c1eb4bc56ad4ea0d52141c13192c91ccda7c8aeb8a530d8a7e60b9c27f5990d7e62e0fecb03
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: 10c0/b411b93054cb1d4361919579ef3508a1f12bf15b5fdd97337d3d351bece6c921b52b6daeef89b62340fd73fd60da407878432a1af777f40648cbe53a01723489
   languageName: node
   linkType: hard
 
@@ -13476,7 +13485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:9.0.1":
+"uuid@npm:9.0.1, uuid@npm:^9.0.1":
   version: 9.0.1
   resolution: "uuid@npm:9.0.1"
   bin:
