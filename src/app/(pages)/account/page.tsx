@@ -7,7 +7,7 @@ import AccountForm from './AccountForm';
 import classes from './index.module.scss';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
-import { ReSubscribe } from './reSubscribe';
+import { ReSubscribe } from './ReSubscribe';
 
 export default async function Account() {
   const { user } = await getMeUser();
