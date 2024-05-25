@@ -220,16 +220,15 @@ export const CartProvider = (props) => {
         return (
           acc +
           (typeof item.product === 'object'
-            ? JSON.parse(item?.product?.priceJSON || '{}')?.data?.[0]?.unit_amount *
-              (typeof item?.quantity === 'number' ? item?.quantity : 0)
+            ? item?.product?.price || 0 * (typeof item?.quantity === 'number' ? item?.quantity : 0)
             : 0)
         );
       }, 0) || 0;
 
     setTotal({
-      formatted: (newTotal / 100).toLocaleString('en-US', {
+      formatted: newTotal.toLocaleString('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'EUR',
       }),
       raw: newTotal,
     });
