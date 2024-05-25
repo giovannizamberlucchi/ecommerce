@@ -65,7 +65,7 @@ export default async function Orders() {
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'usd',
-                      }).format(order.total / 100)}
+                      }).format(order.total)}
                     </p>
                     <p className={classes.orderDate}>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
                   </div>

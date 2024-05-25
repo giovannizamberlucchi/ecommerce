@@ -7,7 +7,6 @@ import { Product as ProductType } from '../../../../payload/payload-types';
 import { fetchDoc } from '../../../_api/fetchDoc';
 import { fetchDocs } from '../../../_api/fetchDocs';
 import { Blocks } from '../../../_components/Blocks';
-import { PaywallBlocks } from '../../../_components/PaywallBlocks';
 import { ProductHero } from '../../../_heros/Product';
 import { generateMeta } from '../../../_utilities/generateMeta';
 
@@ -39,7 +38,6 @@ export default async function Product({ params: { slug } }) {
   return (
     <>
       <ProductHero product={product} />
-      {product?.enablePaywall && <PaywallBlocks productSlug={slug as string} disableTopPadding />}
       <Blocks
         disableTopPadding
         blocks={[
