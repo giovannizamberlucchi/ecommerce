@@ -89,8 +89,7 @@ export const sendOrderInfoToEmail: AfterChangeHook<Order> = async ({ doc, req, o
           cc: settings.teamEmail,
         };
 
-        console.log('dataToEmail', dataToEmail);
-        // req.payload.sendEmail(dataToEmail);
+        await req.payload.sendEmail(dataToEmail);
       }
     }
   }
