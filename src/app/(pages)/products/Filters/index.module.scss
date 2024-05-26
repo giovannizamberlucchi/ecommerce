@@ -29,6 +29,10 @@
     }
   }
 
+  &-item {
+    margin-bottom: 10px;
+  }
+
   &--mobile {
     display: none;
 
@@ -38,8 +42,9 @@
 
     &--title {
       display: flex;
-      gap: 16px;
+      gap: 30px;
       white-space: nowrap;
+      margin: 15px 0;
     }
 
     &--arrow-back {
