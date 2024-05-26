@@ -197,6 +197,11 @@ export interface Media {
 export interface Category {
   id: string;
   title: string;
+  description?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   media?: string | Media | null;
   slug: string;
   parent?: (string | null) | Category;
