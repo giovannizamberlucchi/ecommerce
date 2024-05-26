@@ -7,19 +7,12 @@ import { User } from '../../../payload-types';
 const logs = process.env.LOGS_STRIPE_PROXY === '1';
 
 const templateEmail = ({ user, referral }: { user: User; referral: User }) => {
-  return `Bonjour, RESOVALIE team !
+  return `Bonjour, RESOVALIE team!
   
-  ${user.name} vient de s'inscrire sur la plateforme Resovalie Achats avec un code de parrainage utilisateur ${referral.name}.
-  `;
+${user.name} vient de s'inscrire sur la plateforme Resovalie Achats avec un code de parrainage utilisateur ${referral.name}.
+`;
 };
 
-// use this handler to interact with a Stripe customer associated with any given user
-// does so in secure way that does not leak or expose any cross-customer data
-// pass the proper method and body to this endpoint to interact with the Stripe API
-// available methods:
-// GET /api/users/:id/customer
-// POST /api/users/:id/customer
-// body: { customer: Stripe.CustomerUpdateParams }
 export const success: PayloadHandler = async (req: PayloadRequest, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2022-08-01',
@@ -62,8 +55,7 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
 
         const emailData = {
           to: settings.teamEmail,
-          subject: 'Système de référence',
-          from: settings.teamEmail,
+          subject: 'Programme de parrainage',
           text: templateEmail({ user, referral: referrer.docs[0] }),
         };
 
