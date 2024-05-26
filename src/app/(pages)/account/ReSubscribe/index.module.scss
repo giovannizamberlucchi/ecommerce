@@ -1,0 +1,11 @@
+.button {
+  margin-top: 20px;
+
+  &--active {
+    background-color: var(--color-orange-500);
+  }
+
+  &--disabled {
+    background-color: var(--color-base-500);
+  }
+}

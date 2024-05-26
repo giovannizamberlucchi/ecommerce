@@ -5,6 +5,7 @@ export const isActiveSubscription = async (userData: User): Promise<boolean> => 
   const apiKey = `${process.env.STRIPE_SECRET_KEY}`;
   const stripe = new Stripe(apiKey);
 
+  if (!userData) return false;
   if (!userData.stripeCustomerID && userData.stripeCustomerID === undefined) return false;
 
   const customerResponse = await stripe.customers.retrieve(userData.stripeCustomerID, { expand: ['subscriptions'] });
