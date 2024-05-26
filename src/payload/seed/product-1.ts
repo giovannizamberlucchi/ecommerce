@@ -1,8 +1,8 @@
-import type { Product } from '../payload-types'
+import type { Product } from '../payload-types';
 
 export const product1: Partial<Product> = {
   title: 'Cotton T-Shirt',
-  stripeProductID: '',
+  price: 20,
   slug: 'cotton-t',
   _status: 'published',
   meta: {
@@ -35,4 +35,4 @@ export const product1: Partial<Product> = {
     },
   ],
   relatedProducts: [], // this is populated by the seed script
-}
+};
