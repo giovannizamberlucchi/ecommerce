@@ -23,7 +23,7 @@ export const CollectionProducts: React.FC<Props> = (props) => {
         <PageRange totalDocs={productsData?.totalDocs} currentPage={page} collection={'posts'} limit={limit} />
       </div>
 
-      <div className={classes.grid}>
+      <div className={classes.products}>
         {(productsData.docs || [])?.map((result, index) => (
           <Card key={index} relationTo="products" doc={result} showCategories />
         ))}
