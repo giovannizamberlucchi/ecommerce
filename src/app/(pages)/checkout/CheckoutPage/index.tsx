@@ -89,7 +89,7 @@ export const CheckoutPage: React.FC<{
               <p></p>
               <p className={classes.quantity}>Quantité</p>
             </div>
-            <p className={classes.subtotal}>Sous total</p>
+            {/* <p className={classes.subtotal}>Sous total</p> */}
           </div>
 
           <ul>
@@ -119,15 +119,19 @@ export const CheckoutPage: React.FC<{
               }
               return null;
             })}
-            <div className={classes.orderTotal}>
+            {/* <div className={classes.orderTotal}>
               <p>Total</p>
               <p>{cartTotal.formatted}</p>
-            </div>
+            </div> */}
           </ul>
         </div>
       )}
       {!cartIsEmpty && (
-        <Button className={classes.payment} label={isLoading ? 'Chargement...' : 'Paiement'} onClick={handler} />
+        <Button
+          className={classes.payment}
+          label={isLoading ? 'Chargement...' : 'Demander un devis'}
+          onClick={handler}
+        />
       )}
     </div>
   );
