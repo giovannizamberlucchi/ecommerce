@@ -11,6 +11,9 @@ import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases';
 import { CustomerSelect } from './ui/CustomerSelect';
 import { signUp } from './endpoints/signUp';
 import { success } from './endpoints/success';
+import { createReferralCode } from './hooks/createReferralCode';
+import { updateReferralsByReferrer } from './hooks/updateReferralsByReferrer';
+import { updateReferrerByReferrals } from './hooks/updateReferrerByReferrals';
 import { reSubscribe } from './endpoints/re-subscribe';
 
 const Users: CollectionConfig = {
@@ -167,6 +170,45 @@ const Users: CollectionConfig = {
         readOnly: true,
         hidden: true,
       },
+    },
+    {
+      name: 'referralCode',
+      type: 'text',
+      unique: true,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [createReferralCode],
+      },
+    },
+    {
+      name: 'referrer',
+      type: 'relationship',
+      relationTo: 'users',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+      hooks: {
+        // FIXME: This hook is not working, MongoDB error
+        // afterChange: [updateReferralsByReferrer],
+      },
+      filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
+    },
+    {
+      name: 'referrals',
+      type: 'relationship',
+      relationTo: 'users',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+      hooks: {
+        afterChange: [updateReferrerByReferrals],
+      },
+      filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
     },
   ],
   timestamps: true,

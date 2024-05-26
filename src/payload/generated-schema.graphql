@@ -1284,10 +1284,7 @@ type Product {
   title: String
   publishedOn: DateTime
   layout: [Product_Layout!]
-  stripeProductID: String
-  priceJSON: String
-  enablePaywall: Boolean
-  paywall: [Product_Paywall!]
+  price: Float
   attributes: [Product_Attributes!]
   categories: [Category!]
   relatedProducts(draft: Boolean): [Product!]
@@ -1300,8 +1297,6 @@ type Product {
 }
 
 union Product_Layout = Cta | Content | MediaBlock | Archive
-
-union Product_Paywall = Cta | Content | MediaBlock | Archive
 
 type Product_Attributes {
   type: Attribute
@@ -3772,9 +3767,7 @@ type Products {
 input Product_where {
   title: Product_title_operator
   publishedOn: Product_publishedOn_operator
-  stripeProductID: Product_stripeProductID_operator
-  priceJSON: Product_priceJSON_operator
-  enablePaywall: Product_enablePaywall_operator
+  price: Product_price_operator
   attributes__type: Product_attributes__type_operator
   attributes__value: Product_attributes__value_operator
   attributes__id: Product_attributes__id_operator
@@ -3814,28 +3807,13 @@ input Product_publishedOn_operator {
   exists: Boolean
 }
 
-input Product_stripeProductID_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_priceJSON_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Product_enablePaywall_operator {
-  equals: Boolean
-  not_equals: Boolean
+input Product_price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
   exists: Boolean
 }
 
@@ -3979,9 +3957,7 @@ input Product_id_operator {
 input Product_where_and {
   title: Product_title_operator
   publishedOn: Product_publishedOn_operator
-  stripeProductID: Product_stripeProductID_operator
-  priceJSON: Product_priceJSON_operator
-  enablePaywall: Product_enablePaywall_operator
+  price: Product_price_operator
   attributes__type: Product_attributes__type_operator
   attributes__value: Product_attributes__value_operator
   attributes__id: Product_attributes__id_operator
@@ -4003,9 +3979,7 @@ input Product_where_and {
 input Product_where_or {
   title: Product_title_operator
   publishedOn: Product_publishedOn_operator
-  stripeProductID: Product_stripeProductID_operator
-  priceJSON: Product_priceJSON_operator
-  enablePaywall: Product_enablePaywall_operator
+  price: Product_price_operator
   attributes__type: Product_attributes__type_operator
   attributes__value: Product_attributes__value_operator
   attributes__id: Product_attributes__id_operator
@@ -4041,10 +4015,7 @@ type ProductsDocAccessFields {
   title: ProductsDocAccessFields_title
   publishedOn: ProductsDocAccessFields_publishedOn
   layout: ProductsDocAccessFields_layout
-  stripeProductID: ProductsDocAccessFields_stripeProductID
-  priceJSON: ProductsDocAccessFields_priceJSON
-  enablePaywall: ProductsDocAccessFields_enablePaywall
-  paywall: ProductsDocAccessFields_paywall
+  price: ProductsDocAccessFields_price
   attributes: ProductsDocAccessFields_attributes
   categories: ProductsDocAccessFields_categories
   relatedProducts: ProductsDocAccessFields_relatedProducts
@@ -4125,95 +4096,26 @@ type ProductsDocAccessFields_layout_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_stripeProductID {
-  create: ProductsDocAccessFields_stripeProductID_Create
-  read: ProductsDocAccessFields_stripeProductID_Read
-  update: ProductsDocAccessFields_stripeProductID_Update
-  delete: ProductsDocAccessFields_stripeProductID_Delete
+type ProductsDocAccessFields_price {
+  create: ProductsDocAccessFields_price_Create
+  read: ProductsDocAccessFields_price_Read
+  update: ProductsDocAccessFields_price_Update
+  delete: ProductsDocAccessFields_price_Delete
 }
 
-type ProductsDocAccessFields_stripeProductID_Create {
+type ProductsDocAccessFields_price_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_stripeProductID_Read {
+type ProductsDocAccessFields_price_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_stripeProductID_Update {
+type ProductsDocAccessFields_price_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_stripeProductID_Delete {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_priceJSON {
-  create: ProductsDocAccessFields_priceJSON_Create
-  read: ProductsDocAccessFields_priceJSON_Read
-  update: ProductsDocAccessFields_priceJSON_Update
-  delete: ProductsDocAccessFields_priceJSON_Delete
-}
-
-type ProductsDocAccessFields_priceJSON_Create {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_priceJSON_Read {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_priceJSON_Update {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_priceJSON_Delete {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_enablePaywall {
-  create: ProductsDocAccessFields_enablePaywall_Create
-  read: ProductsDocAccessFields_enablePaywall_Read
-  update: ProductsDocAccessFields_enablePaywall_Update
-  delete: ProductsDocAccessFields_enablePaywall_Delete
-}
-
-type ProductsDocAccessFields_enablePaywall_Create {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_enablePaywall_Read {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_enablePaywall_Update {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_enablePaywall_Delete {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_paywall {
-  create: ProductsDocAccessFields_paywall_Create
-  read: ProductsDocAccessFields_paywall_Read
-  update: ProductsDocAccessFields_paywall_Update
-  delete: ProductsDocAccessFields_paywall_Delete
-}
-
-type ProductsDocAccessFields_paywall_Create {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_paywall_Read {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_paywall_Update {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_paywall_Delete {
+type ProductsDocAccessFields_price_Delete {
   permission: Boolean!
 }
 
@@ -4614,10 +4516,7 @@ type ProductVersion_Version {
   title: String
   publishedOn: DateTime
   layout: [ProductVersion_Version_Layout!]
-  stripeProductID: String
-  priceJSON: String
-  enablePaywall: Boolean
-  paywall: [ProductVersion_Version_Paywall!]
+  price: Float
   attributes: [ProductVersion_Version_Attributes!]
   categories: [Category!]
   relatedProducts(draft: Boolean): [Product!]
@@ -4630,8 +4529,6 @@ type ProductVersion_Version {
 }
 
 union ProductVersion_Version_Layout = Cta | Content | MediaBlock | Archive
-
-union ProductVersion_Version_Paywall = Cta | Content | MediaBlock | Archive
 
 type ProductVersion_Version_Attributes {
   type: Attribute
@@ -4830,9 +4727,7 @@ input versionsProduct_where {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
-  version__priceJSON: versionsProduct_version__priceJSON_operator
-  version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__price: versionsProduct_version__price_operator
   version__attributes__type: versionsProduct_version__attributes__type_operator
   version__attributes__value: versionsProduct_version__attributes__value_operator
   version__attributes__id: versionsProduct_version__attributes__id_operator
@@ -4884,28 +4779,13 @@ input versionsProduct_version__publishedOn_operator {
   exists: Boolean
 }
 
-input versionsProduct_version__stripeProductID_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input versionsProduct_version__priceJSON_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input versionsProduct_version__enablePaywall_operator {
-  equals: Boolean
-  not_equals: Boolean
+input versionsProduct_version__price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
   exists: Boolean
 }
 
@@ -5078,9 +4958,7 @@ input versionsProduct_where_and {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
-  version__priceJSON: versionsProduct_version__priceJSON_operator
-  version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__price: versionsProduct_version__price_operator
   version__attributes__type: versionsProduct_version__attributes__type_operator
   version__attributes__value: versionsProduct_version__attributes__value_operator
   version__attributes__id: versionsProduct_version__attributes__id_operator
@@ -5106,9 +4984,7 @@ input versionsProduct_where_or {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
-  version__priceJSON: versionsProduct_version__priceJSON_operator
-  version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__price: versionsProduct_version__price_operator
   version__attributes__type: versionsProduct_version__attributes__type_operator
   version__attributes__value: versionsProduct_version__attributes__value_operator
   version__attributes__id: versionsProduct_version__attributes__id_operator
@@ -5144,6 +5020,7 @@ type User {
   id: String
   name: String
   roles: [User_roles!]
+  phone: String
   purchases(draft: Boolean): [Product!]
   stripeCustomerID: String
   cart: User_Cart
@@ -6569,6 +6446,7 @@ type Users {
 input User_where {
   name: User_name_operator
   roles: User_roles_operator
+  phone: User_phone_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -6606,6 +6484,17 @@ input User_roles_operator {
 enum User_roles_Input {
   admin
   customer
+}
+
+input User_phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input User_purchases_operator {
@@ -6710,6 +6599,7 @@ input User_id_operator {
 input User_where_and {
   name: User_name_operator
   roles: User_roles_operator
+  phone: User_phone_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -6727,6 +6617,7 @@ input User_where_and {
 input User_where_or {
   name: User_name_operator
   roles: User_roles_operator
+  phone: User_phone_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -6757,6 +6648,7 @@ type usersDocAccess {
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
   roles: UsersDocAccessFields_roles
+  phone: UsersDocAccessFields_phone
   purchases: UsersDocAccessFields_purchases
   stripeCustomerID: UsersDocAccessFields_stripeCustomerID
   cart: UsersDocAccessFields_cart
@@ -6810,6 +6702,29 @@ type UsersDocAccessFields_roles_Update {
 }
 
 type UsersDocAccessFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone {
+  create: UsersDocAccessFields_phone_Create
+  read: UsersDocAccessFields_phone_Read
+  update: UsersDocAccessFields_phone_Update
+  delete: UsersDocAccessFields_phone_Delete
+}
+
+type UsersDocAccessFields_phone_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Delete {
   permission: Boolean!
 }
 
@@ -9667,10 +9582,7 @@ type ProductsFields {
   title: ProductsFields_title
   publishedOn: ProductsFields_publishedOn
   layout: ProductsFields_layout
-  stripeProductID: ProductsFields_stripeProductID
-  priceJSON: ProductsFields_priceJSON
-  enablePaywall: ProductsFields_enablePaywall
-  paywall: ProductsFields_paywall
+  price: ProductsFields_price
   attributes: ProductsFields_attributes
   categories: ProductsFields_categories
   relatedProducts: ProductsFields_relatedProducts
@@ -9751,95 +9663,26 @@ type ProductsFields_layout_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_stripeProductID {
-  create: ProductsFields_stripeProductID_Create
-  read: ProductsFields_stripeProductID_Read
-  update: ProductsFields_stripeProductID_Update
-  delete: ProductsFields_stripeProductID_Delete
+type ProductsFields_price {
+  create: ProductsFields_price_Create
+  read: ProductsFields_price_Read
+  update: ProductsFields_price_Update
+  delete: ProductsFields_price_Delete
 }
 
-type ProductsFields_stripeProductID_Create {
+type ProductsFields_price_Create {
   permission: Boolean!
 }
 
-type ProductsFields_stripeProductID_Read {
+type ProductsFields_price_Read {
   permission: Boolean!
 }
 
-type ProductsFields_stripeProductID_Update {
+type ProductsFields_price_Update {
   permission: Boolean!
 }
 
-type ProductsFields_stripeProductID_Delete {
-  permission: Boolean!
-}
-
-type ProductsFields_priceJSON {
-  create: ProductsFields_priceJSON_Create
-  read: ProductsFields_priceJSON_Read
-  update: ProductsFields_priceJSON_Update
-  delete: ProductsFields_priceJSON_Delete
-}
-
-type ProductsFields_priceJSON_Create {
-  permission: Boolean!
-}
-
-type ProductsFields_priceJSON_Read {
-  permission: Boolean!
-}
-
-type ProductsFields_priceJSON_Update {
-  permission: Boolean!
-}
-
-type ProductsFields_priceJSON_Delete {
-  permission: Boolean!
-}
-
-type ProductsFields_enablePaywall {
-  create: ProductsFields_enablePaywall_Create
-  read: ProductsFields_enablePaywall_Read
-  update: ProductsFields_enablePaywall_Update
-  delete: ProductsFields_enablePaywall_Delete
-}
-
-type ProductsFields_enablePaywall_Create {
-  permission: Boolean!
-}
-
-type ProductsFields_enablePaywall_Read {
-  permission: Boolean!
-}
-
-type ProductsFields_enablePaywall_Update {
-  permission: Boolean!
-}
-
-type ProductsFields_enablePaywall_Delete {
-  permission: Boolean!
-}
-
-type ProductsFields_paywall {
-  create: ProductsFields_paywall_Create
-  read: ProductsFields_paywall_Read
-  update: ProductsFields_paywall_Update
-  delete: ProductsFields_paywall_Delete
-}
-
-type ProductsFields_paywall_Create {
-  permission: Boolean!
-}
-
-type ProductsFields_paywall_Read {
-  permission: Boolean!
-}
-
-type ProductsFields_paywall_Update {
-  permission: Boolean!
-}
-
-type ProductsFields_paywall_Delete {
+type ProductsFields_price_Delete {
   permission: Boolean!
 }
 
@@ -11084,6 +10927,7 @@ type usersAccess {
 type UsersFields {
   name: UsersFields_name
   roles: UsersFields_roles
+  phone: UsersFields_phone
   purchases: UsersFields_purchases
   stripeCustomerID: UsersFields_stripeCustomerID
   cart: UsersFields_cart
@@ -11137,6 +10981,29 @@ type UsersFields_roles_Update {
 }
 
 type UsersFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_phone {
+  create: UsersFields_phone_Create
+  read: UsersFields_phone_Read
+  update: UsersFields_phone_Update
+  delete: UsersFields_phone_Delete
+}
+
+type UsersFields_phone_Create {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Read {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Update {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Delete {
   permission: Boolean!
 }
 
@@ -12698,10 +12565,7 @@ input mutationProductInput {
   title: String!
   publishedOn: String
   layout: JSON
-  stripeProductID: String
-  priceJSON: String
-  enablePaywall: Boolean
-  paywall: JSON
+  price: Float
   attributes: [mutationProduct_AttributesInput]
   categories: [String]
   relatedProducts: [String]
@@ -12734,10 +12598,7 @@ input mutationProductUpdateInput {
   title: String
   publishedOn: String
   layout: JSON
-  stripeProductID: String
-  priceJSON: String
-  enablePaywall: Boolean
-  paywall: JSON
+  price: Float
   attributes: [mutationProductUpdate_AttributesInput]
   categories: [String]
   relatedProducts: [String]
@@ -12861,6 +12722,7 @@ input mutationCategoryUpdate_BreadcrumbsInput {
 input mutationUserInput {
   name: String
   roles: [User_roles_MutationInput]
+  phone: String
   purchases: [String]
   stripeCustomerID: String
   cart: mutationUser_CartInput
@@ -12895,6 +12757,7 @@ input mutationUser_Cart_ItemsInput {
 input mutationUserUpdateInput {
   name: String
   roles: [UserUpdate_roles_MutationInput]
+  phone: String
   purchases: [String]
   stripeCustomerID: String
   cart: mutationUserUpdate_CartInput

@@ -62,6 +62,7 @@ export const CATEGORY = `#graphql
             url
           }
         }
+        description
       }
     }
   }

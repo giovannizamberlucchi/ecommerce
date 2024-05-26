@@ -30,6 +30,32 @@ const CreateAccountForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  let referralCode: string | null = null;
+  if (localStorage.getItem('referralCode') !== null) {
+    const objectReferralCode = localStorage.getItem('referralCode');
+
+    if (objectReferralCode !== null) {
+      const parsedObjectReferralCode = JSON.parse(objectReferralCode);
+
+      if (parsedObjectReferralCode.expire > new Date().getTime()) {
+        referralCode = parsedObjectReferralCode.value;
+      }
+    }
+  }
+
+  if (referralCode === null) {
+    referralCode = searchParams.get('referral');
+
+    if (referralCode !== null) {
+      const objectReferralCode = {
+        value: referralCode,
+        expire: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
+      };
+
+      localStorage.setItem('referralCode', JSON.stringify(objectReferralCode));
+    }
+  }
+
   const {
     register,
     handleSubmit,
@@ -50,6 +76,8 @@ const CreateAccountForm: React.FC = () => {
         setError('Numéro de téléphone invalide.');
         return;
       }
+
+      data['referralCode'] = referralCode;
 
       const response = await fetch('/api/users/sign-up', {
         method: 'POST',

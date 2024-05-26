@@ -1,25 +1,15 @@
 'use client';
 
-import React, { Fragment, useEffect } from 'react';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Settings } from '../../../../payload/payload-types';
+import { Order, Settings } from '../../../../payload/payload-types';
 import { Button } from '../../../_components/Button';
-import { LoadingShimmer } from '../../../_components/LoadingShimmer';
-import { useAuth } from '../../../_providers/Auth';
 import { useCart } from '../../../_providers/Cart';
-import { useTheme } from '../../../_providers/Theme';
-import cssVariables from '../../../cssVariables';
-import { CheckoutForm } from '../CheckoutForm';
 import { CheckoutItem } from '../CheckoutItem';
 
 import classes from './index.module.scss';
-
-const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
-const stripe = loadStripe(apiKey);
 
 export const CheckoutPage: React.FC<{
   settings: Settings;
@@ -28,63 +18,66 @@ export const CheckoutPage: React.FC<{
     settings: { productsPage },
   } = props;
 
-  const { user } = useAuth();
   const router = useRouter();
-  const [error, setError] = React.useState<string | null>(null);
-  const [clientSecret, setClientSecret] = React.useState();
-  const hasMadePaymentIntent = React.useRef(false);
-  const { theme } = useTheme();
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const { cart, cartIsEmpty, cartTotal } = useCart();
 
-  useEffect(() => {
-    if (user !== null && cartIsEmpty) {
-      router.push('/cart');
+  const handler = useCallback(async () => {
+    console.log('Payment');
+    setIsLoading(true);
+
+    try {
+      const orderReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          total: cartTotal.raw,
+          items: (cart?.items || [])?.map(({ product, quantity }) => ({
+            product: typeof product === 'string' ? product : product.id,
+            quantity,
+            price: typeof product === 'object' ? product.price : undefined,
+          })),
+        }),
+      });
+
+      if (!orderReq.ok) throw new Error(orderReq.statusText || 'Something went wrong.');
+
+      const {
+        error: errorFromRes,
+        doc,
+      }: {
+        message?: string;
+        error?: string;
+        doc: Order;
+      } = await orderReq.json();
+      setIsLoading(false);
+      if (errorFromRes) throw new Error(errorFromRes);
+
+      router.push(`/order-confirmation?order_id=${doc.id}`);
+    } catch (err) {
+      // don't throw an error if the order was not created successfully
+      // this is because payment _did_ in fact go through, and we don't want the user to pay twice
+      console.error(err.message); // eslint-disable-line no-console
+      setIsLoading(false);
+      router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`);
     }
-  }, [router, user, cartIsEmpty]);
-
-  useEffect(() => {
-    if (user && cart && hasMadePaymentIntent.current === false) {
-      hasMadePaymentIntent.current = true;
-
-      const makeIntent = async () => {
-        try {
-          const paymentReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/create-payment-intent`, {
-            method: 'POST',
-            credentials: 'include',
-          });
-
-          const res = await paymentReq.json();
-
-          if (res.error) {
-            setError(res.error);
-          } else if (res.client_secret) {
-            setError(null);
-            setClientSecret(res.client_secret);
-          }
-        } catch (e) {
-          setError('Something went wrong.');
-        }
-      };
-
-      makeIntent();
-    }
-  }, [cart, user]);
-
-  if (!user || !stripe) return null;
+  }, [cart, cartTotal, router]);
 
   return (
-    <Fragment>
+    <div>
       {cartIsEmpty && (
         <div>
           {'Your '}
           <Link href="/cart">cart</Link>
           {' is empty.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
-            <Fragment>
+            <div>
               {' '}
               <Link href={`/${productsPage.slug}`}>Continuer les achats?</Link>
-            </Fragment>
+            </div>
           )}
         </div>
       )}
@@ -96,7 +89,7 @@ export const CheckoutPage: React.FC<{
               <p></p>
               <p className={classes.quantity}>Quantité</p>
             </div>
-            <p className={classes.subtotal}>Sous total</p>
+            {/* <p className={classes.subtotal}>Sous total</p> */}
           </div>
 
           <ul>
@@ -113,7 +106,7 @@ export const CheckoutPage: React.FC<{
                 const metaImage = meta?.image;
 
                 return (
-                  <Fragment key={index}>
+                  <div key={index}>
                     <CheckoutItem
                       product={product}
                       title={title}
@@ -121,59 +114,25 @@ export const CheckoutPage: React.FC<{
                       quantity={quantity}
                       index={index}
                     />
-                  </Fragment>
+                  </div>
                 );
               }
               return null;
             })}
-            <div className={classes.orderTotal}>
+            {/* <div className={classes.orderTotal}>
               <p>Total</p>
               <p>{cartTotal.formatted}</p>
-            </div>
+            </div> */}
           </ul>
         </div>
       )}
-      {!clientSecret && !error && (
-        <div className={classes.loading}>
-          <LoadingShimmer number={2} />
-        </div>
+      {!cartIsEmpty && (
+        <Button
+          className={classes.payment}
+          label={isLoading ? 'Chargement...' : 'Demander un devis'}
+          onClick={handler}
+        />
       )}
-      {!clientSecret && error && (
-        <div className={classes.error}>
-          <p>{`Error: ${error}`}</p>
-          <Button label="Revenir au panier" href="/cart" appearance="secondary" />
-        </div>
-      )}
-      {clientSecret && (
-        <Fragment>
-          <h3 className={classes.payment}>Details de paiements</h3>
-          {error && <p>{`Error: ${error}`}</p>}
-          <Elements
-            stripe={stripe}
-            options={{
-              clientSecret,
-              appearance: {
-                theme: 'stripe',
-                variables: {
-                  colorText: theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  fontSizeBase: '16px',
-                  fontWeightNormal: '500',
-                  fontWeightBold: '600',
-                  colorBackground: theme === 'dark' ? cssVariables.colors.base850 : cssVariables.colors.base0,
-                  fontFamily: 'Inter, sans-serif',
-                  colorTextPlaceholder: cssVariables.colors.base500,
-                  colorIcon: theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  borderRadius: '0px',
-                  colorDanger: cssVariables.colors.error500,
-                  colorDangerText: cssVariables.colors.error500,
-                },
-              },
-            }}
-          >
-            <CheckoutForm />
-          </Elements>
-        </Fragment>
-      )}
-    </Fragment>
+    </div>
   );
 };

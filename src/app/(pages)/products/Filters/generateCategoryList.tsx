@@ -4,6 +4,7 @@ import classes from './index.module.scss';
 import CategoryCard from '../../../_components/Categories/CategoryCard';
 import { getPathFromSlugArr } from '../../../_api/utils';
 import { notFound } from 'next/navigation';
+import { CategoryHeader } from '../../categories/[...slug]/CategoryHeader';
 
 const GetAllProducts = () => (
   <div>
@@ -17,42 +18,27 @@ type generateDesktopProps = {
   className?: string;
 };
 
-type DataTree = {
-  children?: DataTree[];
-} & Category;
-
 export const GenerateCategoryDesktopList: React.FC<generateDesktopProps> = ({ categories, slug = [], className }) => {
-  const createDataTree = (dataset: Category[]): DataTree[] => {
-    const hashTable = Object.create(null);
-    dataset.forEach((aData) => (hashTable[aData.id] = { ...aData, children: [] }));
-    const dataTree = [];
-    dataset.forEach((aData) => {
-      if (aData.parent !== null && typeof aData.parent !== 'string' && aData.parent?.id)
-        hashTable[aData.parent?.id].children.push(hashTable[aData.id]);
-      else dataTree.push(hashTable[aData.id]);
-    });
-    return dataTree;
-  };
-
   const getCategoryBreadcrumbs = (category: Category) =>
     category.breadcrumbs !== undefined && typeof category.breadcrumbs[category.breadcrumbs.length - 1].url === 'string'
       ? category.breadcrumbs[category.breadcrumbs.length - 1].url
       : '';
+
   const isSelected = (category: Category) =>
     getCategoryBreadcrumbs(category) !== '' && getPathFromSlugArr(slug) === getCategoryBreadcrumbs(category);
+
   const getCategoryUrl = (category: Category) =>
     getCategoryBreadcrumbs(category) !== '' && !isSelected(category)
       ? `/categories${getCategoryBreadcrumbs(category)}`
       : `/products`;
 
-  const Menu = ({ data, className }: { data: DataTree[]; className?: string }) => (
+  const MenuWithoutChildren = ({ data }: { data: Category[] }) => (
     <ul className={className}>
       {(data || []).map((m) => (
-        <li key={m.id}>
+        <li key={m.id} className={classes['categories-item']}>
           <Link href={getCategoryUrl(m)} className={isSelected(m) ? classes.itemActive : classes.item}>
             {m.title}
           </Link>
-          {m.children && <Menu data={m.children} className={className} />}
         </li>
       ))}
     </ul>
@@ -61,7 +47,7 @@ export const GenerateCategoryDesktopList: React.FC<generateDesktopProps> = ({ ca
   return (
     <div className={classes['categories--desktop']}>
       <GetAllProducts />
-      <Menu data={createDataTree(categories)} className={className} />
+      <MenuWithoutChildren data={categories.filter((cat) => cat.parent === null)} />
     </div>
   );
 };
@@ -88,11 +74,15 @@ export const GenerateCategoryMobileList = ({ category, categories, slug = [] }: 
         </div>
       )}
 
-      <div className={classes['categories--mobile--list']}>
-        {(categories || []).map((category) => (
-          <CategoryCard key={category.id} category={category} />
-        ))}
-      </div>
+      {category ? (
+        <CategoryHeader category={category} subcategories={categories} />
+      ) : (
+        <div className={classes['categories--mobile--list']}>
+          {(categories || []).map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

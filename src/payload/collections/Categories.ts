@@ -1,4 +1,5 @@
-import type { CollectionConfig } from 'payload/types'
+import { slateEditor } from '@payloadcms/richtext-slate';
+import type { CollectionConfig } from 'payload/types';
 
 const Categories: CollectionConfig = {
   slug: 'categories',
@@ -15,9 +16,18 @@ const Categories: CollectionConfig = {
       required: true,
     },
     {
-      name:'media',
-      type:'upload',
-      relationTo:'media',
+      name: 'description',
+      type: 'richText',
+      editor: slateEditor({
+        admin: {
+          elements: ['textAlign'],
+        },
+      }),
+    },
+    {
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
     },
     {
       admin: {
@@ -28,8 +38,8 @@ const Categories: CollectionConfig = {
       name: 'slug',
       type: 'text',
       required: true,
-    }
+    },
   ],
-}
+};
 
-export default Categories
+export default Categories;

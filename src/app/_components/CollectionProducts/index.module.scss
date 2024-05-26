@@ -61,3 +61,12 @@
     margin-top: var(--base);
   }
 }
+
+.products {
+  display: grid;
+  gap: 40px;
+
+  @include large-break {
+    gap: 30px;
+  }
+}

@@ -1,22 +1,22 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types';
 
-import { admins } from '../../access/admins'
-import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn'
-import { adminsOrOrderedBy } from './access/adminsOrOrderedBy'
-import { clearUserCart } from './hooks/clearUserCart'
-import { populateOrderedBy } from './hooks/populateOrderedBy'
-import { updateUserPurchases } from './hooks/updateUserPurchases'
-import { LinkToPaymentIntent } from './ui/LinkToPaymentIntent'
+import { admins } from '../../access/admins';
+import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn';
+import { adminsOrOrderedBy } from './access/adminsOrOrderedBy';
+import { clearUserCart } from './hooks/clearUserCart';
+import { populateOrderedBy } from './hooks/populateOrderedBy';
+import { updateUserPurchases } from './hooks/updateUserPurchases';
+import { sendOrderInfoToEmail } from './hooks/sendOrderInfoToEmail';
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
   admin: {
     useAsTitle: 'createdAt',
     defaultColumns: ['createdAt', 'orderedBy'],
-    preview: doc => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
+    preview: (doc) => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
   },
   hooks: {
-    afterChange: [updateUserPurchases, clearUserCart],
+    afterChange: [updateUserPurchases, clearUserCart, sendOrderInfoToEmail],
   },
   access: {
     read: adminsOrOrderedBy,
@@ -31,17 +31,6 @@ export const Orders: CollectionConfig = {
       relationTo: 'users',
       hooks: {
         beforeChange: [populateOrderedBy],
-      },
-    },
-    {
-      name: 'stripePaymentIntentID',
-      label: 'Stripe Payment Intent ID',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        components: {
-          Field: LinkToPaymentIntent,
-        },
       },
     },
     {
@@ -72,5 +61,23 @@ export const Orders: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'pending',
+      options: [
+        {
+          label: 'Pending',
+          value: 'pending',
+        },
+        {
+          label: 'Completed',
+          value: 'completed',
+        },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
-}
+};

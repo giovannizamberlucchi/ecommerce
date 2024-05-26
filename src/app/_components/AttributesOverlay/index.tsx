@@ -13,7 +13,7 @@ export const AttributesOverlay: React.FC<{ attributes: [string, string[]][]; cla
   return (
     <div className={className}>
       <div onClick={() => setOverlayShow(!overlayShow)} className={classes.button}>
-        <Filter className={classes['icon--filter']} fill="#000" />
+        <Filter className={classes['icon--filter']} />
       </div>
 
       <div className={!overlayShow ? classes.overlay : classes['overlay--active']}>

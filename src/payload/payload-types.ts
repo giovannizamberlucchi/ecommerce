@@ -23,6 +23,7 @@ export interface Config {
     pages: Page;
     attributes: Attribute;
     products: Product;
+    suppliers: Supplier;
     orders: Order;
     media: Media;
     categories: Category;
@@ -196,6 +197,11 @@ export interface Media {
 export interface Category {
   id: string;
   title: string;
+  description?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   media?: string | Media | null;
   slug: string;
   parent?: (string | null) | Category;
@@ -309,100 +315,8 @@ export interface Product {
           }
       )[]
     | null;
-  stripeProductID?: string | null;
-  priceJSON?: string | null;
-  enablePaywall?: boolean | null;
-  paywall?:
-    | (
-        | {
-            invertBackground?: boolean | null;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            links?:
-              | {
-                  link: {
-                    type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?: {
-                      relationTo: 'pages';
-                      value: string | Page;
-                    } | null;
-                    url?: string | null;
-                    label: string;
-                    icon?: string | Media | null;
-                    appearance?: ('primary' | 'secondary') | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta';
-          }
-        | {
-            invertBackground?: boolean | null;
-            columns?:
-              | {
-                  size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-                  richText: {
-                    [k: string]: unknown;
-                  }[];
-                  enableLink?: boolean | null;
-                  link?: {
-                    type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?: {
-                      relationTo: 'pages';
-                      value: string | Page;
-                    } | null;
-                    url?: string | null;
-                    label: string;
-                    icon?: string | Media | null;
-                    appearance?: ('default' | 'primary' | 'secondary') | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content';
-          }
-        | {
-            invertBackground?: boolean | null;
-            position?: ('default' | 'fullscreen') | null;
-            media: string | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaBlock';
-          }
-        | {
-            introContent: {
-              [k: string]: unknown;
-            }[];
-            populateBy?: ('collection' | 'selection') | null;
-            relationTo?: 'products' | null;
-            categories?: (string | Category)[] | null;
-            limit?: number | null;
-            selectedDocs?:
-              | {
-                  relationTo: 'products';
-                  value: string | Product;
-                }[]
-              | null;
-            populatedDocs?:
-              | {
-                  relationTo: 'products';
-                  value: string | Product;
-                }[]
-              | null;
-            populatedDocsTotal?: number | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'archive';
-          }
-      )[]
-    | null;
+  price: number;
+  suppliers: string | Supplier;
   attributes?:
     | {
         type: string | Attribute;
@@ -425,6 +339,17 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "suppliers".
+ */
+export interface Supplier {
+  id: string;
+  name: string;
+  email: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "attributes".
  */
 export interface Attribute {
@@ -440,7 +365,6 @@ export interface Attribute {
 export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
-  stripePaymentIntentID?: string | null;
   total: number;
   items?:
     | {
@@ -450,6 +374,7 @@ export interface Order {
         id?: string | null;
       }[]
     | null;
+  status?: ('pending' | 'completed') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -468,6 +393,9 @@ export interface User {
     items?: CartItems;
   };
   skipSync?: boolean | null;
+  referralCode?: string | null;
+  referrer?: (string | null) | User;
+  referrals?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -543,6 +471,7 @@ export interface PayloadMigration {
 export interface Settings {
   id: string;
   productsPage?: (string | null) | Page;
+  teamEmail?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

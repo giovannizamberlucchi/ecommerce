@@ -28,7 +28,7 @@ export const AttributePill: React.FC<AttributePillProps> = ({ attribute }) => {
   return (
     <Link className={classes.container} href={newSearchParamsString ? { search: newSearchParamsString } : pathname}>
       <p className={classes.attributeValue}>{attribute.value}</p>
-      <Cross fill="black" className={classes.cross} />
+      <Cross className={classes.cross} />
     </Link>
   );
 };

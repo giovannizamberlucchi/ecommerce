@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from 'payload/types';
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
@@ -18,5 +18,10 @@ export const Settings: GlobalConfig = {
       relationTo: 'pages',
       label: 'Products page',
     },
+    {
+      name: 'teamEmail',
+      label: 'RESOVALIE Team Email',
+      type: 'text',
+    },
   ],
-}
+};
