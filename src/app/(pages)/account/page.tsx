@@ -14,7 +14,7 @@ export default async function Account() {
   const isActiveSubs = await isActiveSubscription(user);
 
   const refUrl =
-    user?.referralCode !== null
+    user?.referralCode !== null && user?.referralCode !== undefined
       ? `${process.env.NEXT_PUBLIC_SERVER_URL}/create-account?referral=${user?.referralCode}`
       : '';
 
@@ -26,9 +26,11 @@ export default async function Account() {
       <h5 className={classes.title}>État de l'abonnement: {isActiveSubs ? 'actif' : 'inactif'}</h5>
       {!isActiveSubs && <ReSubscribe user={user} disabled={isActiveSubs} />}
 
-      <p className={classes.referral}>
-        Votre lien de parrainage : <strong>{refUrl}</strong>
-      </p>
+      {refUrl !== '' && (
+        <p className={classes.referral}>
+          Votre lien de parrainage : <strong>{refUrl}</strong>
+        </p>
+      )}
     </div>
   );
 }
