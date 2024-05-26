@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -30,31 +30,34 @@ const CreateAccountForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  let referralCode: string | null = null;
-  if (localStorage.getItem('referralCode') !== null) {
-    const objectReferralCode = localStorage.getItem('referralCode');
+  let [referralCode, setReferralCode] = useState<string | null>(null);
 
-    if (objectReferralCode !== null) {
-      const parsedObjectReferralCode = JSON.parse(objectReferralCode);
+  useEffect(() => {
+    if (localStorage.getItem('referralCode') !== null) {
+      const objectReferralCode = localStorage.getItem('referralCode');
 
-      if (parsedObjectReferralCode.expire > new Date().getTime()) {
-        referralCode = parsedObjectReferralCode.value;
+      if (objectReferralCode !== null) {
+        const parsedObjectReferralCode = JSON.parse(objectReferralCode);
+
+        if (parsedObjectReferralCode.expire > new Date().getTime()) {
+          setReferralCode(parsedObjectReferralCode.value);
+        }
       }
     }
-  }
 
-  if (referralCode === null) {
-    referralCode = searchParams.get('referral');
+    if (referralCode === null) {
+      setReferralCode(searchParams.get('referral'));
 
-    if (referralCode !== null) {
-      const objectReferralCode = {
-        value: referralCode,
-        expire: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
-      };
+      if (referralCode !== null) {
+        const objectReferralCode = {
+          value: referralCode,
+          expire: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
+        };
 
-      localStorage.setItem('referralCode', JSON.stringify(objectReferralCode));
+        localStorage.setItem('referralCode', JSON.stringify(objectReferralCode));
+      }
     }
-  }
+  }, [searchParams]);
 
   const {
     register,
