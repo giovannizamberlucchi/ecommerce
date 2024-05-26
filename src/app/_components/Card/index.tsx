@@ -39,12 +39,12 @@ export const Card: React.FC<{
 
       <div className={classes.content}>
         {titleToUse && <p className={classes.title}>{titleToUse}</p>}
+        {/* {price && <h6>{price} €</h6>} */}
         {description && (
           <div className={classes.body}>
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
         )}
-        {price && <h6>{price} €</h6>}
       </div>
     </Link>
   );
