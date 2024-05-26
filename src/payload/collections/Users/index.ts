@@ -5,7 +5,6 @@ import { anyone } from '../../access/anyone';
 import adminsAndUser from './access/adminsAndUser';
 import { checkRole } from './checkRole';
 import { customerProxy } from './endpoints/customer';
-import { createStripeCustomer } from './hooks/createStripeCustomer';
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin';
 import { loginAfterCreate } from './hooks/loginAfterCreate';
 import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases';
@@ -15,6 +14,7 @@ import { success } from './endpoints/success';
 import { createReferralCode } from './hooks/createReferralCode';
 import { updateReferralsByReferrer } from './hooks/updateReferralsByReferrer';
 import { updateReferrerByReferrals } from './hooks/updateReferrerByReferrals';
+import { reSubscribe } from './endpoints/re-subscribe';
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -53,6 +53,11 @@ const Users: CollectionConfig = {
       path: '/sign-up',
       method: 'post',
       handler: signUp,
+    },
+    {
+      path: '/re-subscribe',
+      method: 'post',
+      handler: reSubscribe,
     },
   ],
   fields: [

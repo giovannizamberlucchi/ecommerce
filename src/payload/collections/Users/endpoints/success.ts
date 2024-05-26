@@ -23,6 +23,8 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
 
   if (session.status !== 'complete') return res.status(401).json({ error: 'Session not complete' });
 
+  if (req?.query?.userId) return res.redirect('/account');
+
   const data = {
     name: req.query.name as string,
     email: req.query.email as string,
