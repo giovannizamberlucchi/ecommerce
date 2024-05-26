@@ -1,7 +1,8 @@
 import { fetchSettings } from '../../../../app/_api/fetchGlobals';
 import { Order, Product, User } from '../../../payload-types';
 import type { AfterChangeHook } from 'payload/dist/collections/config/types';
-type templateProps = {
+
+type TemplateProps = {
   user: User;
   data: {
     name: string;
@@ -11,31 +12,33 @@ type templateProps = {
     }[];
   };
 };
-const templateEmail = ({ user, data }: templateProps) => {
-  const { name, items } = data;
-  return `Bonjour, ${name} !
-    
-    Vous avez une nouvelle demande de devis sur la plateforme Resovalie Achats !
-    
-    Produits demandés: 
-    
-    ${(items || []).map((item) => {
-      if (!item.product || !item.quantity) return;
 
-      return `
-        Produit: ${item.product}
-        Quantité: ${item.quantity}
-        
-      `;
-    })}
-    Coordonnées du client
-    Nom: ${user.name}
-    E-mail: ${user.email}
-    Téléphone: ${user.phone}
-    
-    Cordialement,
-    L'équipe Résovalie Achats
-  `;
+const templateEmail = ({ user, data }: TemplateProps) => {
+  const { name, items } = data;
+
+  return `Bonjour, ${name} !
+
+Vous avez une nouvelle demande de devis sur la plateforme Resovalie Achats !
+
+Produits demandés: 
+
+${(items || []).map((item) => {
+  if (!item.product || !item.quantity) return;
+
+  return `
+Produit: ${item.product}
+Quantité: ${item.quantity}
+
+`;
+})}
+Coordonnées du client
+Nom: ${user.name}
+E-mail: ${user.email}
+Téléphone: ${user.phone}
+
+Cordialement,
+L'équipe Résovalie Achats
+`;
 };
 
 export const sendOrderInfoToEmail: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
@@ -83,9 +86,8 @@ export const sendOrderInfoToEmail: AfterChangeHook<Order> = async ({ doc, req, o
       for (const [key, value] of Object.entries(suppliersAndPurchase)) {
         const dataToEmail = {
           to: key,
-          subject: 'RESOVALIE Commande',
-          from: settings.teamEmail,
-          text: templateEmail({ user, data: value as templateProps['data'] }),
+          subject: `RESOVALIE Commande #${doc.id}`,
+          text: templateEmail({ user, data: value as TemplateProps['data'] }),
           cc: settings.teamEmail,
         };
 
