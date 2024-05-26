@@ -17,11 +17,8 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
       : `/categories`;
 
   return (
-    <Link
-      href={urlLink}
-      className={classes.card}
-      style={{ backgroundImage: media?.url ? `url(${media.url})` : undefined }}
-    >
+    <Link href={urlLink} className={classes.card}>
+      <div style={{ backgroundImage: media?.url ? `url(${media.url})` : undefined }} className={classes.image} />
       <p className={classes.title}>{category.title}</p>
     </Link>
   );
