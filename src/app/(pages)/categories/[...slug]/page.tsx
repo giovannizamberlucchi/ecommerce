@@ -22,6 +22,7 @@ import { getMeUser } from '../../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../../_utilities/isActiveSubscription';
 import { SortingSelector } from '../../../_components/SortingSelector';
 import clsx from 'clsx';
+import { CategoryHeader } from './CategoryHeader';
 
 type CategoriesProps = {
   params: {
@@ -51,7 +52,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
   let category: Category | null = null;
   let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
-  let AllProductsAttributes: Product[] | null = null;
+  let allProductsAttributes: Product[] | null = null;
 
   const attributesEntries = Object.entries(searchParams)
     .map<[string, string[]]>(([key, value]) => [key, Array.isArray(value) ? value : [value]])
@@ -112,7 +113,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
       sort,
     });
 
-    AllProductsAttributes = (
+    allProductsAttributes = (
       await fetchDocs<Product>('products-attributes', isDraftMode, {
         filterCategoriesByIds: subcategoriesIds,
       })
@@ -123,7 +124,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
   let productsAttributesObject: { [key: string]: string[] } = {};
 
-  (AllProductsAttributes || []).map((product) =>
+  (allProductsAttributes || []).map((product) =>
     product.attributes.map((attr) => {
       if (attr.type === null && typeof attr.type === 'string' && attr.type === undefined) return;
       const type = attr.type as Attribute;
@@ -163,16 +164,19 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
         </div>
 
         <div>
+          <CategoryHeader category={category} subcategories={subcategories} className={classes['category-header']} />
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >
-            <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
+            <AttributesOverlay
+              attributes={productsAttributesEntries}
+              className={classes['container-attributes-list--mobile']}
+            />
             <SortingSelector className={classes['sorting-selector']} />
           </div>
-          <AttributesOverlay
-            attributes={productsAttributesEntries}
-            className={classes['container-attributes-list--mobile']}
-          />
+
+          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
+
           <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
         </div>
       </Gutter>
@@ -185,6 +189,7 @@ export default Categories;
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode();
+  slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
   let category: Category | null = null;
 
