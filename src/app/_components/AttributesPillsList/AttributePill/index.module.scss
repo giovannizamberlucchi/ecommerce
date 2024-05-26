@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  border: 1px solid #000;
+  border: 1px solid var(--color-base-400);
   gap: 20px;
   max-width: fit-content;
   padding: 0 10px;
@@ -15,4 +15,6 @@
 
 .cross {
   width: 13px;
+
+  stroke: var(--color-base-400);
 }
