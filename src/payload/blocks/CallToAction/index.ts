@@ -1,14 +1,20 @@
-import type { Block } from 'payload/types'
+import type { Block } from 'payload/types';
 
-import { invertBackground } from '../../fields/invertBackground'
-import linkGroup from '../../fields/linkGroup'
-import richText from '../../fields/richText'
+import { invertBackground } from '../../fields/invertBackground';
+import linkGroup from '../../fields/linkGroup';
+import richText from '../../fields/richText';
 
 export const CallToAction: Block = {
   slug: 'cta',
   labels: {
-    singular: 'Call to Action',
-    plural: 'Calls to Action',
+    singular: {
+      en: 'Call to Action',
+      fr: "Appel à l'action",
+    },
+    plural: {
+      en: 'Calls to Action',
+      fr: "Appels à l'action",
+    },
   },
   fields: [
     invertBackground,
@@ -20,4 +26,4 @@ export const CallToAction: Block = {
       },
     }),
   ],
-}
+};

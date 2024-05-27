@@ -1,8 +1,8 @@
-import type { Block, Field } from 'payload/types'
+import type { Block, Field } from 'payload/types';
 
-import { invertBackground } from '../../fields/invertBackground'
-import link from '../../fields/link'
-import richText from '../../fields/richText'
+import { invertBackground } from '../../fields/invertBackground';
+import link from '../../fields/link';
+import richText from '../../fields/richText';
 
 const columnFields: Field[] = [
   {
@@ -40,16 +40,30 @@ const columnFields: Field[] = [
       },
     },
   }),
-]
+];
 
 export const Content: Block = {
+  labels: {
+    singular: {
+      en: 'Content',
+      fr: 'Contenu',
+    },
+    plural: {
+      en: 'Content',
+      fr: 'Contenu',
+    },
+  },
   slug: 'content',
   fields: [
     invertBackground,
     {
+      label: {
+        en: 'Columns',
+        fr: 'Colonnes',
+      },
       name: 'columns',
       type: 'array',
       fields: columnFields,
     },
   ],
-}
+};

@@ -1,29 +1,48 @@
-import type { Block } from 'payload/types'
+import type { Block } from 'payload/types';
 
-import richText from '../../fields/richText'
+import richText from '../../fields/richText';
 
 export const Archive: Block = {
   slug: 'archive',
   labels: {
-    singular: 'Archive',
-    plural: 'Archives',
+    singular: {
+      en: 'Archive',
+      fr: 'Archive',
+    },
+    plural: {
+      en: 'Archives',
+      fr: 'Archives',
+    },
   },
   fields: [
     richText({
       name: 'introContent',
-      label: 'Intro Content',
+      label: {
+        en: 'Intro Content',
+        fr: "Contenu d'introduction",
+      },
     }),
     {
+      label: {
+        en: 'Populate By',
+        fr: 'Peupler par',
+      },
       name: 'populateBy',
       type: 'select',
       defaultValue: 'collection',
       options: [
         {
-          label: 'Collection',
+          label: {
+            en: 'Collection',
+            fr: 'Collection',
+          },
           value: 'collection',
         },
         {
-          label: 'Individual Selection',
+          label: {
+            en: 'Individual Selection',
+            fr: 'Sélection individuelle',
+          },
           value: 'selection',
         },
       ],
@@ -31,14 +50,20 @@ export const Archive: Block = {
     {
       type: 'select',
       name: 'relationTo',
-      label: 'Collections To Show',
+      label: {
+        en: 'Collections To Show',
+        fr: 'Collections à afficher',
+      },
       defaultValue: 'products',
       admin: {
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
       options: [
         {
-          label: 'Products',
+          label: {
+            en: 'Products',
+            fr: 'Produits',
+          },
           value: 'products',
         },
       ],
@@ -46,7 +71,10 @@ export const Archive: Block = {
     {
       type: 'relationship',
       name: 'categories',
-      label: 'Categories To Show',
+      label: {
+        en: 'Categories To Show',
+        fr: 'Catégories à afficher',
+      },
       relationTo: 'categories',
       hasMany: true,
       admin: {
@@ -56,7 +84,10 @@ export const Archive: Block = {
     {
       type: 'number',
       name: 'limit',
-      label: 'Limit',
+      label: {
+        en: 'Limit',
+        fr: 'Limite',
+      },
       defaultValue: 10,
       admin: {
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
@@ -66,7 +97,10 @@ export const Archive: Block = {
     {
       type: 'relationship',
       name: 'selectedDocs',
-      label: 'Selection',
+      label: {
+        en: 'Selection',
+        fr: 'Sélection',
+      },
       relationTo: ['products'],
       hasMany: true,
       admin: {
@@ -76,25 +110,37 @@ export const Archive: Block = {
     {
       type: 'relationship',
       name: 'populatedDocs',
-      label: 'Populated Docs',
+      label: {
+        en: 'Populated Docs',
+        fr: 'Documents peuplés',
+      },
       relationTo: ['products'],
       hasMany: true,
       admin: {
         disabled: true,
-        description: 'This field is auto-populated after-read',
+        description: {
+          en: 'This field is auto-populated after-read',
+          fr: 'Ce champ est renseigné automatiquement après lecture',
+        },
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
     },
     {
       type: 'number',
       name: 'populatedDocsTotal',
-      label: 'Populated Docs Total',
+      label: {
+        en: 'Populated Docs Total',
+        fr: 'Total des documents peuplés',
+      },
       admin: {
         step: 1,
         disabled: true,
-        description: 'This field is auto-populated after-read',
+        description: {
+          en: 'This field is auto-populated after-read',
+          fr: 'Ce champ est renseigné automatiquement après lecture',
+        },
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
     },
   ],
-}
+};
