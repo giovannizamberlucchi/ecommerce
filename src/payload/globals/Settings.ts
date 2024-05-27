@@ -2,6 +2,10 @@ import type { GlobalConfig } from 'payload/types';
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
+  label: {
+    en: 'Settings',
+    fr: 'Paramètres',
+  },
   typescript: {
     interface: 'Settings',
   },
@@ -16,11 +20,17 @@ export const Settings: GlobalConfig = {
       name: 'productsPage',
       type: 'relationship',
       relationTo: 'pages',
-      label: 'Products page',
+      label: {
+        en: 'Products page',
+        fr: 'Page des produits',
+      },
     },
     {
       name: 'teamEmail',
-      label: 'RESOVALIE Team Email',
+      label: {
+        en: 'RESOVALIE Team Email',
+        fr: "E-mail de l'équipe RESOVALIE",
+      },
       type: 'text',
     },
   ],
