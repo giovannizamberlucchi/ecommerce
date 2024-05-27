@@ -45,11 +45,20 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
 
       if (referrer) {
         const user = await req.payload.create({ collection: 'users', data });
+
+        let referrals =
+          referrer.docs[0].referrals !== null && referrer.docs[0].referrals !== undefined
+            ? referrer.docs[0].referrals.map((referral: string | User) =>
+                typeof referral === 'object' ? referral.id : referral,
+              )
+            : [];
+
+        referrals.push(user.id);
         await req.payload.update({
           collection: 'users',
           id: referrer.docs[0].id,
           data: {
-            referrals: [...referrer.docs[0].referrals, user.id],
+            referrals: referrals,
           },
         });
 
