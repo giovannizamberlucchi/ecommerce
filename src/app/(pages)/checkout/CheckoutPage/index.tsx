@@ -23,7 +23,6 @@ export const CheckoutPage: React.FC<{
   const { cart, cartIsEmpty, cartTotal } = useCart();
 
   const handler = useCallback(async () => {
-    console.log('Payment');
     setIsLoading(true);
 
     try {
@@ -58,9 +57,6 @@ export const CheckoutPage: React.FC<{
 
       router.push(`/order-confirmation?order_id=${doc.id}`);
     } catch (err) {
-      // don't throw an error if the order was not created successfully
-      // this is because payment _did_ in fact go through, and we don't want the user to pay twice
-      console.error(err.message); // eslint-disable-line no-console
       setIsLoading(false);
       router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`);
     }
