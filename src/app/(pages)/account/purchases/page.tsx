@@ -36,7 +36,7 @@ export default async function Purchases() {
                       </div>
                       <div className={classes.itemDetails}>
                         <h6>{purchase.title}</h6>
-                        {purchase.price && <strong>{purchase.price} €</strong>}
+                        {/* {purchase.price && <strong>{purchase.price} €</strong>} */}
                         <p className={classes.purchasedDate}>{`Acheté le: ${formatDateTime(purchase.createdAt)}`}</p>
                       </div>
                     </Link>

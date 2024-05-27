@@ -60,13 +60,13 @@ export default async function Orders() {
                 <div className={classes.itemContent}>
                   <h6 className={classes.itemTitle}>{`Commande ${order.id}`}</h6>
                   <div className={classes.itemMeta}>
-                    <p>
+                    {/* <p>
                       {'Totale: '}
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'usd',
                       }).format(order.total)}
-                    </p>
+                    </p> */}
                     <p className={classes.orderDate}>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
                   </div>
                 </div>

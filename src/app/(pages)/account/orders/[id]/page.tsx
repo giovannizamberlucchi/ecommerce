@@ -52,13 +52,13 @@ export default async function Order({ params: { id } }) {
       <div className={classes.itemMeta}>
         <p>{`ID: ${order.id}`}</p>
         <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
-        <p className={classes.total}>
+        {/* <p className={classes.total}>
           {'Total: '}
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'usd',
           }).format(order.total)}
-        </p>
+        </p> */}
       </div>
 
       <div className={classes.order}>
@@ -88,7 +88,7 @@ export default async function Order({ params: { id } }) {
                       </Link>
                     </h6>
                     <p>{`Quantity: ${quantity}`}</p>
-                    <Price product={product} button={false} quantity={quantity} />
+                    {/* <Price product={product} button={false} quantity={quantity} /> */}
                   </div>
                 </div>
               </Fragment>
