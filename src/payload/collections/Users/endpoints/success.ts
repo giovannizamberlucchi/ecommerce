@@ -58,6 +58,7 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
         const emailData = {
           to: settings.teamEmail,
           subject: 'Programme de parrainage',
+          from: 'team@resovalie.fr',
           text: templateEmail({ user, referral: referrer.docs[0] }),
         };
 
