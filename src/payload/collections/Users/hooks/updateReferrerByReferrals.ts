@@ -19,16 +19,18 @@ export const updateReferrerByReferrals: FieldHook<User> = async ({
 
   if (deleteArray.length) {
     deleteArray.forEach(async (userId: User['id']) => {
-      referrer = await payload.findByID({ collection: 'users', id: userId, depth: 0 });
-      if (referrer) {
-        const resultDelete = await payload.update({
-          collection: 'users',
-          id: userId,
-          data: {
-            referrer: null,
-          },
-        });
-      }
+      try {
+        referrer = await payload.findByID({ collection: 'users', id: userId, depth: 0 });
+        if (referrer) {
+          const resultDelete = await payload.update({
+            collection: 'users',
+            id: userId,
+            data: {
+              referrer: null,
+            },
+          });
+        }
+      } catch (error) {}
     });
   }
 
