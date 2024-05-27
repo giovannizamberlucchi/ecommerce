@@ -80,7 +80,17 @@ const CreateAccountForm: React.FC = () => {
         return;
       }
 
-      data['referralCode'] = referralCode;
+      if (localStorage.getItem('referralCode') !== null) {
+        const objectReferralCode = localStorage.getItem('referralCode');
+
+        if (objectReferralCode !== null) {
+          const parsedObjectReferralCode = JSON.parse(objectReferralCode);
+
+          if (parsedObjectReferralCode.expire > new Date().getTime()) {
+            data['referralCode'] = parsedObjectReferralCode.value;
+          }
+        }
+      }
 
       const response = await fetch('/api/users/sign-up', {
         method: 'POST',
