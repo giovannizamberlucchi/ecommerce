@@ -71,7 +71,7 @@ export const sendOrderInfoToEmail: AfterChangeHook<Order> = async ({ doc, req, o
           product = item.product;
         }
 
-        if (typeof product === 'object' && product && typeof product.suppliers === 'object' && product.suppliers) {
+        if (typeof product === 'object' && product && product.suppliers && typeof product.suppliers === 'object') {
           const supplier = product.suppliers;
 
           if (!suppliersAndPurchase[supplier.email]) {

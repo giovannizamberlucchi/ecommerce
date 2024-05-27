@@ -54,7 +54,6 @@ export const Orders: CollectionConfig = {
       },
       name: 'total',
       type: 'number',
-      required: true,
       min: 0,
     },
     {
