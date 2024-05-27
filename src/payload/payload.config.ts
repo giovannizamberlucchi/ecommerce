@@ -127,6 +127,18 @@ export default buildConfig({
     }),
     redirects({
       collections: ['pages', 'products'],
+      overrides: {
+        labels: {
+          plural: {
+            en: 'Redirects',
+            fr: 'Redirections',
+          },
+          singular: {
+            en: 'Redirect',
+            fr: 'Réorienter',
+          },
+        },
+      },
     }),
     nestedDocs({
       collections: ['categories'],
