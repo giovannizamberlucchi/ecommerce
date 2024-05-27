@@ -111,7 +111,6 @@ const Products: CollectionConfig = {
                 en: 'Product price',
                 fr: 'Prix du produit',
               },
-              required: true,
               type: 'number',
             },
             {
