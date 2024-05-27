@@ -16,6 +16,18 @@ export const signUp: PayloadHandler = async (req: PayloadRequest, res) => {
     apiVersion: '2022-08-01',
   });
 
+  const user = await req.payload.find({
+    collection: 'users',
+    where: {
+      email: { equals: req.body.email },
+    },
+    limit: 1,
+  });
+
+  if (user.totalDocs > 0) {
+    return res.json({ error: "Cet utilisateur existe déjà. Changer l'e-mail" });
+  }
+
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: 'subscription',
     line_items: [

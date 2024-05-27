@@ -30,7 +30,7 @@ const CreateAccountForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  let [referralCode, setReferralCode] = useState<string | null>(null);
+  let referralCode: string | null = null;
 
   useEffect(() => {
     if (localStorage.getItem('referralCode') !== null) {
@@ -40,17 +40,17 @@ const CreateAccountForm: React.FC = () => {
         const parsedObjectReferralCode = JSON.parse(objectReferralCode);
 
         if (parsedObjectReferralCode.expire > new Date().getTime()) {
-          setReferralCode(parsedObjectReferralCode.value);
+          referralCode = parsedObjectReferralCode.value;
         }
       }
     }
 
     if (referralCode === null) {
-      setReferralCode(searchParams.get('referral'));
+      referralCode = searchParams.get('referral');
 
-      if (referralCode !== null) {
+      if (searchParams.get('referral') !== null) {
         const objectReferralCode = {
-          value: referralCode,
+          value: searchParams.get('referral'),
           expire: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
         };
 
@@ -98,6 +98,11 @@ const CreateAccountForm: React.FC = () => {
       }
 
       const resData = await response.json();
+
+      if (resData.error) {
+        setError(resData.error);
+        return;
+      }
 
       router.push(resData.url);
     },
