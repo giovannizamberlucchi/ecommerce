@@ -87,7 +87,7 @@ export const sendOrderInfoToEmail: AfterChangeHook<Order> = async ({ doc, req, o
         const dataToEmail = {
           to: key,
           subject: `RESOVALIE Commande #${doc.id}`,
-          from: 'team@resovalie.fr',
+          from: 'cms@ecommerce-resovalie.payloadcms.app',
           text: templateEmail({ user, data: value as TemplateProps['data'] }),
           cc: settings.teamEmail,
         };
