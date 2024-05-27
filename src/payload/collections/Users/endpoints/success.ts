@@ -43,7 +43,8 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
         limit: 1,
       });
 
-      if (referrer) {
+      if (referrer && referrer.docs.length > 0) {
+        data['referrer'] = referrer.docs[0].id;
         const user = await req.payload.create({ collection: 'users', data });
 
         let referrals =
@@ -72,6 +73,8 @@ export const success: PayloadHandler = async (req: PayloadRequest, res) => {
         };
 
         await req.payload.sendEmail(emailData);
+      } else {
+        await req.payload.create({ collection: 'users', data });
       }
     } else {
       await req.payload.create({ collection: 'users', data });
