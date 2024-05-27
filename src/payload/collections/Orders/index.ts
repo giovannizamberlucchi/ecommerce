@@ -10,6 +10,16 @@ import { sendOrderInfoToEmail } from './hooks/sendOrderInfoToEmail';
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
+  labels: {
+    plural: {
+      en: 'Orders',
+      fr: 'Commandes',
+    },
+    singular: {
+      en: 'Order',
+      fr: 'Commande',
+    },
+  },
   admin: {
     useAsTitle: 'createdAt',
     defaultColumns: ['createdAt', 'orderedBy'],
@@ -26,6 +36,10 @@ export const Orders: CollectionConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Ordered By',
+        fr: 'Commandé par',
+      },
       name: 'orderedBy',
       type: 'relationship',
       relationTo: 'users',
@@ -34,27 +48,47 @@ export const Orders: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Total',
+        fr: 'Total',
+      },
       name: 'total',
       type: 'number',
       required: true,
       min: 0,
     },
     {
+      label: {
+        en: 'Items',
+        fr: 'Articles',
+      },
       name: 'items',
       type: 'array',
       fields: [
         {
+          label: {
+            en: 'Product',
+            fr: 'Produit',
+          },
           name: 'product',
           type: 'relationship',
           relationTo: 'products',
           required: true,
         },
         {
+          label: {
+            en: 'Price',
+            fr: 'Prix',
+          },
           name: 'price',
           type: 'number',
           min: 0,
         },
         {
+          label: {
+            en: 'Quantity',
+            fr: 'Quantité',
+          },
           name: 'quantity',
           type: 'number',
           min: 0,
@@ -62,16 +96,26 @@ export const Orders: CollectionConfig = {
       ],
     },
     {
+      label: {
+        en: 'Status',
+        fr: 'Statut',
+      },
       name: 'status',
       type: 'select',
       defaultValue: 'pending',
       options: [
         {
-          label: 'Pending',
+          label: {
+            en: 'Pending',
+            fr: 'En attente',
+          },
           value: 'pending',
         },
         {
-          label: 'Completed',
+          label: {
+            en: 'Completed',
+            fr: 'Complété',
+          },
           value: 'completed',
         },
       ],

@@ -12,6 +12,16 @@ import { revalidateProduct } from './hooks/revalidateProduct';
 
 const Products: CollectionConfig = {
   slug: 'products',
+  labels: {
+    singular: {
+      en: 'Product',
+      fr: 'Produit',
+    },
+    plural: {
+      en: 'Products',
+      fr: 'Produits',
+    },
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', '_status'],
@@ -37,11 +47,19 @@ const Products: CollectionConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Title',
+        fr: 'Titre',
+      },
       name: 'title',
       type: 'text',
       required: true,
     },
     {
+      label: {
+        en: 'Published On',
+        fr: 'Publié le',
+      },
       name: 'publishedOn',
       type: 'date',
       admin: {
@@ -65,9 +83,16 @@ const Products: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Content',
+          label: {
+            en: 'Content',
+            fr: 'Contenu',
+          },
           fields: [
             {
+              label: {
+                en: 'Layout',
+                fr: 'Mise en page',
+              },
               name: 'layout',
               type: 'blocks',
               blocks: [CallToAction, Content, MediaBlock, Archive],
@@ -75,15 +100,25 @@ const Products: CollectionConfig = {
           ],
         },
         {
-          label: 'Product Details',
+          label: {
+            en: 'Product Details',
+            fr: 'Détails du produit',
+          },
           fields: [
             {
               name: 'price',
-              label: 'Product price',
+              label: {
+                en: 'Product price',
+                fr: 'Prix du produit',
+              },
               required: true,
               type: 'number',
             },
             {
+              label: {
+                en: 'Suppliers',
+                fr: 'Fournisseurs',
+              },
               name: 'suppliers',
               type: 'relationship',
               relationTo: 'suppliers',
@@ -92,9 +127,16 @@ const Products: CollectionConfig = {
           ],
         },
         {
-          label: 'Attributes',
+          label: {
+            en: 'Attributes',
+            fr: 'Attributs',
+          },
           fields: [
             {
+              label: {
+                en: 'Attributes',
+                fr: 'Attributs',
+              },
               type: 'array',
               name: 'attributes',
               fields: [
@@ -102,6 +144,10 @@ const Products: CollectionConfig = {
                   type: 'row',
                   fields: [
                     {
+                      label: {
+                        en: 'Attribute',
+                        fr: 'Attribut',
+                      },
                       type: 'relationship',
                       relationTo: 'attributes',
                       name: 'type',
@@ -109,6 +155,10 @@ const Products: CollectionConfig = {
                       index: true,
                     },
                     {
+                      label: {
+                        en: 'Value',
+                        fr: 'Valeur',
+                      },
                       type: 'text',
                       name: 'value',
                       index: true,
@@ -122,6 +172,10 @@ const Products: CollectionConfig = {
       ],
     },
     {
+      label: {
+        en: 'Categories',
+        fr: 'Catégories',
+      },
       name: 'categories',
       type: 'relationship',
       relationTo: 'categories',
@@ -131,6 +185,10 @@ const Products: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Related Products',
+        fr: 'Produits connexes',
+      },
       name: 'relatedProducts',
       type: 'relationship',
       relationTo: 'products',
@@ -146,7 +204,10 @@ const Products: CollectionConfig = {
     slugField(),
     {
       name: 'skipSync',
-      label: 'Skip Sync',
+      label: {
+        en: 'Skip Sync',
+        fr: 'Ignorer la synchronisation',
+      },
       type: 'checkbox',
       admin: {
         position: 'sidebar',

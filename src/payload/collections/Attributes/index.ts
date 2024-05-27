@@ -2,6 +2,16 @@ import { CollectionConfig } from 'payload/types';
 
 export const Attributes: CollectionConfig = {
   slug: 'attributes',
+  labels: {
+    plural: {
+      en: 'Attributes',
+      fr: 'Les attributs',
+    },
+    singular: {
+      en: 'Attribute',
+      fr: 'Attribut',
+    },
+  },
   admin: {
     useAsTitle: 'attribute',
   },
@@ -10,6 +20,10 @@ export const Attributes: CollectionConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Attribute',
+        fr: 'Attribut',
+      },
       name: 'attribute',
       type: 'text',
       required: true,

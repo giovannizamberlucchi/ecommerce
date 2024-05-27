@@ -18,6 +18,16 @@ import { reSubscribe } from './endpoints/re-subscribe';
 
 const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    plural: {
+      en: 'Users',
+      fr: 'Utilisateurs',
+    },
+    singular: {
+      en: 'User',
+      fr: 'Utilisateur',
+    },
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email'],
@@ -62,21 +72,35 @@ const Users: CollectionConfig = {
   ],
   fields: [
     {
+      label: {
+        en: 'Name',
+        fr: 'Nom',
+      },
       name: 'name',
       type: 'text',
     },
     {
+      label: {
+        en: 'Roles',
+        fr: 'Les rôles',
+      },
       name: 'roles',
       type: 'select',
       hasMany: true,
       defaultValue: ['customer'],
       options: [
         {
-          label: 'admin',
+          label: {
+            en: 'Admin',
+            fr: 'Administrateur',
+          },
           value: 'admin',
         },
         {
-          label: 'customer',
+          label: {
+            en: 'Customer',
+            fr: 'Client',
+          },
           value: 'customer',
         },
       ],
@@ -90,12 +114,19 @@ const Users: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Phone Number',
+        fr: 'Numéro de téléphone',
+      },
       name: 'phone',
       type: 'text',
     },
     {
+      label: {
+        en: 'Purchases',
+        fr: 'Achats',
+      },
       name: 'purchases',
-      label: 'Purchases',
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
@@ -104,8 +135,11 @@ const Users: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Stripe Customer',
+        fr: 'Client Stripe',
+      },
       name: 'stripeCustomerID',
-      label: 'Stripe Customer',
       type: 'text',
       admin: {
         position: 'sidebar',
@@ -115,22 +149,36 @@ const Users: CollectionConfig = {
       },
     },
     {
-      label: 'Cart',
+      label: {
+        en: 'Cart',
+        fr: 'Panier',
+      },
       name: 'cart',
       type: 'group',
       fields: [
         {
           name: 'items',
-          label: 'Items',
+          label: {
+            en: 'Items',
+            fr: 'Articles',
+          },
           type: 'array',
           interfaceName: 'CartItems',
           fields: [
             {
+              label: {
+                en: 'Product',
+                fr: 'Produit',
+              },
               name: 'product',
               type: 'relationship',
               relationTo: 'products',
             },
             {
+              label: {
+                en: 'Quantity',
+                fr: 'Quantité',
+              },
               name: 'quantity',
               type: 'number',
               min: 0,
@@ -163,7 +211,10 @@ const Users: CollectionConfig = {
     },
     {
       name: 'skipSync',
-      label: 'Skip Sync',
+      label: {
+        en: 'Skip Sync',
+        fr: 'Ignorer la synchronisation',
+      },
       type: 'checkbox',
       admin: {
         position: 'sidebar',
@@ -172,6 +223,10 @@ const Users: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Referral Code',
+        fr: 'Code de parrainage',
+      },
       name: 'referralCode',
       type: 'text',
       unique: true,
@@ -184,6 +239,10 @@ const Users: CollectionConfig = {
       },
     },
     {
+      label: {
+        en: 'Referrer',
+        fr: 'Référent',
+      },
       name: 'referrer',
       type: 'relationship',
       relationTo: 'users',
@@ -198,6 +257,10 @@ const Users: CollectionConfig = {
       filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
     },
     {
+      label: {
+        en: 'Referrals',
+        fr: 'Références',
+      },
       name: 'referrals',
       type: 'relationship',
       relationTo: 'users',

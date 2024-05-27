@@ -3,6 +3,16 @@ import type { CollectionConfig } from 'payload/types';
 
 const Categories: CollectionConfig = {
   slug: 'categories',
+  labels: {
+    plural: {
+      en: 'Categories',
+      fr: 'Catégories',
+    },
+    singular: {
+      en: 'Category',
+      fr: 'Catégorie',
+    },
+  },
   admin: {
     useAsTitle: 'title',
   },
@@ -11,11 +21,19 @@ const Categories: CollectionConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Title',
+        fr: 'Titre',
+      },
       name: 'title',
       type: 'text',
       required: true,
     },
     {
+      label: {
+        en: 'Description',
+        fr: 'Description',
+      },
       name: 'description',
       type: 'richText',
       editor: slateEditor({
@@ -25,19 +43,26 @@ const Categories: CollectionConfig = {
       }),
     },
     {
+      label: {
+        en: 'Media',
+        fr: 'Médias',
+      },
       name: 'media',
       type: 'upload',
       relationTo: 'media',
     },
     {
+      label: {
+        en: 'URL Slug',
+        fr: "Limace d'URL",
+      },
+      name: 'slug',
+      type: 'text',
+      index: true,
+      required: true,
       admin: {
         position: 'sidebar',
       },
-      index: true,
-      label: 'URL Slug',
-      name: 'slug',
-      type: 'text',
-      required: true,
     },
   ],
 };

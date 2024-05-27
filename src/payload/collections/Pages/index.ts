@@ -1,25 +1,35 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types';
 
-import { admins } from '../../access/admins'
-import { Archive } from '../../blocks/ArchiveBlock'
-import { CallToAction } from '../../blocks/CallToAction'
-import { Content } from '../../blocks/Content'
-import { MediaBlock } from '../../blocks/MediaBlock'
-import { hero } from '../../fields/hero'
-import { slugField } from '../../fields/slug'
-import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
-import { adminsOrPublished } from './access/adminsOrPublished'
-import { revalidatePage } from './hooks/revalidatePage'
+import { admins } from '../../access/admins';
+import { Archive } from '../../blocks/ArchiveBlock';
+import { CallToAction } from '../../blocks/CallToAction';
+import { Content } from '../../blocks/Content';
+import { MediaBlock } from '../../blocks/MediaBlock';
+import { hero } from '../../fields/hero';
+import { slugField } from '../../fields/slug';
+import { populateArchiveBlock } from '../../hooks/populateArchiveBlock';
+import { adminsOrPublished } from './access/adminsOrPublished';
+import { revalidatePage } from './hooks/revalidatePage';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  labels: {
+    plural: {
+      en: 'Pages',
+      fr: 'Pages',
+    },
+    singular: {
+      en: 'Page',
+      fr: 'Page',
+    },
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    preview: doc => {
+    preview: (doc) => {
       return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/preview?url=${encodeURIComponent(
         `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/${doc.slug !== 'home' ? doc.slug : ''}`,
-      )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
+      )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`;
     },
   },
   hooks: {
@@ -37,11 +47,19 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Title',
+        fr: 'Titre',
+      },
       name: 'title',
       type: 'text',
       required: true,
     },
     {
+      label: {
+        en: 'Published On',
+        fr: 'Publié le',
+      },
       name: 'publishedOn',
       type: 'date',
       admin: {
@@ -54,9 +72,9 @@ export const Pages: CollectionConfig = {
         beforeChange: [
           ({ siblingData, value }) => {
             if (siblingData._status === 'published' && !value) {
-              return new Date()
+              return new Date();
             }
-            return value
+            return value;
           },
         ],
       },
@@ -65,13 +83,23 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Hero',
+          label: {
+            en: 'Hero',
+            fr: 'Héro',
+          },
           fields: [hero],
         },
         {
-          label: 'Content',
+          label: {
+            en: 'Content',
+            fr: 'Contenu',
+          },
           fields: [
             {
+              label: {
+                en: 'Layout',
+                fr: 'Mise en page',
+              },
               name: 'layout',
               type: 'blocks',
               required: true,
@@ -83,4 +111,4 @@ export const Pages: CollectionConfig = {
     },
     slugField(),
   ],
-}
+};
