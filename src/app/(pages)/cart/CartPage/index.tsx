@@ -1,9 +1,9 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import Link from 'next/link';
 
-import { Page, Settings } from '../../../../payload/payload-types';
+import { Order, Page, Settings } from '../../../../payload/payload-types';
 import { Button } from '../../../_components/Button';
 import { LoadingShimmer } from '../../../_components/LoadingShimmer';
 import { useAuth } from '../../../_providers/Auth';
@@ -11,6 +11,7 @@ import { useCart } from '../../../_providers/Cart';
 import CartItem from '../CartItem';
 
 import classes from './index.module.scss';
+import { useRouter } from 'next/navigation';
 
 export const CartPage: React.FC<{
   settings: Settings;
@@ -20,8 +21,50 @@ export const CartPage: React.FC<{
   const { productsPage } = settings || {};
 
   const { user } = useAuth();
+  const router = useRouter();
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart();
+
+  const handler = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const orderReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          total: cartTotal.raw,
+          items: (cart?.items || [])?.map(({ product, quantity }) => ({
+            product: typeof product === 'string' ? product : product.id,
+            quantity,
+            price: typeof product === 'object' ? product.price : undefined,
+          })),
+        }),
+      });
+
+      if (!orderReq.ok) throw new Error(orderReq.statusText || 'Something went wrong.');
+
+      const {
+        error: errorFromRes,
+        doc,
+      }: {
+        message?: string;
+        error?: string;
+        doc: Order;
+      } = await orderReq.json();
+      setIsLoading(false);
+      if (errorFromRes) throw new Error(errorFromRes);
+
+      // router.push(`/order-confirmation?order_id=${doc.id}`);
+    } catch (err) {
+      setIsLoading(false);
+      // router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`);
+    }
+  }, [cart, cartTotal, router]);
 
   return (
     <Fragment>
@@ -104,9 +147,9 @@ export const CartPage: React.FC<{
 
                 <Button
                   className={classes.checkoutButton}
-                  href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
-                  label={user ? 'Demander un devis' : 'Login to checkout'}
+                  label={isLoading ? 'Chargement...' : 'Demander un devis'}
                   appearance="primary"
+                  onClick={handler}
                 />
               </div>
             </div>
