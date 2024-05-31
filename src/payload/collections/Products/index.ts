@@ -90,6 +90,15 @@ const Products: CollectionConfig = {
           fields: [
             {
               label: {
+                en: 'Description',
+                fr: 'Description',
+              },
+              required: true,
+              name: 'description',
+              type: 'textarea',
+            },
+            {
+              label: {
                 en: 'Layout',
                 fr: 'Mise en page',
               },

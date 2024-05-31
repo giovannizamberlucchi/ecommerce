@@ -224,6 +224,7 @@ export interface Product {
   id: string;
   title: string;
   publishedOn?: string | null;
+  description: string;
   layout?:
     | (
         | {
@@ -315,7 +316,7 @@ export interface Product {
           }
       )[]
     | null;
-  price: number;
+  price?: number | null;
   suppliers: string | Supplier;
   attributes?:
     | {
@@ -365,7 +366,7 @@ export interface Attribute {
 export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
-  total: number;
+  total?: number | null;
   items?:
     | {
         product: string | Product;
