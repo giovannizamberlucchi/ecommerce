@@ -11,7 +11,7 @@ import classes from './index.module.scss';
 export const ProductHero: React.FC<{
   product: Product;
 }> = ({ product }) => {
-  const { title, categories, meta: { image: metaImage, description } = {} } = product;
+  const { title, categories, description, meta: { image: metaImage } = {} } = product;
 
   return (
     <Gutter className={classes.productHero}>
