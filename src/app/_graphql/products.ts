@@ -18,6 +18,7 @@ export const PRODUCTS = (variables?: Record<string, unknown>) => `#graphql
         id
         slug
         title
+        description
         price
         ${PRODUCT_CATEGORIES}
         ${META}
@@ -62,6 +63,7 @@ export const PRODUCT = `#graphql
       docs {
         id
         title
+        description
         ${PRODUCT_CATEGORIES}
         layout {
           ${CALL_TO_ACTION}
