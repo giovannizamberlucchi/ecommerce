@@ -19,15 +19,14 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, price } = {},
+    doc: { slug, title, categories, meta, price, description } = {},
     className,
   } = props;
 
-  const { description, image: metaImage } = meta || {};
+  const { image: metaImage } = meta || {};
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const titleToUse = titleFromProps || title;
-  const sanitizedDescription = description?.replace(/\s/g, ' '); // replace non-breaking space with white space
   const href = `/products/${slug}`;
 
   return (
@@ -41,9 +40,7 @@ export const Card: React.FC<{
         {titleToUse && <p className={classes.title}>{titleToUse}</p>}
         {/* {price && <h6>{price} €</h6>} */}
         {description && (
-          <div className={classes.body}>
-            {description && <p className={classes.description}>{sanitizedDescription}</p>}
-          </div>
+          <div className={classes.body}>{description && <p className={classes.description}>{description}</p>}</div>
         )}
       </div>
     </Link>
