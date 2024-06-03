@@ -1,7 +1,6 @@
 @import '../../_css/common';
 
 .card {
-  border-radius: 4px;
   height: 100%;
   display: grid;
   grid-template-columns: 5fr 6fr;
@@ -82,25 +81,24 @@
   text-decoration: none;
   display: block;
   position: relative;
-  min-height: 500px;
-  min-width: 210px;
   background-color: var(--color-dark-50);
   overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
 
   @include mid-break {
-    min-width: 150px;
+    aspect-ratio: 1 / 1;
   }
 }
 
 .mediaWrapper:hover .image {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .image {
   object-fit: contain;
-  aspect-ratio: 1/2;
+  width: 100%;
   height: 100%;
-  max-width: 100%;
   transition: all ease-in-out 300ms;
 }
 
