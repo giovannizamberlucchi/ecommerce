@@ -82,16 +82,16 @@
 
 .products {
   display: grid;
-  grid-template-columns: 1fr 75%;
-  gap: 60px;
+  grid-template-columns: 1fr 4fr;
+  gap: 60px 30px;
 
   @include large-break {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
     gap: 48px;
   }
 }
 
-.sorting-selector {
+.sorting-select {
   width: 200px;
   height: 40px;
   text-align: center;

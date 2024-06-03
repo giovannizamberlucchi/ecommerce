@@ -4,14 +4,13 @@ import { User } from '../../../../payload/payload-types';
 import { Button } from '../../../_components/Button';
 import { useRouter } from 'next/navigation';
 import classes from './index.module.scss';
-import clsx from 'clsx';
 
-type Props = {
+type ReSubscribeButtonProps = {
   user: User;
   disabled?: boolean;
 };
 
-export const ReSubscribe = async ({ user, disabled }: Props) => {
+export const ReSubscribeButton: React.FC<ReSubscribeButtonProps> = async ({ user, disabled }) => {
   const router = useRouter();
 
   const handler = async () => {
@@ -32,12 +31,5 @@ export const ReSubscribe = async ({ user, disabled }: Props) => {
     router.push(resData.url);
   };
 
-  return (
-    <Button
-      onClick={handler}
-      className={clsx(classes.button, !disabled ? classes['button--active'] : classes['button--disabled'])}
-    >
-      Ré-Abonner
-    </Button>
-  );
+  return <Button onClick={handler} appearance="primary" className={classes.button} label="RÉ-ABONNER" />;
 };

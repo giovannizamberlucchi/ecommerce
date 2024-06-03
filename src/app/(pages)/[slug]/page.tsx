@@ -12,6 +12,13 @@ import { Gutter } from '../../_components/Gutter';
 import { Hero } from '../../_components/Hero';
 import { generateMeta } from '../../_utilities/generateMeta';
 import Categories from '../../_components/Categories';
+import Promotion from '../../_components/Promotion';
+
+import classes from './index.module.scss';
+import { getMeUser } from '../../_utilities/getMeUser';
+import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
+import { getPathFromSlugArr } from '../../_api/utils';
+
 // Payload Cloud caches all files through Cloudflare, so we don't need Next.js to cache them as well
 // This means that we can turn off Next.js data caching and instead rely solely on the Cloudflare CDN
 // To do this, we include the `no-cache` header on the fetch requests used to get the data for this page
@@ -19,14 +26,12 @@ import Categories from '../../_components/Categories';
 // See https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
 // If you are not using Payload Cloud then this line can be removed, see `../../../README.md#cache`
 export const dynamic = 'force-dynamic';
-import Promotion from '../../_components/Promotion';
-
-import classes from './index.module.scss';
-import { getMeUser } from '../../_utilities/getMeUser';
-import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode();
+
+  if (slug && slug !== 'home')
+    await getMeUser({ nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}` });
 
   let page: PageType | null = null;
   let categories: Category[] | null = null;

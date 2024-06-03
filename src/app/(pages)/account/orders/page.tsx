@@ -64,7 +64,7 @@ export default async function Orders() {
                       {'Totale: '}
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
-                        currency: 'usd',
+                        currency: 'EUR',
                       }).format(order.total)}
                     </p> */}
                     <p className={classes.orderDate}>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
@@ -87,10 +87,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  title: 'Orders',
-  description: 'Your orders.',
+  title: 'Commandes',
+  description: 'Vos commandes.',
   openGraph: mergeOpenGraph({
-    title: 'Orders',
+    title: 'Commandes',
     url: '/orders',
   }),
 };

@@ -1,13 +1,12 @@
-import type { Page } from '../payload-types'
+import type { Page } from '../payload-types';
 
 export const cartPage: Partial<Page> = {
-  title: 'Cart',
+  title: 'Panier',
   slug: 'cart',
   _status: 'published',
   meta: {
-    title: 'Cart',
-    description:
-      'Your cart will sync to your user profile so you can continue shopping from any device.',
+    title: null,
+    description: null,
   },
   hero: {
     type: 'lowImpact',
@@ -115,4 +114,4 @@ export const cartPage: Partial<Page> = {
       blockType: 'cta',
     },
   ],
-}
+};

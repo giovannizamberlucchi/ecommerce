@@ -1,4 +1,3 @@
-import React from 'react';
 import { Metadata } from 'next';
 
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
@@ -7,28 +6,38 @@ import AccountForm from './AccountForm';
 import classes from './index.module.scss';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
-import { ReSubscribe } from './ReSubscribe';
+import { ReSubscribeButton } from './ReSubscribeButton';
+import { Message } from '../../_components/Message';
 
-export default async function Account() {
+export default async function Account({ searchParams: { warning } }) {
   const { user } = await getMeUser();
-  const isActiveSubs = await isActiveSubscription(user);
+  const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
-  const refUrl =
-    user?.referralCode !== null && user?.referralCode !== undefined
-      ? `${process.env.NEXT_PUBLIC_SERVER_URL}/create-account?referral=${user?.referralCode}`
-      : '';
+  const refUrl = user?.referralCode
+    ? `${process.env.NEXT_PUBLIC_SERVER_URL}/create-account?referral=${user?.referralCode}`
+    : undefined;
 
   return (
     <div>
+      {warning && (
+        <>
+          <Message warning={warning} className={classes.message} />
+          <br />
+        </>
+      )}
+
       <h5 className={classes.personalInfo}>Informations personelles</h5>
+
       <AccountForm />
 
-      <h5 className={classes.title}>État de l'abonnement: {isActiveSubs ? 'actif' : 'inactif'}</h5>
-      {!isActiveSubs && <ReSubscribe user={user} disabled={isActiveSubs} />}
+      <h5 className={classes.title} id="subscription-status">
+        État de l'abonnement: {isActiveSubscriptionStatus ? 'actif' : 'inactif'}
+      </h5>
+      {!isActiveSubscriptionStatus && <ReSubscribeButton user={user} disabled={isActiveSubscriptionStatus} />}
 
-      {refUrl !== '' && (
+      {refUrl && (
         <p className={classes.referral}>
-          Votre lien de parrainage : <strong>{refUrl}</strong>
+          <b>Votre lien de parrainage:</b> <u>{refUrl}</u>
         </p>
       )}
     </div>

@@ -13,7 +13,7 @@
   appearance: none;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: 999px;
   background-color: white;
   border: 2px solid var(--color-dark-500);
   outline: none;
@@ -31,7 +31,7 @@
   display: inline-block;
   width: 12px;
   height: 12px;
-  border-radius: 50%;
+  border-radius: 999px;
   background-color: var(--color-dark-500);
   position: absolute;
   top: 50%;

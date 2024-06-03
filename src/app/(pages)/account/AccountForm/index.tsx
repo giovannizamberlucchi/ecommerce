@@ -49,6 +49,7 @@ const AccountForm: React.FC = () => {
 
         if (!isPhoneValid) {
           setError('Numéro de téléphone invalide.');
+
           return;
         }
 

@@ -48,20 +48,20 @@ export default async function Order({ params: { id } }) {
   return (
     <Gutter className={classes.orders}>
       <h1>
-        {`Order`}
-        <span className={classes.id}>{`${order.id}`}</span>
+        {`Commande`}
+        <span className={classes.id}>{` ${order.id}`}</span>
       </h1>
       <div className={classes.itemMeta}>
         <p>{`ID: ${order.id}`}</p>
-        <p>{`Payment Intent: ${order.stripePaymentIntentID}`}</p>
-        <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
-        <p className={classes.total}>
+        {/* <p>{`Payment Intent: ${order.stripePaymentIntentID}`}</p> */}
+        <p>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
+        {/* <p className={classes.total}>
           {'Total: '}
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'usd',
+            currency: 'EUR',
           }).format(order.total / 100)}
-        </p>
+        </p> */}
       </div>
       <HR />
       <div className={classes.order}>
@@ -82,7 +82,7 @@ export default async function Order({ params: { id } }) {
               <Fragment key={index}>
                 <div className={classes.row}>
                   <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
-                    {!metaImage && <span className={classes.placeholder}>No image</span>}
+                    {!metaImage && <span className={classes.placeholder}>Pas d'image</span>}
                     {metaImage && typeof metaImage !== 'string' && (
                       <Media className={classes.media} imgClassName={classes.image} resource={metaImage} fill />
                     )}
@@ -102,7 +102,7 @@ export default async function Order({ params: { id } }) {
                         {title}
                       </Link>
                     </h5>
-                    <p>{`Quantity: ${quantity}`}</p>
+                    <p>{`Quantité: ${quantity}`}</p>
                     <Price product={product} button={false} quantity={quantity} />
                   </div>
                 </div>
@@ -116,8 +116,8 @@ export default async function Order({ params: { id } }) {
       </div>
       <HR />
       <div className={classes.actions}>
-        <Button href="/orders" appearance="primary" label="See all orders" />
-        <Button href="/account" appearance="secondary" label="Go to account" />
+        <Button href="/orders" appearance="primary" label="Voir toutes les commandes" />
+        <Button href="/account" appearance="secondary" label="Aller au compte" />
       </div>
     </Gutter>
   );
@@ -125,10 +125,10 @@ export default async function Order({ params: { id } }) {
 
 export async function generateMetadata({ params: { id } }): Promise<Metadata> {
   return {
-    title: `Order ${id}`,
+    title: `Commande ${id}`,
     description: `Détails de la commande pour la commande ${id}.`,
     openGraph: mergeOpenGraph({
-      title: `Order ${id}`,
+      title: `Commande ${id}`,
       url: `/orders/${id}`,
     }),
   };

@@ -4,7 +4,7 @@
   border-radius: 4px;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 5fr 6fr;
   gap: 20px;
 
   @include small-break {
@@ -14,7 +14,6 @@
 }
 
 .content {
-  padding: 8px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -70,7 +69,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: pre;
+  white-space: pre-line;
 }
 
 .hideImageOnMobile {
@@ -83,13 +82,18 @@
   text-decoration: none;
   display: block;
   position: relative;
-  min-height: 300px;
-  background-color: var(--color-dark-50);
+  min-height: 500px;
   min-width: 210px;
+  background-color: var(--color-dark-50);
+  overflow: hidden;
 
   @include mid-break {
     min-width: 150px;
   }
+}
+
+.mediaWrapper:hover .image {
+  transform: scale(1.2);
 }
 
 .image {
@@ -97,6 +101,7 @@
   aspect-ratio: 1/2;
   height: 100%;
   max-width: 100%;
+  transition: all ease-in-out 300ms;
 }
 
 .placeholder {

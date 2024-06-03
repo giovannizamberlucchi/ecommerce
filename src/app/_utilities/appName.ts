@@ -1,1 +1,1 @@
-export const appName = 'RESOVALIE';
+export const appName = 'Resovalie Achats';

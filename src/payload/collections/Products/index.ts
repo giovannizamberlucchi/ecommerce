@@ -88,6 +88,15 @@ const Products: CollectionConfig = {
             fr: 'Contenu',
           },
           fields: [
+            // {
+            //   label: {
+            //     en: 'Image',
+            //     fr: 'Image',
+            //   },
+            //   name: 'image',
+            //   type: 'upload',
+            //   relationTo: 'media',
+            // },
             {
               label: {
                 en: 'Description',
@@ -110,8 +119,8 @@ const Products: CollectionConfig = {
         },
         {
           label: {
-            en: 'Product Details',
-            fr: 'Détails du produit',
+            en: 'Details',
+            fr: 'Détails',
           },
           fields: [
             {

@@ -1,25 +1,23 @@
 import Link from 'next/link';
 
-import { Category, Media } from '../../../../payload/payload-types';
+import { Category } from '../../../../payload/payload-types';
 
 import classes from './index.module.scss';
+import { getLastFromArray } from '../../../_api/utils';
 
-type CategoryCardProps = {
-  category: Category;
-};
-
-const CategoryCard = ({ category }: CategoryCardProps) => {
-  const media = category.media as Media;
-
-  const urlLink =
-    category.breadcrumbs !== undefined && typeof category.breadcrumbs[category.breadcrumbs.length - 1].url === 'string'
-      ? `/categories${category.breadcrumbs[category.breadcrumbs.length - 1].url}`
+const CategoryCard: React.FC<Category> = ({ title, breadcrumbs, media }) => {
+  const href =
+    breadcrumbs?.length && getLastFromArray(breadcrumbs).url && typeof getLastFromArray(breadcrumbs).url === 'string'
+      ? `/categories${getLastFromArray(breadcrumbs).url}`
       : `/categories`;
 
   return (
-    <Link href={urlLink} className={classes.card}>
-      <div style={{ backgroundImage: media?.url ? `url(${media.url})` : undefined }} className={classes.image} />
-      <p className={classes.title}>{category.title}</p>
+    <Link href={href} className={classes.card}>
+      <div
+        style={{ backgroundImage: media && typeof media === 'object' ? `url(${media.url})` : undefined }}
+        className={classes.image}
+      />
+      <p className={classes.title}>{title}</p>
     </Link>
   );
 };

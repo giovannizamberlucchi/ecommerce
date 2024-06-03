@@ -9,18 +9,23 @@ type CategoryHeaderProps = {
   className?: string;
 };
 
-export const CategoryHeader: React.FC<CategoryHeaderProps> = ({ category, subcategories, className }) => {
-  const media = category.media as Media;
+export const CategoryHeader: React.FC<CategoryHeaderProps> = ({
+  category: { media, description },
+  subcategories,
+  className,
+}) => (
+  <div className={className}>
+    <div
+      style={{ backgroundImage: media && typeof media === 'object' ? `url(${media.url})` : undefined }}
+      className={classes.image}
+    />
 
-  return (
-    <div className={className}>
-      <div style={{ backgroundImage: media?.url ? `url(${media.url})` : undefined }} className={classes.image} />
-      <RichText content={category.description} className={classes.description} />
-      <div className={classes.subcategories}>
-        {subcategories.map((cat) => (
-          <CategoryCard category={cat} />
-        ))}
-      </div>
+    <RichText content={description} className={classes.description} />
+
+    <div className={classes.subcategories}>
+      {subcategories.map((category) => (
+        <CategoryCard key={category.id} {...category} />
+      ))}
     </div>
-  );
-};
+  </div>
+);

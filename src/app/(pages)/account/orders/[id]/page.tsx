@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import { Order as OrderType } from '../../../../../payload/payload-types';
 import { HR } from '../../../../_components/HR';
 import { Media } from '../../../../_components/Media';
-import { Price } from '../../../../_components/Price';
 import { formatDateTime } from '../../../../_utilities/formatDateTime';
 import { getMeUser } from '../../../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../../../_utilities/mergeOpenGraph';
@@ -46,17 +45,17 @@ export default async function Order({ params: { id } }) {
   return (
     <div>
       <h5>
-        {`Order`}
+        {`Commande`}
         <span className={classes.id}>{` ${order.id}`}</span>
       </h5>
       <div className={classes.itemMeta}>
         <p>{`ID: ${order.id}`}</p>
-        <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
+        <p>{`Commandé le: ${formatDateTime(order.createdAt)}`}</p>
         {/* <p className={classes.total}>
           {'Total: '}
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'usd',
+            currency: 'EUR',
           }).format(order.total)}
         </p> */}
       </div>
@@ -76,7 +75,7 @@ export default async function Order({ params: { id } }) {
               <Fragment key={index}>
                 <div className={classes.row}>
                   <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
-                    {!metaImage && <span className={classes.placeholder}>No image</span>}
+                    {!metaImage && <span className={classes.placeholder}>Pas d'image</span>}
                     {metaImage && typeof metaImage !== 'string' && (
                       <Media className={classes.media} imgClassName={classes.image} resource={metaImage} fill />
                     )}
@@ -87,7 +86,7 @@ export default async function Order({ params: { id } }) {
                         {title}
                       </Link>
                     </h6>
-                    <p>{`Quantity: ${quantity}`}</p>
+                    <p>{`Quantité: ${quantity}`}</p>
                     {/* <Price product={product} button={false} quantity={quantity} /> */}
                   </div>
                 </div>

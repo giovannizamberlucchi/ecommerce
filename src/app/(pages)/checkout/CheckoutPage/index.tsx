@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -19,7 +19,7 @@ export const CheckoutPage: React.FC<{
   } = props;
 
   const router = useRouter();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { cart, cartIsEmpty, cartTotal } = useCart();
 
   const handler = useCallback(async () => {
@@ -66,17 +66,17 @@ export const CheckoutPage: React.FC<{
     <div>
       {cartIsEmpty && (
         <div>
-          {'Your '}
-          <Link href="/cart">cart</Link>
-          {' is empty.'}
+          {'Votre panier '}
+          <Link href="/cart">panier</Link>
+          {' est vide.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <div>
-              {' '}
               <Link href={`/${productsPage.slug}`}>Continuer les achats?</Link>
             </div>
           )}
         </div>
       )}
+
       {!cartIsEmpty && (
         <div className={classes.items}>
           <div className={classes.header}>
@@ -122,6 +122,7 @@ export const CheckoutPage: React.FC<{
           </ul>
         </div>
       )}
+
       {!cartIsEmpty && (
         <Button
           className={classes.payment}

@@ -31,7 +31,7 @@ export const Settings: GlobalConfig = {
         en: 'RESOVALIE Team Email',
         fr: "E-mail de l'équipe RESOVALIE",
       },
-      type: 'text',
+      type: 'email',
     },
   ],
 };

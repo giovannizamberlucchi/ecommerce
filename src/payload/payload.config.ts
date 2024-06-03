@@ -29,6 +29,7 @@ import { productUpdated } from './stripe/webhooks/productUpdated';
 import { Category } from './payload-types';
 import { Attributes } from './collections/Attributes';
 import { Suppliers } from './collections/Suppliers';
+import { Logo } from './components/Logo';
 
 const generateTitle: GenerateTitle = () => {
   return 'Resovalie Achats';
@@ -44,7 +45,13 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
+      favicon: '/favicon.jpg',
       titleSuffix: '- Resovalie Achats CMS',
+    },
+    components: {
+      graphics: {
+        Logo,
+      },
     },
     bundler: webpackBundler(), // bundler-config
     webpack: (config) => {

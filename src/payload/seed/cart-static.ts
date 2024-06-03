@@ -1,16 +1,15 @@
-import type { Page } from '../payload-types'
+import type { Page } from '../payload-types';
 
 export const staticCart: Page = {
   id: '',
-  title: 'Cart',
+  title: 'Panier',
   slug: 'cart',
   createdAt: '',
   updatedAt: '',
   _status: 'published',
   meta: {
-    title: 'Cart',
-    description:
-      'Your cart will sync to your user profile so you can continue shopping from any device.',
+    title: null,
+    description: null,
   },
   hero: {
     type: 'lowImpact',
@@ -106,4 +105,4 @@ export const staticCart: Page = {
       blockType: 'cta',
     },
   ],
-}
+};

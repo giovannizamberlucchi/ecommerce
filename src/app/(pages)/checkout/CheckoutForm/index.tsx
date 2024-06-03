@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useRouter } from 'next/navigation';
 
 import { Order } from '../../../../payload/payload-types';
 import { Button } from '../../../_components/Button';
 import { Message } from '../../../_components/Message';
-import { priceFromJSON } from '../../../_components/Price';
 import { useCart } from '../../../_providers/Cart';
 
 import classes from './index.module.scss';
@@ -15,8 +14,8 @@ import classes from './index.module.scss';
 export const CheckoutForm: React.FC<{}> = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [error, setError] = React.useState<string | null>(null);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { cart, cartTotal } = useCart();
 

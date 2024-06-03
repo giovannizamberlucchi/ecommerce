@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import Link from 'next/link';
 
 import { Order, Page, Settings } from '../../../../payload/payload-types';
@@ -23,7 +23,7 @@ export const CartPage: React.FC<{
   const { user } = useAuth();
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart();
 
   const handler = useCallback(async () => {
@@ -59,46 +59,41 @@ export const CartPage: React.FC<{
       setIsLoading(false);
       if (errorFromRes) throw new Error(errorFromRes);
 
-      // router.push(`/order-confirmation?order_id=${doc.id}`);
+      router.push(`/order-confirmation?order_id=${doc.id}`);
     } catch (err) {
       setIsLoading(false);
-      // router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`);
+
+      router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`);
     }
   }, [cart, cartTotal, router]);
 
   return (
-    <Fragment>
+    <>
       <br />
+
       {!hasInitializedCart ? (
         <div className={classes.loading}>
           <LoadingShimmer />
         </div>
       ) : (
-        <Fragment>
+        <>
           {cartIsEmpty ? (
             <div className={classes.empty}>
               Votre panier est vide
               {typeof productsPage === 'object' && productsPage?.slug && (
-                <Fragment>
+                <>
                   {' '}
                   <Link href={`/${productsPage.slug}`}>Cliquer ici</Link>
-                  {` to shop.`}
-                </Fragment>
-              )}
-              {!user && (
-                <Fragment>
-                  {' '}
-                  <Link href={`/login?redirect=%2Fcart`}>Se connecter</Link>
-                  {` to view a saved cart.`}
-                </Fragment>
+                  {` pour retour au magasin.`}
+                </>
               )}
             </div>
           ) : (
             <div className={classes.cartWrapper}>
               <div>
-                {/* CART LIST HEADER */}
                 <div className={classes.header}>
                   <p>Produits</p>
+
                   <div className={classes.headerItemDetails}>
                     <p></p>
                     <p></p>
@@ -106,22 +101,21 @@ export const CartPage: React.FC<{
                   </div>
                   {/* <p className={classes.headersubtotal}>Sous total</p> */}
                 </div>
-                {/* CART ITEM LIST */}
+
                 <ul className={classes.itemsList}>
-                  {(cart?.items || [])?.map((item, index) => {
+                  {(cart?.items || [])?.map((item) => {
                     if (typeof item.product === 'object') {
                       const {
                         quantity,
                         product,
-                        product: { id, title, meta, price },
+                        product: { id, title, meta },
                       } = item;
-
-                      const isLast = index === (cart?.items?.length || 0) - 1;
 
                       const metaImage = meta?.image;
 
                       return (
                         <CartItem
+                          key={`product-${id}`}
                           product={product}
                           title={title}
                           metaImage={metaImage}
@@ -130,6 +124,7 @@ export const CartPage: React.FC<{
                         />
                       );
                     }
+
                     return null;
                   })}
                 </ul>
@@ -154,8 +149,8 @@ export const CartPage: React.FC<{
               </div>
             </div>
           )}
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };

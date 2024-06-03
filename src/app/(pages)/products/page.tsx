@@ -1,6 +1,6 @@
 import { draftMode } from 'next/headers';
 
-import { Attribute, Category, Page as PageType, Product } from '../../../payload/payload-types';
+import { Attribute, Category, Page, Product } from '../../../payload/payload-types';
 import { fetchDoc } from '../../_api/fetchDoc';
 import { fetchDocs } from '../../_api/fetchDocs';
 import { Blocks } from '../../_components/Blocks';
@@ -17,10 +17,10 @@ import { AttributesFilter } from '../../_components/AttributesFilter';
 import { AttributesOverlay } from '../../_components/AttributesOverlay';
 import { Metadata } from 'next';
 import { generateMeta } from '../../_utilities/generateMeta';
-import { staticCart } from '../../../payload/seed/cart-static';
+import { productsPage } from '../../../payload/seed/products-page';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
-import { SortingSelector } from '../../_components/SortingSelector';
+import { SortingSelect } from '../../_components/SortingSelect';
 import clsx from 'clsx';
 
 export const dynamic = 'force-dynamic';
@@ -38,13 +38,13 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
       'Vous devez être connecté pour voir la page du magasin.',
     )}&redirect=${encodeURIComponent('/products')}`,
   });
-  const isActiveSubs = await isActiveSubscription(user);
-  if (!isActiveSubs) redirect('/login');
+  const isActiveSubscriptionStatus = true || (await isActiveSubscription(user));
+  if (!isActiveSubscriptionStatus) redirect('/login');
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
 
-  let pageCMS: PageType | null = null;
+  let cmsPage: Page | null = null;
   let categories: Category[] | null = null;
   let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
@@ -71,7 +71,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   };
 
   try {
-    pageCMS = await fetchDoc<PageType>({
+    cmsPage = await fetchDoc<Page>({
       collection: 'pages',
       slug: 'products',
       draft: isDraftMode,
@@ -136,7 +136,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
-          <SortingSelector className={classes['sorting-selector']} />
+          <SortingSelect className={classes['sorting-select']} />
         </div>
 
         <div>
@@ -148,7 +148,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         </div>
 
         <div>
-          <Blocks blocks={pageCMS?.layout} disableTopPadding={true} />
+          <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >
@@ -156,7 +156,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
             />
-            <SortingSelector className={classes['sorting-selector']} />
+            <SortingSelect className={classes['sorting-select']} />
           </div>
 
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
@@ -175,10 +175,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode();
   const slug = 'products';
 
-  let page: PageType | null = null;
+  let page: Page | null = null;
 
   try {
-    page = await fetchDoc<PageType>({
+    page = await fetchDoc<Page>({
       collection: 'pages',
       slug,
       draft: isDraftMode,
@@ -190,7 +190,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // in production you may want to redirect to a 404  page or at least log the error somewhere
   }
   if (!page) {
-    page = staticCart;
+    page = productsPage;
   }
 
   return generateMeta({ doc: page });

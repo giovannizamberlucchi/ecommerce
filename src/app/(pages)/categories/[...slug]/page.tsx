@@ -2,7 +2,7 @@ import React from 'react';
 import { draftMode } from 'next/headers';
 
 import classes from './index.module.scss';
-import { Attribute, Category, Page, Product } from '../../../../payload/payload-types';
+import { Attribute, Category as CategoryType, Product } from '../../../../payload/payload-types';
 import { fetchDoc } from '../../../_api/fetchDoc';
 import { fetchDocs } from '../../../_api/fetchDocs';
 import { Gutter } from '../../../_components/Gutter';
@@ -20,7 +20,7 @@ import { Metadata } from 'next';
 import { generateMeta } from '../../../_utilities/generateMeta';
 import { getMeUser } from '../../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../../_utilities/isActiveSubscription';
-import { SortingSelector } from '../../../_components/SortingSelector';
+import { SortingSelect } from '../../../_components/SortingSelect';
 import clsx from 'clsx';
 import { CategoryHeader } from './CategoryHeader';
 
@@ -36,20 +36,21 @@ type CategoriesProps = {
 
 export const dynamic = 'force-dynamic';
 
-const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchParams }) => {
-  slug = slug.map((slugPart) => decodeURIComponent(slugPart));
+const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchParams }) => {
+  // slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
   const { user } = await getMeUser({
-    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories/${getPathFromSlugArr(slug)}`)}`,
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories${getPathFromSlugArr(slug)}`)}`,
   });
-  const isActiveSubs = await isActiveSubscription(user);
-  if (!isActiveSubs) redirect('/account');
+  const isActiveSubscriptionStatus = await isActiveSubscription(user);
+
+  if (!isActiveSubscriptionStatus) redirect('/account');
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
 
-  let categories: Category[] | null = null;
-  let category: Category | null = null;
+  let categories: CategoryType[] | null = null;
+  let category: CategoryType | null = null;
   let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
   let allProductsAttributes: Product[] | null = null;
@@ -68,7 +69,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
   const limit = 12;
 
-  const sortingObject = {
+  const sortingOptions = {
     asc: 'title',
     desc: '-title',
     new: '-createdAt',
@@ -76,7 +77,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
   };
 
   try {
-    category = await fetchDoc<Category>({
+    category = await fetchDoc<CategoryType>({
       collection: 'categories',
       slug: getLastFromArray(slug),
       breadcrumbUrl: getPathFromSlugArr(slug),
@@ -85,7 +86,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
     if (!category) return notFound();
 
-    categories = (await fetchDocs<Category>('categories')).docs;
+    categories = (await fetchDocs<CategoryType>('categories')).docs;
 
     attributesForProducts =
       (
@@ -104,7 +105,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
     const subcategoriesIds = getChildrenIds(category.id, categories);
 
-    const sort = sortingObject[searchParams.sort] || sortingObject.new;
+    const sort = sortingOptions[searchParams.sort] || sortingOptions.new;
     productsData = await fetchDocs<Product>('products', isDraftMode, {
       attributes,
       filterCategoriesByIds: subcategoriesIds,
@@ -121,6 +122,8 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
   } catch (error) {
     console.log(error);
   }
+
+  if (!category) return notFound();
 
   let productsAttributesObject: { [key: string]: string[] } = {};
 
@@ -139,8 +142,6 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
   const productsAttributesEntries = Object.entries(productsAttributesObject);
 
-  if (!category) return notFound();
-
   const subcategories = categories.filter(
     (cat) => cat.parent && typeof cat.parent === 'object' && cat.parent?.id === category.id,
   );
@@ -152,11 +153,12 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
-          <SortingSelector className={classes['sorting-selector']} />
+          <SortingSelect className={classes['sorting-select']} />
         </div>
 
         <div>
           <Filters category={category} categories={categories} subcategories={subcategories} slug={slug} />
+
           <AttributesFilter
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--desktop']}
@@ -165,6 +167,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
 
         <div>
           <CategoryHeader category={category} subcategories={subcategories} className={classes['category-header']} />
+
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >
@@ -172,7 +175,7 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
             />
-            <SortingSelector className={classes['sorting-selector']} />
+            <SortingSelect className={classes['sorting-select']} />
           </div>
 
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
@@ -180,21 +183,19 @@ const Categories: React.FC<CategoriesProps> = async ({ params: { slug }, searchP
           <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
         </div>
       </Gutter>
+
       <HR />
     </div>
   );
 };
 
-export default Categories;
-
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode();
-  slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
-  let category: Category | null = null;
+  let category: CategoryType | null = null;
 
   try {
-    category = await fetchDoc<Category>({
+    category = await fetchDoc<CategoryType>({
       collection: 'categories',
       slug: getLastFromArray(slug),
       draft: isDraftMode,
@@ -203,5 +204,9 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
 
   if (!category) return;
 
-  return generateMeta({ doc: { title: `Catégorie ${category?.title}` || `Catégorie ${getLastFromArray(slug)}` } });
+  return generateMeta({
+    doc: { ...(category || {}), title: `Catégorie ${category?.title}` || `Catégorie ${getLastFromArray(slug)}` },
+  });
 }
+
+export default Category;

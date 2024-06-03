@@ -1,12 +1,12 @@
-import type { Page } from '../payload-types'
+import type { Page } from '../payload-types';
 
 export const productsPage: Omit<Page, 'updatedAt' | 'createdAt' | 'id'> = {
-  title: 'Products',
+  title: 'Produits',
   slug: 'products',
   _status: 'published',
   meta: {
-    title: 'Shop all products',
-    description: 'Shop everything from goods and services to digital assets and gated content.',
+    title: '',
+    // description: 'Shop everything from goods and services to digital assets and gated content.',
   },
   hero: {
     type: 'lowImpact',
@@ -58,4 +58,4 @@ export const productsPage: Omit<Page, 'updatedAt' | 'createdAt' | 'id'> = {
       categories: [],
     },
   ],
-}
+};

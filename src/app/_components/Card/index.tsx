@@ -32,7 +32,7 @@ export const Card: React.FC<{
   return (
     <Link href={href} className={clsx(classes.card, className)}>
       <div className={classes.mediaWrapper}>
-        {!metaImage && <div className={classes.placeholder}>pas d'image</div>}
+        {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
         {metaImage && typeof metaImage !== 'string' && <Media imgClassName={classes.image} resource={metaImage} fill />}
       </div>
 

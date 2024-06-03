@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
   const redirect = useRef(searchParams.get('redirect'));
   const { login } = useAuth();
   const router = useRouter();
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -35,6 +35,7 @@ const LoginForm: React.FC = () => {
     async (data: FormData) => {
       try {
         await login(data);
+
         if (redirect?.current) router.push(redirect.current as string);
         else router.push('/account');
       } catch (_) {

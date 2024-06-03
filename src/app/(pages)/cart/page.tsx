@@ -23,8 +23,9 @@ export default async function Cart() {
   const { user } = await getMeUser({
     nullUserRedirect: `/login?redirect=${encodeURIComponent(`/cart`)}`,
   });
-  const isActiveSubs = await isActiveSubscription(user);
-  if (!isActiveSubs) redirect('/account');
+  const isActiveSubscriptionStatus = await isActiveSubscription(user);
+  if (!isActiveSubscriptionStatus)
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
 
   let page: Page | null = null;
 
@@ -43,13 +44,8 @@ export default async function Cart() {
   // if no `cart` page exists, render a static one using dummy content
   // you should delete this code once you have a cart page in the CMS
   // this is really only useful for those who are demoing this template
-  if (!page) {
-    page = staticCart;
-  }
-
-  if (!page) {
-    return notFound();
-  }
+  if (!page) page = staticCart;
+  if (!page) return notFound();
 
   let settings: Settings | null = null;
 
@@ -66,8 +62,10 @@ export default async function Cart() {
     <div className={classes.container}>
       <Gutter>
         <h3>Panier</h3>
+
         <CartPage settings={settings} page={page} />
       </Gutter>
+
       <Blocks blocks={page?.layout} />
     </div>
   );
