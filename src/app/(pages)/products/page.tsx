@@ -148,7 +148,8 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         </div>
 
         <div>
-          <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />
+          {(cmsPage?.layout || [])?.length > 0 && <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />}
+
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >

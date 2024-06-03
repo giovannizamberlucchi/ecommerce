@@ -7,9 +7,11 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin-bottom: 40px;
 
   @include large-break {
     min-height: 300px;
+    margin-bottom: 20px;
   }
 }
 

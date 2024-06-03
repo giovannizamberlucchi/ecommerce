@@ -66,7 +66,7 @@ export default async function Cart() {
         <CartPage settings={settings} page={page} />
       </Gutter>
 
-      <Blocks blocks={page?.layout} />
+      {(page?.layout || [])?.length > 0 && <Blocks blocks={page?.layout} />}
     </div>
   );
 }
