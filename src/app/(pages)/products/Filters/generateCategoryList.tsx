@@ -79,7 +79,7 @@ export const GenerateCategoryMobileList = ({ category, categories, slug = [] }: 
       ) : (
         <div className={classes['categories--mobile--list']}>
           {(categories || []).map((category) => (
-            <CategoryCard key={category.id} category={category} />
+            <CategoryCard key={category.id} {...category} />
           ))}
         </div>
       )}
