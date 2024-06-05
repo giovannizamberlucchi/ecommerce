@@ -13,7 +13,6 @@ import { getMeUser } from '../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 
 import classes from './index.module.scss';
-import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 
 export default async function Orders() {
   const { token, user } = await getMeUser({
