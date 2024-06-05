@@ -2,15 +2,14 @@
 
 .image {
   width: 100%;
-  min-height: 400px;
   border-radius: 10px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 40px;
+  aspect-ratio: 2 / 1;
 
   @include large-break {
-    min-height: 300px;
     margin-bottom: 20px;
   }
 }
