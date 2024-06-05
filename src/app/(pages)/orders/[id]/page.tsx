@@ -18,8 +18,8 @@ import classes from './index.module.scss';
 export default async function Order({ params: { id } }) {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to view this order.',
-    )}&redirect=${encodeURIComponent(`/order/${id}`)}`,
+      'Vous devez être connecté pour voir cette commande.',
+    )}&redirect=${encodeURIComponent(`/orders/${id}`)}`,
   });
 
   let order: OrderType | null = null;

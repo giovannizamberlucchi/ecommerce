@@ -38,8 +38,11 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
       'Vous devez être connecté pour voir la page du magasin.',
     )}&redirect=${encodeURIComponent('/products')}`,
   });
+
   const isActiveSubscriptionStatus = true || (await isActiveSubscription(user));
-  if (!isActiveSubscriptionStatus) redirect('/login');
+
+  if (!isActiveSubscriptionStatus)
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;

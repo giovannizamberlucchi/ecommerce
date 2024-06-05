@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Settings } from '../../../../payload/payload-types';
@@ -19,9 +19,10 @@ export const LogoutPage: React.FC<{
     const performLogout = async () => {
       try {
         await logout();
-        setSuccess('Logged out successfully.');
+
+        setSuccess('Déconnecté avec succès.');
       } catch (_) {
-        setError('You are already logged out.');
+        setError('Vous êtes déjà déconnecté.');
       }
     };
 
@@ -29,25 +30,25 @@ export const LogoutPage: React.FC<{
   }, [logout]);
 
   return (
-    <Fragment>
+    <>
       {(error || success) && (
         <div>
           <h1>{error || success}</h1>
           <p>
-            {'What would you like to do next?'}
+            {'Que voulez-vous faire ensuite?'}
             {typeof productsPage === 'object' && productsPage?.slug && (
-              <Fragment>
+              <>
                 {' '}
-                <Link href={`/${productsPage.slug}`}>Click here</Link>
-                {` to shop.`}
-              </Fragment>
+                <Link href={`/${productsPage.slug}`}>Cliquez ici</Link>
+                {` pour aller à la boutique.`}
+              </>
             )}
-            {` To log back in, `}
-            <Link href="/login">click here</Link>
+            {` Pour vous reconnecter, `}
+            <Link href="/login">cliquez ici</Link>
             {'.'}
           </p>
         </div>
       )}
-    </Fragment>
+    </>
   );
 };

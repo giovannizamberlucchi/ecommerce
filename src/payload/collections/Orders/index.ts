@@ -80,8 +80,7 @@ export const Orders: CollectionConfig = {
             fr: 'Prix',
           },
           name: 'price',
-          type: 'number',
-          min: 0,
+          type: 'text',
         },
         {
           label: {

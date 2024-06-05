@@ -40,11 +40,12 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
   // slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
   const { user } = await getMeUser({
-    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories${getPathFromSlugArr(slug)}`)}`,
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories${getPathFromSlugArr(slug)}`)}&error=${encodeURIComponent('Vous devez être connecté pour voir la catégorie')}`,
   });
   const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
-  if (!isActiveSubscriptionStatus) redirect('/account');
+  if (!isActiveSubscriptionStatus)
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;

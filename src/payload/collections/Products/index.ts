@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload/types';
 
 import { admins } from '../../access/admins';
-import { Archive } from '../../blocks/ArchiveBlock';
-import { CallToAction } from '../../blocks/CallToAction';
-import { Content } from '../../blocks/Content';
-import { MediaBlock } from '../../blocks/MediaBlock';
+// import { Archive } from '../../blocks/ArchiveBlock';
+// import { CallToAction } from '../../blocks/CallToAction';
+// import { Content } from '../../blocks/Content';
+// import { MediaBlock } from '../../blocks/MediaBlock';
 import { slugField } from '../../fields/slug';
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock';
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts';
@@ -106,15 +106,15 @@ const Products: CollectionConfig = {
               name: 'description',
               type: 'textarea',
             },
-            {
-              label: {
-                en: 'Layout',
-                fr: 'Mise en page',
-              },
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive],
-            },
+            // {
+            //   label: {
+            //     en: 'Layout',
+            //     fr: 'Mise en page',
+            //   },
+            //   name: 'layout',
+            //   type: 'blocks',
+            //   blocks: [CallToAction, Content, MediaBlock, Archive],
+            // },
           ],
         },
         {
@@ -129,7 +129,7 @@ const Products: CollectionConfig = {
                 en: 'Product price',
                 fr: 'Prix du produit',
               },
-              type: 'number',
+              type: 'text',
             },
             {
               label: {

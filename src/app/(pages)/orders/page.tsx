@@ -18,11 +18,9 @@ import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 export default async function Orders() {
   const { token, user } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to view your orders.',
+      'Vous devez être connecté pour consulter vos commandes.',
     )}&redirect=${encodeURIComponent('/orders')}`,
   });
-  const isActiveSubs = await isActiveSubscription(user);
-  if (!isActiveSubs) redirect('/account');
 
   let orders: Order[] | null = null;
 
@@ -51,7 +49,7 @@ export default async function Orders() {
 
   return (
     <Gutter className={classes.orders}>
-      <h1>Orders</h1>
+      <h1>Commandes</h1>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
         <p className={classes.noOrders}>Vous n'avez aucune commande.</p>
       )}
@@ -90,10 +88,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  title: 'Orders',
+  title: 'Commandes',
   description: 'Vos commandes',
   openGraph: mergeOpenGraph({
-    title: 'Orders',
+    title: 'Commandes',
     url: '/orders',
   }),
 };

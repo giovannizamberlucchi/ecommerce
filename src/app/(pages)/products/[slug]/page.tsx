@@ -9,6 +9,7 @@ import { fetchDocs } from '../../../_api/fetchDocs';
 import { Blocks } from '../../../_components/Blocks';
 import { ProductHero } from '../../../_heros/Product';
 import { generateMeta } from '../../../_utilities/generateMeta';
+import { getMeUser } from '../../../_utilities/getMeUser';
 
 // Force this page to be dynamic so that Next.js does not cache it
 // See the note in '../../../[slug]/page.tsx' about this
@@ -16,6 +17,10 @@ export const dynamic = 'force-dynamic';
 
 export default async function Product({ params: { slug } }) {
   const { isEnabled: isDraftMode } = draftMode();
+
+  await getMeUser({
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/products/${slug}`)}&error=${encodeURIComponent('Vous devez être connecté pour voir le produit')}`,
+  });
 
   let product: ProductType | null = null;
 
@@ -29,9 +34,7 @@ export default async function Product({ params: { slug } }) {
     console.error(error); // eslint-disable-line no-console
   }
 
-  if (!product) {
-    notFound();
-  }
+  if (!product) notFound();
 
   const { relatedProducts } = product;
 
@@ -50,7 +53,7 @@ export default async function Product({ params: { slug } }) {
                 type: 'h3',
                 children: [
                   {
-                    text: 'Related Products',
+                    text: 'Produits connexes',
                   },
                 ],
               },

@@ -47,7 +47,7 @@ export const SortingSelect: React.FC<SortingSelectProps> = ({ className }) => {
   return (
     <Select
       options={options}
-      placeholder="Sorting"
+      placeholder="Tri"
       defaultValue={currentOption}
       renderOption={({ label, value }) => (
         <div className={classes.option} onClick={() => goToUrl(value)}>

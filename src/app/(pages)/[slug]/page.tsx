@@ -30,8 +30,16 @@ export const dynamic = 'force-dynamic';
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode();
 
-  if (slug && slug !== 'home')
-    await getMeUser({ nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}` });
+  if (slug !== 'home' && slug !== '') {
+    const { user } = await getMeUser({
+      nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
+    });
+
+    const isActiveSubscriptionStatus = await isActiveSubscription(user);
+
+    if (!isActiveSubscriptionStatus)
+      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+  }
 
   let page: PageType | null = null;
   let categories: Category[] | null = null;
@@ -101,8 +109,11 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
     const { user } = await getMeUser({
       nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
     });
-    const isActiveSubs = await isActiveSubscription(user);
-    if (!isActiveSubs) redirect('/account');
+
+    const isActiveSubscriptionStatus = await isActiveSubscription(user);
+
+    if (!isActiveSubscriptionStatus)
+      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
   }
 
   const { isEnabled: isDraftMode } = draftMode();

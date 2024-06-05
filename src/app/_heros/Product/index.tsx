@@ -9,16 +9,13 @@ import classes from './index.module.scss';
 export const ProductHero: React.FC<{
   product: Product;
 }> = ({ product }) => {
-  const { title, image, categories, description, meta: { image: metaImage } = {} } = product;
+  const { title, categories, description, meta: { image: metaImage } = {} } = product;
 
   return (
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
-        {!image && !metaImage && <div className={classes.placeholder}>Pas d'image</div>}
-        {(image && typeof image !== 'string') ||
-          (metaImage && typeof metaImage !== 'string' && (
-            <Media imgClassName={classes.image} resource={metaImage} fill />
-          ))}
+        {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
+        {metaImage && typeof metaImage !== 'string' && <Media imgClassName={classes.image} resource={metaImage} fill />}
       </div>
 
       <div className={classes.details}>
@@ -45,14 +42,14 @@ export const ProductHero: React.FC<{
 
         <Price product={product} button={false} />
 
+        <AddToCartButton product={product} className={classes.addToCartButton} />
+
         {description && (
           <div className={classes.description}>
             <br />
             <p>{description}</p>
           </div>
         )}
-
-        <AddToCartButton product={product} className={classes.addToCartButton} />
       </div>
     </Gutter>
   );

@@ -21,7 +21,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Cart() {
   const { user } = await getMeUser({
-    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/cart`)}`,
+    nullUserRedirect: `/login?redirect=${encodeURIComponent(`/cart`)}&error=${encodeURIComponent('Vous devez être connecté pour voir le panier')}`,
   });
   const isActiveSubscriptionStatus = await isActiveSubscription(user);
   if (!isActiveSubscriptionStatus)
