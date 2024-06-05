@@ -65,12 +65,6 @@ export const PRODUCT = `#graphql
         title
         description
         ${PRODUCT_CATEGORIES}
-        layout {
-          ${CALL_TO_ACTION}
-          ${CONTENT}
-          ${MEDIA_BLOCK}
-          ${ARCHIVE_BLOCK}
-        }
         price
         suppliers {
           name

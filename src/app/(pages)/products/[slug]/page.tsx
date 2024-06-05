@@ -1,4 +1,3 @@
-import React from 'react';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -69,6 +68,7 @@ export default async function Product({ params: { slug } }) {
 export async function generateStaticParams() {
   try {
     const products = (await fetchDocs<ProductType>('products')).docs;
+
     return products?.map(({ slug }) => slug);
   } catch (error) {
     return [];

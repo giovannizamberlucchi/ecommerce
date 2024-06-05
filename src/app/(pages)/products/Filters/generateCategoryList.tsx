@@ -3,74 +3,94 @@ import { Category } from '../../../../payload/payload-types';
 import classes from './index.module.scss';
 import CategoryCard from '../../../_components/Categories/CategoryCard';
 import { getPathFromSlugArr } from '../../../_api/utils';
-import { notFound } from 'next/navigation';
 import { CategoryHeader } from '../../categories/[...slug]/CategoryHeader';
 
-const GetAllProducts = () => (
+const AllProducts = () => (
   <div>
     <Link href="/products">Tous les produits</Link>
   </div>
 );
 
-type generateDesktopProps = {
+const MenuWithoutChildren = ({
+  categories,
+  className,
+  slug,
+}: {
   categories: Category[];
-  slug?: string[];
-  className?: string;
-};
-
-export const GenerateCategoryDesktopList: React.FC<generateDesktopProps> = ({ categories, slug = [], className }) => {
+  className: string;
+  slug: string[];
+}) => {
   const getCategoryBreadcrumbs = (category: Category) =>
-    category.breadcrumbs !== undefined && typeof category.breadcrumbs[category.breadcrumbs.length - 1].url === 'string'
+    category.breadcrumbs && typeof category.breadcrumbs[category.breadcrumbs.length - 1].url === 'string'
       ? category.breadcrumbs[category.breadcrumbs.length - 1].url
       : '';
 
-  const isSelected = (category: Category) =>
-    getCategoryBreadcrumbs(category) !== '' && getPathFromSlugArr(slug) === getCategoryBreadcrumbs(category);
+  const isActiveCategory = (category: Category) =>
+    getCategoryBreadcrumbs(category) && getPathFromSlugArr(slug) === getCategoryBreadcrumbs(category);
 
   const getCategoryUrl = (category: Category) =>
-    getCategoryBreadcrumbs(category) !== '' && !isSelected(category)
+    getCategoryBreadcrumbs(category) && !isActiveCategory(category)
       ? `/categories${getCategoryBreadcrumbs(category)}`
       : `/products`;
 
-  const MenuWithoutChildren = ({ data }: { data: Category[] }) => (
+  return (
     <ul className={className}>
-      {(data || []).map((m) => (
-        <li key={m.id} className={classes['categories-item']}>
-          <Link href={getCategoryUrl(m)} className={isSelected(m) ? classes.itemActive : classes.item}>
-            {m.title}
+      {categories.map((category) => (
+        <li key={category.id} className={classes['categories-item']}>
+          <Link
+            href={getCategoryUrl(category)}
+            className={isActiveCategory(category) ? classes.itemActive : classes.item}
+          >
+            {category.title}
           </Link>
         </li>
       ))}
     </ul>
   );
-
-  return (
-    <div className={classes['categories--desktop']}>
-      <GetAllProducts />
-      <MenuWithoutChildren data={categories.filter((cat) => cat.parent === null)} />
-    </div>
-  );
 };
 
-type generateMobileProps = {
+type CategoryDesktopListProps = {
+  categories: Category[];
+  slug?: string[];
+  menuWithoutChildrenClassName?: string;
+};
+
+export const CategoryDesktopList: React.FC<CategoryDesktopListProps> = ({
+  categories,
+  slug = [],
+  menuWithoutChildrenClassName,
+}) => (
+  <div className={classes['categories--desktop']}>
+    <AllProducts />
+
+    <MenuWithoutChildren
+      categories={categories.filter((cat) => cat.parent === null)}
+      className={menuWithoutChildrenClassName}
+      slug={slug}
+    />
+  </div>
+);
+
+type CategoryMobileListProps = {
   category?: Category;
   categories: Category[];
   slug?: string[];
 };
 
-export const GenerateCategoryMobileList = ({ category, categories, slug = [] }: generateMobileProps) => {
-  if (categories === undefined) return notFound();
-  const urlBack = slug.length > 1 ? `/categories${getPathFromSlugArr(slug.slice(0, -1))}` : '/products';
+export const CategoryMobileList = ({ category, categories, slug = [] }: CategoryMobileListProps) => {
+  if (!categories.length) return null;
+
+  const urlBack = slug.length ? `/categories${getPathFromSlugArr(slug.slice(0, -1))}` : '/products';
 
   return (
     <div className={classes['categories--mobile']}>
-      {slug.length > 0 && (
+      {!!slug.length && (
         <div className={classes['categories--mobile--title']}>
           <Link href={urlBack} className={classes['categories--mobile--arrow-back']}>
             {'↙'}
           </Link>
 
-          <h6 className={classes.title}>{category !== undefined && category.title}</h6>
+          {category && <h6 className={classes.title}>{category.title}</h6>}
         </div>
       )}
 
@@ -78,7 +98,7 @@ export const GenerateCategoryMobileList = ({ category, categories, slug = [] }: 
         <CategoryHeader category={category} subcategories={categories} />
       ) : (
         <div className={classes['categories--mobile--list']}>
-          {(categories || []).map((category) => (
+          {categories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}
         </div>

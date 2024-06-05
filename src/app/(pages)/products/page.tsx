@@ -54,6 +54,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   let allProductsAttributes: Product[] | null = null;
 
   const limit = 12;
+
   const attributesEntries = Object.entries(searchParams)
     .map<[string, string[]]>(([key, value]) => [key, Array.isArray(value) ? value : [value]])
     .filter(([key, value]) => key !== 'page' && key !== 'sort');
@@ -109,16 +110,15 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     console.log(error);
   }
 
-  let productsAttributesObject: { [key: string]: string[] } = {};
+  const productsAttributesObject: Record<string, string[]> = {};
 
   (allProductsAttributes || []).map((product) =>
     product.attributes.map((attr) => {
-      if (attr.type === null && typeof attr.type === 'string' && attr.type === undefined) return;
-      const type = attr.type as Attribute;
-      if (
-        productsAttributesObject[type.attribute] !== undefined &&
-        !productsAttributesObject[type.attribute].includes(attr.value)
-      )
+      if (!attr.type || typeof attr.type === 'string') return;
+
+      const type = attr.type;
+
+      if (productsAttributesObject[type.attribute] && !productsAttributesObject[type.attribute].includes(attr.value))
         productsAttributesObject[type.attribute] = [...productsAttributesObject[type.attribute], attr.value];
       else productsAttributesObject[type.attribute] = [attr.value];
     }),
@@ -126,9 +126,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
   const productsAttributesEntries = Object.entries(productsAttributesObject);
 
-  if (categories === null) return notFound();
-  if (productsData === null) return notFound();
-  if (Number(page) > productsData?.totalPages) return notFound();
+  if (!categories || !productsData || Number(page) > productsData?.totalPages) return notFound();
 
   const subcategories = categories.filter((cat) => cat.parent === null);
 
@@ -168,23 +166,21 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
           <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
         </div>
       </Gutter>
+
       <HR />
     </div>
   );
 };
 
-export default Products;
-
 export async function generateMetadata(): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode();
-  const slug = 'products';
 
   let page: Page | null = null;
 
   try {
     page = await fetchDoc<Page>({
       collection: 'pages',
-      slug,
+      slug: 'products',
       draft: isDraftMode,
     });
   } catch (error) {
@@ -193,9 +189,11 @@ export async function generateMetadata(): Promise<Metadata> {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // in production you may want to redirect to a 404  page or at least log the error somewhere
   }
-  if (!page) {
-    page = productsPage;
-  }
+
+  // @ts-ignore
+  if (!page) page = productsPage;
 
   return generateMeta({ doc: page });
 }
+
+export default Products;
