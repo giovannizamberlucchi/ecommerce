@@ -64,11 +64,15 @@
   width: 100%;
 
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 15;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-line;
+
+  @include large-break {
+    -webkit-line-clamp: 5;
+  }
 }
 
 .hideImageOnMobile {
