@@ -70,6 +70,8 @@ export default async function Page({ params: { slug = 'home' } }) {
     return notFound();
   }
 
+  const categoriesWithoutSubcategories = categories.filter((category) => !category.parent);
+
   const { hero, layout } = page;
 
   return (
@@ -79,7 +81,7 @@ export default async function Page({ params: { slug = 'home' } }) {
           <Hero {...hero} />
 
           <Gutter className={classes.home}>
-            <Categories categories={categories} />
+            <Categories categories={categoriesWithoutSubcategories} />
             <Promotion />
           </Gutter>
         </section>
