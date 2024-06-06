@@ -130,8 +130,8 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
 
   (allProductsAttributes || []).map((product) =>
     product.attributes.map((attr) => {
-      if (attr.type === null && typeof attr.type === 'string' && attr.type === undefined) return;
-      const type = attr.type as Attribute;
+      if (!attr.type || typeof attr.type === 'string') return;
+      const type = attr.type;
       if (
         productsAttributesObject[type.attribute] !== undefined &&
         !productsAttributesObject[type.attribute].includes(attr.value)
