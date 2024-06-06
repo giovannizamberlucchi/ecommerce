@@ -80,7 +80,7 @@ type CategoryMobileListProps = {
 export const CategoryMobileList = ({ category, categories, slug = [] }: CategoryMobileListProps) => {
   if (!categories.length) return null;
 
-  const upperLevelCategoryUrl = slug.length ? `/categories${getPathFromSlugArr(slug.slice(0, -1))}` : '/products';
+  const upperLevelCategoryUrl = slug.length > 1 ? `/categories${getPathFromSlugArr(slug.slice(0, -1))}` : '/products';
 
   return (
     <div className={classes['categories--mobile']}>

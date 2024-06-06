@@ -4,14 +4,14 @@ import { HR } from '../../../_components/HR';
 import classes from './index.module.scss';
 import { CategoryDesktopList, CategoryMobileList } from './generateCategoryList';
 
-type FiltersProps = {
+type CategoriesProps = {
   category?: Category;
   categories: Category[];
   subcategories?: Category[];
   slug?: string[];
 };
 
-const Filters = ({ category, categories, subcategories, slug = [] }: FiltersProps) => (
+const Categories = ({ category, categories, subcategories, slug = [] }: CategoriesProps) => (
   <div className={classes.filters}>
     <div>
       <h6 className={classes.title}>Catégories</h6>
@@ -25,4 +25,4 @@ const Filters = ({ category, categories, subcategories, slug = [] }: FiltersProp
   </div>
 );
 
-export default Filters;
+export default Categories;

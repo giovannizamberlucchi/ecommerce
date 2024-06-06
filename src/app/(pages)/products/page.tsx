@@ -6,7 +6,7 @@ import { fetchDocs } from '../../_api/fetchDocs';
 import { Blocks } from '../../_components/Blocks';
 import { Gutter } from '../../_components/Gutter';
 import { HR } from '../../_components/HR';
-import Filters from './Filters';
+import Categories from './Categories';
 
 import classes from './index.module.scss';
 import { CollectionProducts } from '../../_components/CollectionProducts';
@@ -22,6 +22,7 @@ import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 import { SortingSelect } from '../../_components/SortingSelect';
 import clsx from 'clsx';
+import { Filter } from './Filter';
 
 export const dynamic = 'force-dynamic';
 
@@ -118,9 +119,13 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
       const type = attr.type;
 
-      if (productsAttributesObject[type.attribute] && !productsAttributesObject[type.attribute].includes(attr.value))
+      if (productsAttributesObject[type.attribute] && !productsAttributesObject[type.attribute].includes(attr.value)) {
         productsAttributesObject[type.attribute] = [...productsAttributesObject[type.attribute], attr.value];
-      else productsAttributesObject[type.attribute] = [attr.value];
+      } else {
+        if (!productsAttributesObject[type.attribute]) {
+          productsAttributesObject[type.attribute] = [attr.value];
+        }
+      }
     }),
   );
 
@@ -141,15 +146,17 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         </div>
 
         <div>
-          <Filters categories={categories} subcategories={subcategories} />
-          <AttributesFilter
+          <Categories categories={categories} subcategories={subcategories} />
+          {/* <AttributesFilter
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--desktop']}
-          />
+          /> */}
         </div>
 
         <div>
           {(cmsPage?.layout || [])?.length > 0 && <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />}
+
+          <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} />
 
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}

@@ -1,0 +1,20 @@
+.title {
+  margin-bottom: 20px;
+}
+
+.title-attribute {
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.container-attributes {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.container-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}

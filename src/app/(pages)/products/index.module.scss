@@ -97,3 +97,11 @@
   text-align: center;
   border-radius: 15px;
 }
+
+.hide-on-mobile {
+  display: block;
+
+  @include large-break {
+    display: none !important;
+  }
+}
