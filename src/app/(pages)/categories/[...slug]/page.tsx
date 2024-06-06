@@ -170,7 +170,8 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
           <CategoryHeader
             category={category}
             subcategories={subcategories}
-            // imageClassName={classes['hide-on-mobile']}
+            imageClassName={classes['hide-on-mobile']}
+            descriptionClassName={classes['hide-on-mobile']}
             subCategoriesClassName={classes['hide-on-mobile']}
           />
 

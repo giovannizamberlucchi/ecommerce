@@ -102,6 +102,6 @@
   display: block;
 
   @include large-break {
-    display: none;
+    display: none !important;
   }
 }
