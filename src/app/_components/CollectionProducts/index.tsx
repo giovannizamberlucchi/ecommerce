@@ -31,7 +31,12 @@ export const CollectionProducts: React.FC<Props> = (props) => {
 
       {totalPages > 1 && (
         <Suspense>
-          <Pagination totalPages={totalPages} hasPrevPage={hasPrevPage} hasNextPage={hasNextPage} />
+          <Pagination
+            totalPages={totalPages}
+            hasPrevPage={hasPrevPage}
+            hasNextPage={hasNextPage}
+            className={classes.pagination}
+          />
         </Suspense>
       )}
     </div>
