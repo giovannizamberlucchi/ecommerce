@@ -70,6 +70,8 @@ export default async function Page({ params: { slug = 'home' } }) {
     return notFound();
   }
 
+  if (!categories) return notFound();
+
   const categoriesWithoutSubcategories = categories.filter((category) => !category.parent);
 
   const { hero, layout } = page;
