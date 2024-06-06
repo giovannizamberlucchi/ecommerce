@@ -20,6 +20,7 @@ type FormData = {
   phone: string;
   password: string;
   passwordConfirm: string;
+  referralCode: string;
 };
 
 const CreateAccountForm: React.FC = () => {
@@ -30,7 +31,7 @@ const CreateAccountForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  let referralCode: string | null = null;
+  let [referralCode, setReferralCode] = useState<string | null>(null);
 
   useEffect(() => {
     if (localStorage.getItem('referralCode') !== null) {
@@ -40,13 +41,13 @@ const CreateAccountForm: React.FC = () => {
         const parsedObjectReferralCode = JSON.parse(objectReferralCode);
 
         if (parsedObjectReferralCode.expire > new Date().getTime()) {
-          referralCode = parsedObjectReferralCode.value;
+          setReferralCode(parsedObjectReferralCode.value);
         }
       }
     }
 
     if (referralCode === null) {
-      referralCode = searchParams.get('referral');
+      setReferralCode((prev) => (!prev ? searchParams.get('referral') : prev));
 
       if (searchParams.get('referral') !== null) {
         const objectReferralCode = {
@@ -57,7 +58,7 @@ const CreateAccountForm: React.FC = () => {
         localStorage.setItem('referralCode', JSON.stringify(objectReferralCode));
       }
     }
-  }, [searchParams]);
+  }, [searchParams, referralCode]);
 
   const {
     register,
@@ -66,7 +67,7 @@ const CreateAccountForm: React.FC = () => {
     watch,
   } = useForm<FormData>();
 
-  const phoneSchema = Yup.string().phone().required();
+  const phoneSchema = Yup.string().phone('FR').required();
 
   const password = useRef({});
   password.current = watch('password', '');
@@ -80,17 +81,17 @@ const CreateAccountForm: React.FC = () => {
         return;
       }
 
-      if (localStorage.getItem('referralCode') !== null) {
-        const objectReferralCode = localStorage.getItem('referralCode');
+      // if (localStorage.getItem('referralCode') !== null) {
+      //   const objectReferralCode = localStorage.getItem('referralCode');
 
-        if (objectReferralCode !== null) {
-          const parsedObjectReferralCode = JSON.parse(objectReferralCode);
+      //   if (objectReferralCode !== null) {
+      //     const parsedObjectReferralCode = JSON.parse(objectReferralCode);
 
-          if (parsedObjectReferralCode.expire > new Date().getTime()) {
-            data['referralCode'] = parsedObjectReferralCode.value;
-          }
-        }
-      }
+      //     if (parsedObjectReferralCode.expire > new Date().getTime()) {
+      //       data['referralCode'] = parsedObjectReferralCode.value;
+      //     }
+      //   }
+      // }
 
       const response = await fetch('/api/users/sign-up', {
         method: 'POST',
@@ -147,6 +148,16 @@ const CreateAccountForm: React.FC = () => {
         validate={(value) => value === password.current || 'Les mots de passe ne correspondent pas.'}
         error={errors.passwordConfirm}
       />
+      <Input
+        name="referralCode"
+        label="Code de Parrainage"
+        required
+        register={register}
+        error={errors.referralCode}
+        type="text"
+        defaultValue={referralCode}
+      />
+
       <Button
         type="submit"
         label={loading ? 'Processing' : 'Créer un compte'}
