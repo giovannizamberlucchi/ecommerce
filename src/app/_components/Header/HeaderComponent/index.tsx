@@ -19,7 +19,7 @@ const HeaderComponent = ({ header }: { header: Header }) => {
     <nav className={[classes.header, noHeaderFooterUrls.includes(pathname) && classes.hide].filter(Boolean).join(' ')}>
       <Gutter className={classes.wrap}>
         <Link href="/">
-          <Image src="/resovalie-achat-fond-noir-rvb.jpg" alt="logo" width={170} height={50} />
+          <Image src="/resovalie-achat-fond-blanc-rvb.jpg" alt="logo" width={170} height={50} />
         </Link>
 
         <HeaderNav header={header} />
