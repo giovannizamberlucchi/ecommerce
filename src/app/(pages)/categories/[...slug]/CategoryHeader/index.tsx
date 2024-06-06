@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Category, Media } from '../../../../../payload/payload-types';
 import CategoryCard from '../../../../_components/Categories/CategoryCard';
 import RichText from '../../../../_components/RichText';
@@ -6,26 +7,30 @@ import classes from './index.module.scss';
 type CategoryHeaderProps = {
   category: Category;
   subcategories: Category[];
-  className?: string;
+  imageClassName?: string;
+  subCategoriesClassName?: string;
+  descriptionClassName?: string;
 };
 
 export const CategoryHeader: React.FC<CategoryHeaderProps> = ({
   category: { media, description },
   subcategories,
-  className,
+  imageClassName,
+  subCategoriesClassName,
+  descriptionClassName,
 }) => (
-  <div className={className}>
+  <>
     <div
       style={{ backgroundImage: media && typeof media === 'object' ? `url(${media.url})` : undefined }}
-      className={classes.image}
+      className={clsx(classes.image, imageClassName)}
     />
 
-    <RichText content={description} className={classes.description} />
+    <RichText content={description} className={clsx(classes.description, descriptionClassName)} />
 
-    <div className={classes.subcategories}>
+    <div className={clsx(classes.subcategories, subCategoriesClassName)}>
       {subcategories.map((category) => (
         <CategoryCard key={category.id} {...category} />
       ))}
     </div>
-  </div>
+  </>
 );

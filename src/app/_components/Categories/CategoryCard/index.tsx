@@ -6,10 +6,11 @@ import classes from './index.module.scss';
 import { getLastFromArray } from '../../../_api/utils';
 
 const CategoryCard: React.FC<Category> = ({ title, breadcrumbs, media }) => {
+  const lastBreadcrumb = getLastFromArray(breadcrumbs);
   const href =
-    breadcrumbs?.length && getLastFromArray(breadcrumbs).url && typeof getLastFromArray(breadcrumbs).url === 'string'
-      ? `/categories${getLastFromArray(breadcrumbs).url}`
-      : `/categories`;
+    breadcrumbs.length && lastBreadcrumb.url && typeof lastBreadcrumb.url === 'string'
+      ? `/categories${lastBreadcrumb.url}`
+      : `/products`;
 
   return (
     <Link href={href} className={classes.card}>
