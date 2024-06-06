@@ -25,7 +25,10 @@ export const CategoryHeader: React.FC<CategoryHeaderProps> = ({
       className={clsx(classes.image, imageClassName)}
     />
 
-    <RichText content={description} className={clsx(classes.description, descriptionClassName)} />
+    <div className={clsx(classes.description, descriptionClassName)}>
+      <RichText content={description} />
+      <div className={classes['description-fade']} />
+    </div>
 
     <div className={clsx(classes.subcategories, subCategoriesClassName)}>
       {subcategories.map((category) => (

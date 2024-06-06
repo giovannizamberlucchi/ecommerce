@@ -6,7 +6,7 @@ import { Attribute, Category as CategoryType, Product } from '../../../../payloa
 import { fetchDoc } from '../../../_api/fetchDoc';
 import { fetchDocs } from '../../../_api/fetchDocs';
 import { Gutter } from '../../../_components/Gutter';
-import Filters from '../../products/Filters';
+import Categories from '../../products/Categories';
 import { HR } from '../../../_components/HR';
 import { notFound, redirect } from 'next/navigation';
 import { getLastFromArray, getPathFromSlugArr } from '../../../_api/utils';
@@ -23,6 +23,7 @@ import { isActiveSubscription } from '../../../_utilities/isActiveSubscription';
 import { SortingSelect } from '../../../_components/SortingSelect';
 import clsx from 'clsx';
 import { CategoryHeader } from './CategoryHeader';
+import { Filter } from '../../products/Filter';
 
 type CategoriesProps = {
   params: {
@@ -131,13 +132,16 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
   (allProductsAttributes || []).map((product) =>
     product.attributes.map((attr) => {
       if (!attr.type || typeof attr.type === 'string') return;
+
       const type = attr.type;
-      if (
-        productsAttributesObject[type.attribute] !== undefined &&
-        !productsAttributesObject[type.attribute].includes(attr.value)
-      )
+
+      if (productsAttributesObject[type.attribute] && !productsAttributesObject[type.attribute].includes(attr.value)) {
         productsAttributesObject[type.attribute] = [...productsAttributesObject[type.attribute], attr.value];
-      else productsAttributesObject[type.attribute] = [attr.value];
+      } else {
+        if (!productsAttributesObject[type.attribute]) {
+          productsAttributesObject[type.attribute] = [attr.value];
+        }
+      }
     }),
   );
 
@@ -158,12 +162,12 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
         </div>
 
         <div>
-          <Filters category={category} categories={categories} subcategories={subcategories} slug={slug} />
+          <Categories category={category} categories={categories} subcategories={subcategories} slug={slug} />
 
-          <AttributesFilter
+          {/* <AttributesFilter
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--desktop']}
-          />
+          /> */}
         </div>
 
         <div>
@@ -174,6 +178,8 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
             descriptionClassName={classes['hide-on-mobile']}
             subCategoriesClassName={classes['hide-on-mobile']}
           />
+
+          <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} />
 
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
