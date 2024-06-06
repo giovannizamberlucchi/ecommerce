@@ -35,7 +35,7 @@ const AccountForm: React.FC = () => {
     watch,
   } = useForm<FormData>();
 
-  const phoneSchema = Yup.string().phone().required();
+  const phoneSchema = Yup.string().phone('FR').required();
 
   const password = useRef({});
   password.current = watch('password', '');
