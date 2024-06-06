@@ -11,16 +11,18 @@
 }
 
 .media {
-  width: calc(100% + var(--gutter-h));
-  left: calc(var(--gutter-h) / -2);
+  width: 100%;
+  // left: calc(var(--gutter-h) / -2);
   margin-top: calc(var(--base) * 3);
   position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 
   @include mid-break {
-    left: 0;
+    // left: 0;
     margin-top: var(--base);
-    margin-left: calc(var(--gutter-h) * -1);
-    width: calc(100% + var(--gutter-h) * 2);
+    // margin-left: calc(var(--gutter-h) * -1);
+    // width: calc(100% + var(--gutter-h) * 2);
   }
 }
 
@@ -31,7 +33,7 @@
   display: flex;
   padding-top: var(--base);
   flex-wrap: wrap;
-  margin: calc(var(--base) * -.5);
+  margin: calc(var(--base) * -0.5);
 
   & > * {
     margin: calc(var(--base) / 2);
