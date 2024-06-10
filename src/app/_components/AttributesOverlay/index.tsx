@@ -9,6 +9,7 @@ export const AttributesOverlay: React.FC<{ attributes: [string, string[]][]; cla
   attributes,
   className,
 }) => {
+  if (attributes.length === 0) return;
   const { overlayShow, setOverlayShow } = useFilterOverlay();
   return (
     <div className={className}>
