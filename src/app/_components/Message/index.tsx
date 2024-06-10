@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './index.module.scss';
+import clsx from 'clsx';
 
 export const Message: React.FC<{
   message?: React.ReactNode;
@@ -14,16 +15,14 @@ export const Message: React.FC<{
   if (messageToRender) {
     return (
       <div
-        className={[
+        className={clsx(
           classes.message,
           className,
           error && classes.error,
           success && classes.success,
           warning && classes.warning,
           !error && !success && !warning && classes.default,
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        )}
       >
         {messageToRender}
       </div>
