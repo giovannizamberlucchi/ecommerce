@@ -35,6 +35,10 @@ export const SETTINGS = `
       slug
     }
     teamEmail
+    sortingCategories {
+      id
+      title
+    }
   }
 `;
 
