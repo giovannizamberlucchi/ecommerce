@@ -1,6 +1,6 @@
 import { draftMode } from 'next/headers';
 
-import { Attribute, Category, Page, Product } from '../../../payload/payload-types';
+import { Attribute, Category, Page, Product, Settings } from '../../../payload/payload-types';
 import { fetchDoc } from '../../_api/fetchDoc';
 import { fetchDocs } from '../../_api/fetchDocs';
 import { Blocks } from '../../_components/Blocks';
@@ -23,6 +23,7 @@ import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 import { SortingSelect } from '../../_components/SortingSelect';
 import clsx from 'clsx';
 import { Filter } from './Filter';
+import { fetchSettings } from '../../_api/fetchGlobals';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,6 +54,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
   let allProductsAttributes: Product[] | null = null;
+  let settings: Settings | null = null;
 
   const limit = 12;
 
@@ -107,6 +109,8 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     });
 
     allProductsAttributes = (await fetchDocs<Product>('products-attributes', isDraftMode)).docs;
+
+    settings = await fetchSettings();
   } catch (error) {
     console.log(error);
   }
@@ -133,7 +137,19 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
   if (!categories || !productsData || Number(page) > productsData?.totalPages) return notFound();
 
-  const subcategories = categories.filter((cat) => cat.parent === null);
+  const topLevelCategories = categories.filter((cat) => cat.parent === null);
+
+  const sortingCategoriesIds = settings?.sortingCategories.map((cat) => (typeof cat === 'object' ? cat.id : cat));
+
+  const sortedTopLevelCategoriesByOrder = topLevelCategories
+    .filter((cat) => sortingCategoriesIds.includes(cat.id))
+    .sort((a, b) => sortingCategoriesIds.indexOf(a.id) - sortingCategoriesIds.indexOf(b.id));
+
+  const sortedTopLevelCategoriesByTitle = topLevelCategories
+    .filter((cat) => !sortingCategoriesIds.includes(cat.id))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const sortedCategories = [...sortedTopLevelCategoriesByOrder, ...sortedTopLevelCategoriesByTitle];
 
   return (
     <div className={classes.container}>
@@ -142,11 +158,11 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
-          <SortingSelect className={classes['sorting-select']} />
+          <SortingSelect />
         </div>
 
         <div>
-          <Categories categories={categories} subcategories={subcategories} />
+          <Categories subcategories={categories} topLevelCategories={sortedCategories} />
           {/* <AttributesFilter
             attributes={productsAttributesEntries}
             className={classes['container-attributes-list--desktop']}
@@ -165,7 +181,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
             />
-            <SortingSelect className={classes['sorting-select']} />
+            <SortingSelect />
           </div>
 
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />

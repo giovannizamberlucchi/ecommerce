@@ -63,23 +63,23 @@ export const CategoryDesktopList: React.FC<CategoryDesktopListProps> = ({
   <div className={classes['categories--desktop']}>
     <AllProducts />
 
-    <MenuWithoutChildren
-      categories={categories.filter((cat) => cat.parent === null)}
-      className={menuWithoutChildrenClassName}
-      slug={slug}
-    />
+    <MenuWithoutChildren categories={categories} className={menuWithoutChildrenClassName} slug={slug} />
   </div>
 );
 
 type CategoryMobileListProps = {
   category?: Category;
   categories: Category[];
+  topLevelCategories: Category[];
   slug?: string[];
 };
 
-export const CategoryMobileList = ({ category, categories, slug = [] }: CategoryMobileListProps) => {
-  if (!categories.length) return null;
-
+export const CategoryMobileList = ({
+  category,
+  categories,
+  topLevelCategories,
+  slug = [],
+}: CategoryMobileListProps) => {
   const upperLevelCategoryUrl = slug.length > 1 ? `/categories${getPathFromSlugArr(slug.slice(0, -1))}` : '/products';
 
   return (
@@ -98,7 +98,7 @@ export const CategoryMobileList = ({ category, categories, slug = [] }: Category
         <CategoryHeader category={category} subcategories={categories} />
       ) : (
         <div className={classes['categories--mobile--list']}>
-          {categories.map((category) => (
+          {topLevelCategories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}
         </div>
