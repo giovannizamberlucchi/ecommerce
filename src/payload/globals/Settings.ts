@@ -33,5 +33,20 @@ export const Settings: GlobalConfig = {
       },
       type: 'email',
     },
+    {
+      name: 'sortingCategories',
+      label: {
+        en: 'Sorting Categories',
+        fr: 'Catégories de tri',
+      },
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      filterOptions: {
+        parent: {
+          exists: false,
+        },
+      },
+    },
   ],
 };

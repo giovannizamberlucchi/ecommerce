@@ -386,6 +386,7 @@ export interface Settings {
   id: string;
   productsPage?: (string | null) | Page;
   teamEmail?: string | null;
+  sortingCategories?: (string | Category)[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
