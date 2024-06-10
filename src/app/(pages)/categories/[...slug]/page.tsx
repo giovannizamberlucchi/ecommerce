@@ -2,7 +2,7 @@ import React from 'react';
 import { draftMode } from 'next/headers';
 
 import classes from './index.module.scss';
-import { Attribute, Category as CategoryType, Product } from '../../../../payload/payload-types';
+import { Attribute, Category as CategoryType, Product, Settings } from '../../../../payload/payload-types';
 import { fetchDoc } from '../../../_api/fetchDoc';
 import { fetchDocs } from '../../../_api/fetchDocs';
 import { Gutter } from '../../../_components/Gutter';
@@ -24,6 +24,7 @@ import { SortingSelect } from '../../../_components/SortingSelect';
 import clsx from 'clsx';
 import { CategoryHeader } from './CategoryHeader';
 import { Filter } from '../../products/Filter';
+import { fetchSettings } from '../../../_api/fetchGlobals';
 
 type CategoriesProps = {
   params: {
@@ -38,7 +39,7 @@ type CategoriesProps = {
 export const dynamic = 'force-dynamic';
 
 const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchParams }) => {
-  // slug = slug.map((slugPart) => decodeURIComponent(slugPart));
+  slug = slug.map((slugPart) => decodeURIComponent(slugPart));
 
   const { user } = await getMeUser({
     nullUserRedirect: `/login?redirect=${encodeURIComponent(`/categories${getPathFromSlugArr(slug)}`)}&error=${encodeURIComponent('Vous devez être connecté pour voir la catégorie')}`,
@@ -56,6 +57,7 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
   let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
   let allProductsAttributes: Product[] | null = null;
+  let settings: Settings | null = null;
 
   const attributesEntries = Object.entries(searchParams)
     .map<[string, string[]]>(([key, value]) => [key, Array.isArray(value) ? value : [value]])
@@ -121,6 +123,8 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
         filterCategoriesByIds: subcategoriesIds,
       })
     ).docs;
+
+    settings = await fetchSettings();
   } catch (error) {
     console.log(error);
   }
@@ -151,6 +155,20 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
     (cat) => cat.parent && typeof cat.parent === 'object' && cat.parent?.id === category.id,
   );
 
+  const topLevelCategories = categories.filter((cat) => cat.parent === null);
+
+  const sortingCategoriesIds = settings?.sortingCategories.map((cat) => (typeof cat === 'object' ? cat.id : cat));
+
+  const sortedTopLevelCategoriesByOrder = topLevelCategories
+    .filter((cat) => sortingCategoriesIds.includes(cat.id))
+    .sort((a, b) => sortingCategoriesIds.indexOf(a.id) - sortingCategoriesIds.indexOf(b.id));
+
+  const sortedTopLevelCategoriesByTitle = topLevelCategories
+    .filter((cat) => !sortingCategoriesIds.includes(cat.id))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const sortedCategories = [...sortedTopLevelCategoriesByOrder, ...sortedTopLevelCategoriesByTitle];
+
   return (
     <div className={classes.container}>
       <Gutter className={classes.products}>
@@ -158,11 +176,16 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
-          <SortingSelect className={classes['sorting-select']} />
+          <SortingSelect />
         </div>
 
         <div>
-          <Categories category={category} categories={categories} subcategories={subcategories} slug={slug} />
+          <Categories
+            category={category}
+            subcategories={subcategories}
+            topLevelCategories={sortedCategories}
+            slug={slug}
+          />
 
           {/* <AttributesFilter
             attributes={productsAttributesEntries}
@@ -188,7 +211,7 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
             />
-            <SortingSelect className={classes['sorting-select']} />
+            <SortingSelect />
           </div>
 
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
