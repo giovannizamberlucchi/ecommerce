@@ -157,14 +157,14 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
 
   const topLevelCategories = categories.filter((cat) => cat.parent === null);
 
-  const sortingCategoriesIds = settings?.sortingCategories.map((cat) => (typeof cat === 'object' ? cat.id : cat));
+  const categoriesOrderIds = settings?.categoriesOrder.map((cat) => (typeof cat === 'object' ? cat.id : cat));
 
   const sortedTopLevelCategoriesByOrder = topLevelCategories
-    .filter((cat) => sortingCategoriesIds.includes(cat.id))
-    .sort((a, b) => sortingCategoriesIds.indexOf(a.id) - sortingCategoriesIds.indexOf(b.id));
+    .filter((cat) => categoriesOrderIds.includes(cat.id))
+    .sort((a, b) => categoriesOrderIds.indexOf(a.id) - categoriesOrderIds.indexOf(b.id));
 
   const sortedTopLevelCategoriesByTitle = topLevelCategories
-    .filter((cat) => !sortingCategoriesIds.includes(cat.id))
+    .filter((cat) => !categoriesOrderIds.includes(cat.id))
     .sort((a, b) => a.title.localeCompare(b.title));
 
   const sortedCategories = [...sortedTopLevelCategoriesByOrder, ...sortedTopLevelCategoriesByTitle];

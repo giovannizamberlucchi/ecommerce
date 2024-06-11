@@ -35,7 +35,7 @@ export const SETTINGS = `
       slug
     }
     teamEmail
-    sortingCategories {
+    categoriesOrder {
       id
       title
     }
