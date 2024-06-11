@@ -34,10 +34,10 @@ export const Settings: GlobalConfig = {
       type: 'email',
     },
     {
-      name: 'sortingCategories',
+      name: 'categoriesOrder',
       label: {
-        en: 'Sorting Categories',
-        fr: 'Catégories de tri',
+        en: 'Categories order',
+        fr: 'Ordre des catégories',
       },
       type: 'relationship',
       relationTo: 'categories',
