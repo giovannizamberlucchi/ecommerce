@@ -50,6 +50,7 @@
     "react-paginate": "^8.2.0",
     "react-router-dom": "5.3.4",
     "stripe": "^15.8.0",
+    "swiper": "^11.1.4",
     "uuid": "^9.0.1",
     "yup": "^1.4.0",
     "yup-phone-lite": "^2.0.1"

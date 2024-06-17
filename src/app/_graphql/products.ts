@@ -77,6 +77,19 @@ export const PRODUCT = `#graphql
           ${META}
         }
         ${META}
+        images {
+          id
+          media {
+            id
+            alt
+            filename
+            mimeType
+            filesize
+            width
+            height
+            url
+          }
+        }
       }
     }
   }

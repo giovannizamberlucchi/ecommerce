@@ -1,8 +1,8 @@
 import { Category, Product } from '../../../payload/payload-types';
 import { AddToCartButton } from '../../_components/AddToCartButton';
 import { Gutter } from '../../_components/Gutter';
-import { Media } from '../../_components/Media';
 import { Price } from '../../_components/Price';
+import { MediaWrapper } from './MediaWrapper';
 
 import classes from './index.module.scss';
 
@@ -14,8 +14,7 @@ export const ProductHero: React.FC<{
   return (
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
-        {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media imgClassName={classes.image} resource={metaImage} fill />}
+        <MediaWrapper images={product.images} metaImage={product.meta.image} />
       </div>
 
       <div className={classes.details}>

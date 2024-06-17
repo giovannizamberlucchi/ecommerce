@@ -2194,6 +2194,7 @@ __metadata:
     react-router-dom: "npm:5.3.4"
     slate: "npm:0.91.4"
     stripe: "npm:^15.8.0"
+    swiper: "npm:^11.1.4"
     ts-node: "npm:10.9.2"
     typescript: "npm:^5.4.5"
     uuid: "npm:^9.0.1"
@@ -13188,6 +13189,13 @@ __metadata:
     "@swc/core": ^1.0.0
     webpack: ^5.0.0
   checksum: 10c0/abef30f9b4f8a87febc651e1acbaf0a28416033d178ca03e0172334f885287f0a35a5548eaf6252fd0ef2709c8db9e4b864277b9c6658301714db9ca7928dd3e
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.1.4":
+  version: 11.1.4
+  resolution: "swiper@npm:11.1.4"
+  checksum: 10c0/a1e4b87f414f67f5da6a07b33d5ee20e54062d21f8bed88195d5d56decff6afddf683e130118b7fa12668de221f794ae63f6c073761b683a4b90bbd5eb585202
   languageName: node
   linkType: hard
 
