@@ -1,0 +1,9 @@
+.next::after,
+.prev::after {
+  content: url('/icons/slider-arrow.svg');
+  transform: rotate(90deg);
+}
+
+.prev::after {
+  transform: rotate(-90deg);
+}
