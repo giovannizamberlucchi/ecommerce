@@ -61,7 +61,7 @@ const Categories: CollectionConfig = {
       relationTo: 'products',
       hasMany: true,
       maxRows: 6,
-      filterOptions: ({ id }) => ({ parent: { equals: id } }),
+      filterOptions: ({ id }) => ({ categories: { equals: id } }),
     },
     {
       label: {
