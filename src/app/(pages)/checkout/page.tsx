@@ -21,7 +21,7 @@ export default async function Checkout() {
   const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
   if (!isActiveSubscriptionStatus)
-    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
 
   let settings: Settings | null = null;
 

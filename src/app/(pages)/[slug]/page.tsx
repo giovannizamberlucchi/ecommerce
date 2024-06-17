@@ -38,7 +38,7 @@ export default async function Page({ params: { slug = 'home' } }) {
     const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
     if (!isActiveSubscriptionStatus)
-      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
   }
 
   let page: PageType | null = null;
@@ -117,7 +117,7 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
     const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
     if (!isActiveSubscriptionStatus)
-      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+      redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
   }
 
   const { isEnabled: isDraftMode } = draftMode();

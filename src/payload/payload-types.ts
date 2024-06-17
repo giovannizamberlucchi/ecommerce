@@ -207,6 +207,7 @@ export interface Category {
       }[]
     | null;
   media?: string | Media | null;
+  featuredProducts?: (string | Product)[] | null;
   slug: string;
   parent?: (string | null) | Category;
   breadcrumbs?:
@@ -228,6 +229,12 @@ export interface Product {
   id: string;
   title: string;
   publishedOn?: string | null;
+  images?:
+    | {
+        media: string | Media;
+        id?: string | null;
+      }[]
+    | null;
   description: string;
   price?: string | null;
   suppliers: string | Supplier;
@@ -241,7 +248,6 @@ export interface Product {
   categories?: (string | Category)[] | null;
   relatedProducts?: (string | Product)[] | null;
   slug?: string | null;
-  skipSync?: boolean | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -387,6 +393,7 @@ export interface Settings {
   productsPage?: (string | null) | Page;
   teamEmail?: string | null;
   categoriesOrder?: (string | Category)[] | null;
+  featuredProducts?: (string | Product)[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

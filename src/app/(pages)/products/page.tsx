@@ -44,7 +44,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   const isActiveSubscriptionStatus = true || (await isActiveSubscription(user));
 
   if (!isActiveSubscriptionStatus)
-    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;

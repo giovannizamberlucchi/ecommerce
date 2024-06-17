@@ -74,10 +74,11 @@ const CreateAccountForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
-      const isPhoneValid = await phoneSchema.isValidSync(data.phone);
+      const isPhoneValid = phoneSchema.isValidSync(data.phone);
 
       if (!isPhoneValid) {
         setError('Numéro de téléphone invalide.');
+
         return;
       }
 
@@ -96,15 +97,15 @@ const CreateAccountForm: React.FC = () => {
       const response = await fetch('/api/users/sign-up', {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (!response.ok) {
         const message =
           response.statusText || 'Il y a eu une erreur lors de votre création de compte. Essayer à nouveau..';
+
         setError(message);
+
         return;
       }
 
@@ -112,6 +113,7 @@ const CreateAccountForm: React.FC = () => {
 
       if (resData.error) {
         setError(resData.error);
+
         return;
       }
 
@@ -123,7 +125,6 @@ const CreateAccountForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <p>
-        {``}
         <Link href="/admin/collections/users">Créer un compte</Link>
         {'.'}
       </p>
@@ -151,7 +152,6 @@ const CreateAccountForm: React.FC = () => {
       <Input
         name="referralCode"
         label="Code de Parrainage"
-        required
         register={register}
         error={errors.referralCode}
         type="text"
