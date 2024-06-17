@@ -10,16 +10,10 @@ import { Media } from '../../_components/Media';
 
 type MediaSliderProps = {
   images: Product['images'];
-  metaImage?: Product['meta']['image'];
 };
 
-export const MediaSlider: React.FC<MediaSliderProps> = ({ images, metaImage }) => {
+export const MediaSlider: React.FC<MediaSliderProps> = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<Swiper | null>(null);
-
-  if (metaImage) {
-    const image = { media: metaImage };
-    images = [image, ...images];
-  }
 
   return (
     <>

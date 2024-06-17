@@ -9,8 +9,9 @@ type MediaWrapperProps = {
 };
 
 export const MediaWrapper: React.FC<MediaWrapperProps> = ({ images, metaImage }) => {
-  if (!images?.length && !metaImage) return <MediaPlaceholder />;
-  if ((images?.length === 1 && !metaImage) || (!images?.length && metaImage))
-    return <Media images={images} metaImage={metaImage} />;
-  if (images?.length > 1 || (images?.length && metaImage)) return <MediaSlider images={images} metaImage={metaImage} />;
+  if (metaImage) images = [{ media: metaImage }, ...images];
+
+  if (!images?.length) return <MediaPlaceholder />;
+  if (images?.length === 1) return <Media images={images} />;
+  if (images?.length > 1) return <MediaSlider images={images} />;
 };
