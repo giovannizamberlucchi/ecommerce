@@ -25,6 +25,7 @@ import clsx from 'clsx';
 import { CategoryHeader } from './CategoryHeader';
 import { Filter } from '../../products/Filter';
 import { fetchSettings } from '../../../_api/fetchGlobals';
+import { FeaturedProducts } from '../../products/FeaturedProducts';
 
 type CategoriesProps = {
   params: {
@@ -47,7 +48,7 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
   const isActiveSubscriptionStatus = await isActiveSubscription(user);
 
   if (!isActiveSubscriptionStatus)
-    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
@@ -131,6 +132,14 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
 
   if (!category) return notFound();
 
+  if (category?.featuredProducts && page === '1') {
+    productsData.docs = productsData.docs.filter((product) => {
+      return !category.featuredProducts.some(
+        (featuredProduct) => typeof featuredProduct === 'object' && featuredProduct.id === product.id,
+      );
+    });
+  }
+
   let productsAttributesObject: { [key: string]: string[] } = {};
 
   (allProductsAttributes || []).map((product) =>
@@ -200,6 +209,11 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
             imageClassName={classes['hide-on-mobile']}
             descriptionClassName={classes['hide-on-mobile']}
             subCategoriesClassName={classes['hide-on-mobile']}
+          />
+
+          <FeaturedProducts
+            products={category?.featuredProducts as Product[]}
+            className={clsx(page !== '1' && classes.hidden)}
           />
 
           <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} />

@@ -42,11 +42,18 @@ export const Settings: GlobalConfig = {
       type: 'relationship',
       relationTo: 'categories',
       hasMany: true,
-      filterOptions: {
-        parent: {
-          exists: false,
-        },
+      filterOptions: { parent: { exists: false } },
+    },
+    {
+      name: 'featuredProducts',
+      label: {
+        en: 'Featured products',
+        fr: 'Produits en vedette',
       },
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 6,
     },
   ],
 };

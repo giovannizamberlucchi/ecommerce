@@ -24,6 +24,7 @@ import { SortingSelect } from '../../_components/SortingSelect';
 import clsx from 'clsx';
 import { Filter } from './Filter';
 import { fetchSettings } from '../../_api/fetchGlobals';
+import { FeaturedProducts } from './FeaturedProducts';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,7 +45,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   const isActiveSubscriptionStatus = true || (await isActiveSubscription(user));
 
   if (!isActiveSubscriptionStatus)
-    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}}`);
+    redirect(`/account?warning=${encodeURIComponent("Vous devez d'abord mettre à jour votre abonnement")}`);
 
   const { isEnabled: isDraftMode } = draftMode();
   const { page = '1' } = searchParams;
@@ -115,6 +116,15 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     console.log(error);
   }
 
+  if (!categories || !productsData || Number(page) > productsData?.totalPages) return notFound();
+
+  if (settings?.featuredProducts && page === '1') {
+    productsData.docs = productsData.docs.filter((product) => {
+      return !settings.featuredProducts.some(
+        (featuredProduct) => typeof featuredProduct === 'object' && featuredProduct.id === product.id,
+      );
+    });
+  }
   const productsAttributesObject: Record<string, string[]> = {};
 
   (allProductsAttributes || []).map((product) =>
@@ -134,8 +144,6 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
   );
 
   const productsAttributesEntries = Object.entries(productsAttributesObject);
-
-  if (!categories || !productsData || Number(page) > productsData?.totalPages) return notFound();
 
   const topLevelCategories = categories.filter((cat) => cat.parent === null);
 
@@ -157,7 +165,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         <div
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
-          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} />
+          {/* <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} /> */}
           <SortingSelect />
         </div>
 
@@ -172,19 +180,24 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         <div>
           {(cmsPage?.layout || [])?.length > 0 && <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />}
 
-          <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} />
+          <FeaturedProducts
+            products={settings?.featuredProducts as Product[]}
+            className={clsx(page !== '1' && classes.hidden)}
+          />
+
+          {/* <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} /> */}
 
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >
-            <AttributesOverlay
+            {/* <AttributesOverlay
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
-            />
+            /> */}
             <SortingSelect />
           </div>
 
-          <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
+          {/* <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} /> */}
 
           <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
         </div>

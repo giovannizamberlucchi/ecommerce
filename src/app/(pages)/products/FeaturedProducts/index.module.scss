@@ -1,0 +1,20 @@
+@import '../../../_css/common';
+
+.container {
+  margin-top: var(--base);
+  margin-bottom: var(--base);
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.products {
+  display: grid;
+  gap: 40px;
+
+  @include large-break {
+    gap: 30px;
+  }
+}

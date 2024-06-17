@@ -24,16 +24,12 @@ import { seed } from './endpoints/seed';
 import { Footer } from './globals/Footer';
 import { Header } from './globals/Header';
 import { Settings } from './globals/Settings';
-import { priceUpdated } from './stripe/webhooks/priceUpdated';
-import { productUpdated } from './stripe/webhooks/productUpdated';
 import { Category } from './payload-types';
 import { Attributes } from './collections/Attributes';
 import { Suppliers } from './collections/Suppliers';
 import { Logo } from './components/Logo';
 
-const generateTitle: GenerateTitle = () => {
-  return 'Resovalie Achats';
-};
+const generateTitle: GenerateTitle = () => 'Resovalie Achats';
 
 const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js');
 
@@ -126,11 +122,6 @@ export default buildConfig({
       isTestKey: Boolean(process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY),
       stripeWebhooksEndpointSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET,
       rest: false,
-      webhooks: {
-        'product.created': productUpdated,
-        'product.updated': productUpdated,
-        'price.updated': priceUpdated,
-      },
     }),
     redirects({
       collections: ['pages', 'products'],

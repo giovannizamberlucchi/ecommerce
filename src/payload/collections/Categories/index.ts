@@ -52,6 +52,18 @@ const Categories: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'featuredProducts',
+      label: {
+        en: 'Featured products',
+        fr: 'Produits en vedette',
+      },
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 6,
+      filterOptions: ({ id }) => ({ categories: { equals: id } }),
+    },
+    {
       label: {
         en: 'URL Slug',
         fr: "Limace d'URL",

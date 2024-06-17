@@ -1,3 +1,5 @@
+import { META } from './meta';
+
 export const PRODUCT_CATEGORIES = `categories {
   title
   id
@@ -63,6 +65,24 @@ export const CATEGORY = `#graphql
           }
         }
         description
+        featuredProducts {
+          id
+          title
+          description
+          ${PRODUCT_CATEGORIES}
+          price
+          suppliers {
+            name
+            email
+          }
+          relatedProducts {
+            id
+            slug
+            title
+            ${META}
+          }
+          ${META}
+        }
       }
     }
   }

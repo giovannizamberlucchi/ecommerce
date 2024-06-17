@@ -1,4 +1,6 @@
+import { PRODUCT_CATEGORIES } from './categories';
 import { LINK_FIELDS } from './link';
+import { META } from './meta';
 
 export const HEADER = `
   Header {
@@ -38,6 +40,24 @@ export const SETTINGS = `
     categoriesOrder {
       id
       title
+    }
+    featuredProducts {
+      id
+        title
+        description
+        ${PRODUCT_CATEGORIES}
+        price
+        suppliers {
+          name
+          email
+        }
+        relatedProducts {
+          id
+          slug
+          title
+          ${META}
+        }
+        ${META}
     }
   }
 `;

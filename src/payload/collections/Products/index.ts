@@ -71,9 +71,8 @@ const Products: CollectionConfig = {
       hooks: {
         beforeChange: [
           ({ siblingData, value }) => {
-            if (siblingData._status === 'published' && !value) {
-              return new Date();
-            }
+            if (siblingData._status === 'published' && !value) return new Date();
+
             return value;
           },
         ],
@@ -88,15 +87,23 @@ const Products: CollectionConfig = {
             fr: 'Contenu',
           },
           fields: [
-            // {
-            //   label: {
-            //     en: 'Image',
-            //     fr: 'Image',
-            //   },
-            //   name: 'image',
-            //   type: 'upload',
-            //   relationTo: 'media',
-            // },
+            {
+              label: {
+                en: 'Images',
+                fr: 'Images',
+              },
+              name: 'images',
+              type: 'array',
+              fields: [
+                {
+                  type: 'upload',
+                  label: false,
+                  name: 'media',
+                  relationTo: 'media',
+                  required: true,
+                },
+              ],
+            },
             {
               label: {
                 en: 'Description',
@@ -210,28 +217,9 @@ const Products: CollectionConfig = {
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
-      filterOptions: ({ id }) => {
-        return {
-          id: {
-            not_in: [id],
-          },
-        };
-      },
+      filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
     },
     slugField(),
-    {
-      name: 'skipSync',
-      label: {
-        en: 'Skip Sync',
-        fr: 'Ignorer la synchronisation',
-      },
-      type: 'checkbox',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-        hidden: true,
-      },
-    },
   ],
 };
 
