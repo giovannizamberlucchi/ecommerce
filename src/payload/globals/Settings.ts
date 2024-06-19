@@ -64,28 +64,38 @@ export const Settings: GlobalConfig = {
       type: 'email',
     },
     {
-      name: 'whatsAppUrlSlug',
-      admin: {
-        placeholder: 'resovalie',
+      name: 'socialMedia',
+      type: 'group',
+      label: {
+        en: 'Social Media',
+        fr: 'Réseaux sociaux',
       },
-      label: 'WhatsApp',
-      type: 'text',
-    },
-    {
-      name: 'linkedInUrlSlug',
-      admin: {
-        placeholder: 'company/resovalie',
-      },
-      label: 'LinkedIn',
-      type: 'text',
-    },
-    {
-      name: 'instagramUrlSlug',
-      admin: {
-        placeholder: 'resovalie',
-      },
-      label: 'Instagram',
-      type: 'text',
+      fields: [
+        {
+          name: 'whatsAppUrlSlug',
+          admin: {
+            placeholder: 'resovalie',
+          },
+          label: 'WhatsApp',
+          type: 'text',
+        },
+        {
+          name: 'linkedInUrlSlug',
+          admin: {
+            placeholder: 'company/resovalie',
+          },
+          label: 'LinkedIn',
+          type: 'text',
+        },
+        {
+          name: 'instagramUrlSlug',
+          admin: {
+            placeholder: 'resovalie',
+          },
+          label: 'Instagram',
+          type: 'text',
+        },
+      ],
     },
   ],
 };

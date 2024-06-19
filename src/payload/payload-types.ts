@@ -395,11 +395,10 @@ export interface Home {
     title: string;
     subtitle: string;
     description: string;
-    youtubeId?: string | null;
-    mutedYouTube?: boolean | null;
-    checkArray?:
+    youtubeId: string;
+    textWithCheckIconArray?:
       | {
-          text?: string | null;
+          text: string;
           id?: string | null;
         }[]
       | null;
@@ -420,7 +419,7 @@ export interface Home {
           id?: string | null;
         }[]
       | null;
-    animatedText?:
+    typingEffectTextArray?:
       | {
           text: string;
           id?: string | null;
@@ -431,8 +430,8 @@ export interface Home {
     subtitle: string;
     carousel?:
       | {
-          icon: string | Media;
           title: string;
+          icon: string | Media;
           description: string;
           id?: string | null;
         }[]
@@ -474,9 +473,11 @@ export interface Settings {
   categoriesOrder?: (string | Category)[] | null;
   featuredProducts?: (string | Product)[] | null;
   contactEmail?: string | null;
-  whatsAppUrlSlug?: string | null;
-  linkedInUrlSlug?: string | null;
-  instagramUrlSlug?: string | null;
+  socialMedia?: {
+    whatsAppUrlSlug?: string | null;
+    linkedInUrlSlug?: string | null;
+    instagramUrlSlug?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
