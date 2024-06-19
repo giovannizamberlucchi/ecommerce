@@ -33,6 +33,7 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   globals: {
+    home: Home;
     settings: Settings;
     header: Header;
     footer: Footer;
@@ -386,6 +387,84 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  hero: {
+    title: string;
+    subtitle: string;
+    description: string;
+    youtubeId?: string | null;
+    mutedYouTube?: boolean | null;
+    checkArray?:
+      | {
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  services: {
+    subtitle: string;
+    description: string;
+    carousels?:
+      | {
+          title: string;
+          services?:
+            | {
+                url: string;
+                media: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    animatedText?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  processDescription: {
+    subtitle: string;
+    carousel?:
+      | {
+          icon: string | Media;
+          title: string;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  featuredProducts?: {
+    sliderArray?:
+      | {
+          title: string;
+          subtitle?: string | null;
+          description: string;
+          buttonText: string;
+          link: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  companyInNumbers?: {
+    numbers?:
+      | {
+          number: number;
+          suffix: string;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
  */
 export interface Settings {
@@ -394,6 +473,10 @@ export interface Settings {
   teamEmail?: string | null;
   categoriesOrder?: (string | Category)[] | null;
   featuredProducts?: (string | Product)[] | null;
+  contactEmail?: string | null;
+  whatsAppUrlSlug?: string | null;
+  linkedInUrlSlug?: string | null;
+  instagramUrlSlug?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -442,6 +525,23 @@ export interface Footer {
           label: string;
           icon?: string | Media | null;
         };
+        id?: string | null;
+      }[]
+    | null;
+  businessClub?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          icon?: string | Media | null;
+        };
+        icon: string | Media;
         id?: string | null;
       }[]
     | null;

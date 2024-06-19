@@ -49,7 +49,9 @@ export const ResetPasswordForm: React.FC = () => {
         // Redirect them to `/account` with success message in URL
         router.push('/account?success=Password reset successfully.');
       } else {
-        setError('There was a problem while resetting your password. Please try again later.');
+        setError(
+          'Un problème est survenu lors de la réinitialisation de votre mot de passe. Veuillez réessayer plus tard.',
+        );
       }
     },
     [router, login],
@@ -67,13 +69,13 @@ export const ResetPasswordForm: React.FC = () => {
       <Input
         name="password"
         type="password"
-        label="New Password"
+        label="Nouveau mot de passe"
         required
         register={register}
         error={errors.password}
       />
       <input type="hidden" {...register('token')} />
-      <Button type="submit" appearance="primary" label="Reset Password" className={classes.submit} />
+      <Button type="submit" appearance="primary" label="Réinitialiser le mot de passe" className={classes.submit} />
     </form>
   );
 };
