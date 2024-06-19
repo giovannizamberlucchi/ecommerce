@@ -35,5 +35,28 @@ export const Footer: GlobalConfig = {
         }),
       ],
     },
+    {
+      name: 'businessClub',
+      label: {
+        en: 'Business Clubs',
+        fr: 'Business Clubs',
+      },
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+        {
+          name: 'icon',
+          label: {
+            en: 'Icon',
+            fr: 'Icône',
+          },
+          required: true,
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
+    },
   ],
 };
