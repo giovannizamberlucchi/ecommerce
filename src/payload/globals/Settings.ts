@@ -55,5 +55,37 @@ export const Settings: GlobalConfig = {
       hasMany: true,
       maxRows: 6,
     },
+    {
+      name: 'contactEmail',
+      label: {
+        en: 'Contact email',
+        fr: 'Email du contact',
+      },
+      type: 'email',
+    },
+    {
+      name: 'whatsAppUrlSlug',
+      admin: {
+        placeholder: 'resovalie',
+      },
+      label: 'WhatsApp',
+      type: 'text',
+    },
+    {
+      name: 'linkedInUrlSlug',
+      admin: {
+        placeholder: 'company/resovalie',
+      },
+      label: 'LinkedIn',
+      type: 'text',
+    },
+    {
+      name: 'instagramUrlSlug',
+      admin: {
+        placeholder: 'resovalie',
+      },
+      label: 'Instagram',
+      type: 'text',
+    },
   ],
 };
