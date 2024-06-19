@@ -2183,7 +2183,7 @@ __metadata:
     next: "npm:14.2.3"
     nodemailer: "npm:^6.9.13"
     nodemon: "npm:^3.1.0"
-    payload: "npm:^2.18.3"
+    payload: "npm:^2.21.0"
     payload-admin-bar: "npm:^1.0.6"
     prettier: "npm:^3.3.0"
     qs: "npm:6.12.1"
@@ -10386,9 +10386,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"payload@npm:^2.18.3":
-  version: 2.18.3
-  resolution: "payload@npm:2.18.3"
+"payload@npm:^2.21.0":
+  version: 2.21.0
+  resolution: "payload@npm:2.21.0"
   dependencies:
     "@date-io/date-fns": "npm:2.16.0"
     "@dnd-kit/core": "npm:6.0.8"
@@ -10480,7 +10480,7 @@ __metadata:
     uuid: "npm:9.0.1"
   bin:
     payload: bin.js
-  checksum: 10c0/2d6dcf27d8bfdbf2e5cd02ab8f9c8e3585d6b528311b035f838a03cff18398fb5422e20ff2f635de293665c878d344a9be433c2854033db15598a1f963d4ef18
+  checksum: 10c0/9e55333ddf216bbcb2221762b4162b225bb9e7b7946d8a2b7c8d1c90f695352cfa3a98dba1e0f701259010dceccc4461ce2f5fe7936f093458b0e8337408da22
   languageName: node
   linkType: hard
 
