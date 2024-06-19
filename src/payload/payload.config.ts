@@ -24,6 +24,7 @@ import { seed } from './endpoints/seed';
 import { Footer } from './globals/Footer';
 import { Header } from './globals/Header';
 import { Settings } from './globals/Settings';
+import { Home } from './globals/Home';
 import { Category } from './payload-types';
 import { Attributes } from './collections/Attributes';
 import { Suppliers } from './collections/Suppliers';
@@ -83,7 +84,7 @@ export default buildConfig({
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Pages, Attributes, Products, Suppliers, Orders, Media, Categories, Users],
-  globals: [Settings, Header, Footer],
+  globals: [Home, Settings, Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
