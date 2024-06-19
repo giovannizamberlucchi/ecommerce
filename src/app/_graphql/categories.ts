@@ -67,6 +67,7 @@ export const CATEGORY = `#graphql
         description
         featuredProducts {
           id
+          slug
           title
           description
           ${PRODUCT_CATEGORIES}

@@ -44,6 +44,7 @@ export const SETTINGS = `
     featuredProducts {
       id
         title
+        slug
         description
         ${PRODUCT_CATEGORIES}
         price
