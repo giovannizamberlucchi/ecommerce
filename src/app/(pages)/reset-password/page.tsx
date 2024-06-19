@@ -10,8 +10,8 @@ import classes from './index.module.scss';
 export default async function ResetPassword() {
   return (
     <Gutter className={classes.resetPassword}>
-      <h1>Reset Password</h1>
-      <p>Please enter a new password below.</p>
+      <h1>Réinitialiser le mot de passe</h1>
+      <p>Veuillez entrer un nouveau mot de passe ci-dessous.</p>
 
       <Suspense>
         <ResetPasswordForm />
