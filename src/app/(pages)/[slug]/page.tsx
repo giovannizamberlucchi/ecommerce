@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
-import { Category, Page as PageType } from '../../../payload/payload-types';
+import { Category, Page as PageType, Settings } from '../../../payload/payload-types';
 import { staticHome } from '../../../payload/seed/home-static';
 import { fetchDoc } from '../../_api/fetchDoc';
 import { fetchDocs } from '../../_api/fetchDocs';
@@ -18,6 +18,7 @@ import classes from './index.module.scss';
 import { getMeUser } from '../../_utilities/getMeUser';
 import { isActiveSubscription } from '../../_utilities/isActiveSubscription';
 import { getPathFromSlugArr } from '../../_api/utils';
+import { fetchSettings } from '../../_api/fetchGlobals';
 
 // Payload Cloud caches all files through Cloudflare, so we don't need Next.js to cache them as well
 // This means that we can turn off Next.js data caching and instead rely solely on the Cloudflare CDN
@@ -43,6 +44,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
   let page: PageType | null = null;
   let categories: Category[] | null = null;
+  let settings: Settings | null = null;
 
   try {
     page = await fetchDoc<PageType>({
@@ -52,6 +54,8 @@ export default async function Page({ params: { slug = 'home' } }) {
     });
 
     categories = (await fetchDocs<Category>('categories')).docs;
+
+    settings = await fetchSettings();
   } catch (error) {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // so swallow the error here and simply render the page with fallback data where necessary
@@ -72,7 +76,19 @@ export default async function Page({ params: { slug = 'home' } }) {
 
   if (!categories) return notFound();
 
-  const categoriesWithoutSubcategories = categories.filter((category) => !category.parent);
+  const topLevelCategories = categories.filter((cat) => cat.parent === null);
+
+  const categoriesOrderIds = settings?.categoriesOrder.map((cat) => (typeof cat === 'object' ? cat.id : cat));
+
+  const sortedTopLevelCategoriesByOrder = topLevelCategories
+    .filter((cat) => categoriesOrderIds.includes(cat.id))
+    .sort((a, b) => categoriesOrderIds.indexOf(a.id) - categoriesOrderIds.indexOf(b.id));
+
+  const sortedTopLevelCategoriesByTitle = topLevelCategories
+    .filter((cat) => !categoriesOrderIds.includes(cat.id))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const sortedCategories = [...sortedTopLevelCategoriesByOrder, ...sortedTopLevelCategoriesByTitle];
 
   const { hero, layout } = page;
 
@@ -83,7 +99,7 @@ export default async function Page({ params: { slug = 'home' } }) {
           <Hero {...hero} />
 
           <Gutter className={classes.home}>
-            <Categories categories={categoriesWithoutSubcategories} />
+            <Categories categories={sortedCategories} />
             <Promotion />
           </Gutter>
         </section>
