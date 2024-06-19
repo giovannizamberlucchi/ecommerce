@@ -15,6 +15,7 @@ import { createReferralCode } from './hooks/createReferralCode';
 import { updateReferralsByReferrer } from './hooks/updateReferralsByReferrer';
 import { updateReferrerByReferrals } from './hooks/updateReferrerByReferrals';
 import { reSubscribe } from './endpoints/re-subscribe';
+import { User } from '../../payload-types';
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -42,7 +43,13 @@ const Users: CollectionConfig = {
   hooks: {
     afterChange: [loginAfterCreate],
   },
-  auth: true,
+  auth: {
+    forgotPassword: {
+      generateEmailHTML: ({ req, token, user }) => {
+        return `${(user as User | null)?.name ? `Hi, ${(user as User).name}!\n\n` : ''}You are receiving this because you (or someone else) have requested the reset of the password for your account. Please click on the following link, or paste this into your browser to complete the process: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}/reset-password?token=${token} \nIf you did not request this, please ignore this email and your password will remain unchanged.`;
+      },
+    },
+  },
   endpoints: [
     {
       path: '/:teamID/customer',
