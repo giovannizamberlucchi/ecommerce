@@ -81,6 +81,7 @@ export const Home: GlobalConfig = {
                 en: 'Check',
                 fr: 'Vérifier',
               },
+              required: true,
               type: 'text',
             },
           ],
@@ -252,7 +253,10 @@ export const Home: GlobalConfig = {
       fields: [
         {
           name: 'sliderArray',
-          label: false,
+          label: {
+            en: 'Slider Array',
+            fr: 'Tableau de curseurs',
+          },
           type: 'array',
           fields: [
             {
