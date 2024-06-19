@@ -25,22 +25,27 @@ export const Home: GlobalConfig = {
       },
       fields: [
         {
-          name: 'title',
-          label: {
-            en: 'Title',
-            fr: 'Titre',
-          },
-          required: true,
-          type: 'text',
-        },
-        {
-          name: 'subtitle',
-          label: {
-            en: 'Subtitle',
-            fr: 'Sous-titre',
-          },
-          required: true,
-          type: 'text',
+          type: 'row',
+          fields: [
+            {
+              name: 'title',
+              label: {
+                en: 'Title',
+                fr: 'Titre',
+              },
+              required: true,
+              type: 'text',
+            },
+            {
+              name: 'subtitle',
+              label: {
+                en: 'Subtitle',
+                fr: 'Sous-titre',
+              },
+              required: true,
+              type: 'text',
+            },
+          ],
         },
         {
           name: 'description',
@@ -51,6 +56,7 @@ export const Home: GlobalConfig = {
           required: true,
           type: 'textarea',
         },
+
         {
           name: 'youtubeId',
           label: {
@@ -58,28 +64,38 @@ export const Home: GlobalConfig = {
             fr: 'Identifiant de la vidéo Youtube',
           },
           type: 'text',
-        },
-        {
-          name: 'mutedYouTube',
-          label: {
-            en: 'Muted YouTube',
-            fr: 'YouTube en sourdine',
+          required: true,
+          admin: {
+            placeholder: {
+              en: 'e.g. bxWsZTtqs80',
+              fr: 'par exemple: bxWsZTtqs80',
+            },
           },
-          type: 'checkbox',
         },
+
         {
-          name: 'checkArray',
+          name: 'textWithCheckIconArray',
           label: {
-            en: 'Check Array',
-            fr: 'Tableau de vérification',
+            en: 'Text with Check icon',
+            fr: 'Texte avec icône de vérification',
+          },
+          labels: {
+            singular: {
+              en: 'Text with Check icon',
+              fr: 'Texte avec icône de vérification',
+            },
+            plural: {
+              en: 'Text with Check icon',
+              fr: 'Textes avec icône de vérification',
+            },
           },
           type: 'array',
           fields: [
             {
               name: 'text',
               label: {
-                en: 'Check',
-                fr: 'Vérifier',
+                en: 'Text',
+                fr: 'Texte',
               },
               required: true,
               type: 'text',
@@ -142,23 +158,28 @@ export const Home: GlobalConfig = {
               type: 'array',
               fields: [
                 {
-                  name: 'url',
-                  label: {
-                    en: 'Link',
-                    fr: 'Lien',
-                  },
-                  required: true,
-                  type: 'text',
-                },
-                {
-                  type: 'upload',
-                  label: {
-                    en: 'Image',
-                    fr: 'Image',
-                  },
-                  name: 'media',
-                  required: true,
-                  relationTo: 'media',
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'url',
+                      label: {
+                        en: 'Link',
+                        fr: 'Lien',
+                      },
+                      required: true,
+                      type: 'text',
+                    },
+                    {
+                      type: 'upload',
+                      label: {
+                        en: 'Image',
+                        fr: 'Image',
+                      },
+                      name: 'media',
+                      required: true,
+                      relationTo: 'media',
+                    },
+                  ],
                 },
               ],
             },
@@ -167,10 +188,20 @@ export const Home: GlobalConfig = {
           maxRows: 4,
         },
         {
-          name: 'animatedText',
+          name: 'typingEffectTextArray',
           label: {
-            en: 'Animated Text',
-            fr: 'Texte animé',
+            en: 'Typing effect texts',
+            fr: 'Saisie de textes à effet',
+          },
+          labels: {
+            singular: {
+              en: 'Typing effect text',
+              fr: 'Texte à effet de frappe',
+            },
+            plural: {
+              en: 'Typing effect texts',
+              fr: 'Textes à effet de frappe',
+            },
           },
           type: 'array',
           fields: [
@@ -179,6 +210,12 @@ export const Home: GlobalConfig = {
               label: false,
               type: 'text',
               required: true,
+              admin: {
+                placeholder: {
+                  en: 'e.g Entretien véhicule',
+                  fr: 'par exemple Entretien des véhicules',
+                },
+              },
             },
           ],
           minRows: 1,
@@ -211,23 +248,28 @@ export const Home: GlobalConfig = {
           type: 'array',
           fields: [
             {
-              name: 'icon',
-              label: {
-                en: 'Icon',
-                fr: 'Icône',
-              },
-              required: true,
-              type: 'upload',
-              relationTo: 'media',
-            },
-            {
-              name: 'title',
-              label: {
-                en: 'Title',
-                fr: 'Titre',
-              },
-              required: true,
-              type: 'text',
+              type: 'row',
+              fields: [
+                {
+                  name: 'title',
+                  label: {
+                    en: 'Title',
+                    fr: 'Titre',
+                  },
+                  required: true,
+                  type: 'text',
+                },
+                {
+                  name: 'icon',
+                  label: {
+                    en: 'Icon',
+                    fr: 'Icône',
+                  },
+                  required: true,
+                  type: 'upload',
+                  relationTo: 'media',
+                },
+              ],
             },
             {
               name: 'description',
@@ -246,35 +288,47 @@ export const Home: GlobalConfig = {
     {
       name: 'featuredProducts',
       type: 'group',
-      label: {
-        en: 'Featured products preview carousel',
-        fr: 'Carrousel d’aperçu des produits en vedette',
-      },
+      label: false,
       fields: [
         {
           name: 'sliderArray',
           label: {
-            en: 'Slider Array',
-            fr: 'Tableau de curseurs',
+            en: 'Featured products preview carousel',
+            fr: 'Carrousel d’aperçu des produits en vedette',
           },
+          // labels: {
+          //   singular: {
+          //     en: 'Slider',
+          //     fr: 'Curseur',
+          //   },
+          //   plural: {
+          //     en: 'Sliders',
+          //     fr: 'Curseurs',
+          //   },
+          // },
           type: 'array',
           fields: [
             {
-              name: 'title',
-              label: {
-                en: 'Title',
-                fr: 'Titre',
-              },
-              required: true,
-              type: 'text',
-            },
-            {
-              name: 'subtitle',
-              label: {
-                en: 'Subtitle',
-                fr: 'Sous-titre',
-              },
-              type: 'text',
+              type: 'row',
+              fields: [
+                {
+                  name: 'title',
+                  label: {
+                    en: 'Title',
+                    fr: 'Titre',
+                  },
+                  required: true,
+                  type: 'text',
+                },
+                {
+                  name: 'subtitle',
+                  label: {
+                    en: 'Subtitle',
+                    fr: 'Sous-titre',
+                  },
+                  type: 'text',
+                },
+              ],
             },
             {
               name: 'description',
@@ -316,42 +370,54 @@ export const Home: GlobalConfig = {
     {
       name: 'companyInNumbers',
       type: 'group',
-      label: {
-        en: 'Resovalie Achats in numbers',
-        fr: 'Résovalie Achats en chiffres',
-      },
+      label: false,
       fields: [
         {
           name: 'numbers',
           label: {
-            en: 'Numbers',
-            fr: 'Chiffres',
+            en: 'Resovalie Achats in numbers',
+            fr: 'Résovalie Achats en chiffres',
+          },
+          labels: {
+            singular: {
+              en: 'Number',
+              fr: 'Nombre',
+            },
+            plural: {
+              en: 'Numbers',
+              fr: 'Chiffres',
+            },
           },
           type: 'array',
           fields: [
             {
-              label: {
-                en: 'Number',
-                fr: 'Nombre',
-              },
-              name: 'number',
-              required: true,
-              type: 'number',
-            },
-            {
-              admin: {
-                placeholder: {
-                  en: 'e.g. %, $, + ',
-                  fr: 'par exemple. %, $, +',
+              type: 'row',
+              fields: [
+                {
+                  label: {
+                    en: 'Number',
+                    fr: 'Nombre',
+                  },
+                  name: 'number',
+                  required: true,
+                  type: 'number',
                 },
-              },
-              label: {
-                en: 'Suffix',
-                fr: 'Suffixe',
-              },
-              name: 'suffix',
-              type: 'text',
-              required: true,
+                {
+                  admin: {
+                    placeholder: {
+                      en: 'e.g. %, $, + ',
+                      fr: 'par exemple. %, $, +',
+                    },
+                  },
+                  label: {
+                    en: 'Suffix',
+                    fr: 'Suffixe',
+                  },
+                  name: 'suffix',
+                  type: 'text',
+                  required: true,
+                },
+              ],
             },
             {
               label: {
