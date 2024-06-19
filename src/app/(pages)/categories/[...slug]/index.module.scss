@@ -99,7 +99,7 @@
 }
 
 .hide-on-mobile {
-  display: block;
+  display: grid;
 
   @include large-break {
     display: none !important;
