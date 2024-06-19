@@ -4,15 +4,24 @@ import deepMerge from '../utilities/deepMerge';
 
 export const appearanceOptions = {
   primary: {
-    label: 'Primary Button',
+    label: {
+      en: 'Primary Button',
+      fr: 'Bouton principal',
+    },
     value: 'primary',
   },
   secondary: {
-    label: 'Secondary Button',
+    label: {
+      en: 'Secondary Button',
+      fr: 'Bouton secondaire',
+    },
     value: 'secondary',
   },
   default: {
-    label: 'Default',
+    label: {
+      en: 'Default',
+      fr: 'Défaut',
+    },
     value: 'default',
   },
 };
@@ -28,6 +37,10 @@ type LinkType = (options?: {
 const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: Field = {
     name: 'link',
+    label: {
+      en: 'Link',
+      fr: 'Lien',
+    },
     type: 'group',
     admin: {
       hideGutter: true,
@@ -38,14 +51,24 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         fields: [
           {
             name: 'type',
+            label: {
+              en: 'Link Type',
+              fr: 'Type de lien',
+            },
             type: 'radio',
             options: [
               {
-                label: 'Internal link',
+                label: {
+                  en: 'Internal link',
+                  fr: 'Lien interne',
+                },
                 value: 'reference',
               },
               {
-                label: 'Custom URL',
+                label: {
+                  en: 'Custom URL',
+                  fr: 'URL personnalisée',
+                },
                 value: 'custom',
               },
             ],
@@ -57,7 +80,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           },
           {
             name: 'newTab',
-            label: 'Open in new tab',
+            label: {
+              en: 'Open in new tab',
+              fr: 'Ouvrir dans un nouvel onglet',
+            },
             type: 'checkbox',
             admin: {
               width: '50%',
@@ -74,7 +100,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
   const linkTypes: Field[] = [
     {
       name: 'reference',
-      label: 'Document to link to',
+      label: {
+        en: 'Document to link to',
+        fr: 'Document vers lequel créer un lien',
+      },
       type: 'relationship',
       relationTo: ['pages'],
       required: true,
@@ -85,7 +114,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     },
     {
       name: 'url',
-      label: 'Custom URL',
+      label: {
+        en: 'Custom URL',
+        fr: 'URL personnalisée',
+      },
       type: 'text',
       required: true,
       admin: {
@@ -109,7 +141,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         ...linkTypes,
         {
           name: 'label',
-          label: 'Label',
+          label: {
+            en: 'Label',
+            fr: 'Étiquette',
+          },
           type: 'text',
           required: true,
           admin: {
@@ -118,7 +153,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         },
         {
           name: 'icon',
-          label: 'Icon',
+          label: {
+            en: 'Icon',
+            fr: 'Icône',
+          },
           type: 'upload',
           relationTo: 'media',
         },
