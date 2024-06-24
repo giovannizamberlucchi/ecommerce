@@ -428,10 +428,11 @@ export interface Home {
   };
   processDescription: {
     subtitle: string;
+    description: string;
     carousel?:
       | {
           title: string;
-          icon: string | Media;
+          media: string | Media;
           description: string;
           id?: string | null;
         }[]
@@ -440,6 +441,7 @@ export interface Home {
   featuredProducts?: {
     sliderArray?:
       | {
+          media: string | Media;
           title: string;
           subtitle?: string | null;
           description: string;
@@ -531,17 +533,7 @@ export interface Footer {
     | null;
   businessClub?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: string | Page;
-          } | null;
-          url?: string | null;
-          label: string;
-          icon?: string | Media | null;
-        };
+        link: string;
         icon: string | Media;
         id?: string | null;
       }[]

@@ -9290,35 +9290,36 @@ type Home_Services_TypingEffectTextArray {
 
 type Home_ProcessDescription {
   subtitle: String
+  description: String
   carousel: [Home_ProcessDescription_Carousel!]
 }
 
 type Home_ProcessDescription_Carousel {
   title: String
-  icon(where: Home_ProcessDescription_Carousel_Icon_where): Media
+  media(where: Home_ProcessDescription_Carousel_Media_where): Media
   description: String
   id: String
 }
 
-input Home_ProcessDescription_Carousel_Icon_where {
-  alt: Home_ProcessDescription_Carousel_Icon_alt_operator
-  caption: Home_ProcessDescription_Carousel_Icon_caption_operator
-  updatedAt: Home_ProcessDescription_Carousel_Icon_updatedAt_operator
-  createdAt: Home_ProcessDescription_Carousel_Icon_createdAt_operator
-  url: Home_ProcessDescription_Carousel_Icon_url_operator
-  filename: Home_ProcessDescription_Carousel_Icon_filename_operator
-  mimeType: Home_ProcessDescription_Carousel_Icon_mimeType_operator
-  filesize: Home_ProcessDescription_Carousel_Icon_filesize_operator
-  width: Home_ProcessDescription_Carousel_Icon_width_operator
-  height: Home_ProcessDescription_Carousel_Icon_height_operator
-  focalX: Home_ProcessDescription_Carousel_Icon_focalX_operator
-  focalY: Home_ProcessDescription_Carousel_Icon_focalY_operator
-  id: Home_ProcessDescription_Carousel_Icon_id_operator
-  AND: [Home_ProcessDescription_Carousel_Icon_where_and]
-  OR: [Home_ProcessDescription_Carousel_Icon_where_or]
+input Home_ProcessDescription_Carousel_Media_where {
+  alt: Home_ProcessDescription_Carousel_Media_alt_operator
+  caption: Home_ProcessDescription_Carousel_Media_caption_operator
+  updatedAt: Home_ProcessDescription_Carousel_Media_updatedAt_operator
+  createdAt: Home_ProcessDescription_Carousel_Media_createdAt_operator
+  url: Home_ProcessDescription_Carousel_Media_url_operator
+  filename: Home_ProcessDescription_Carousel_Media_filename_operator
+  mimeType: Home_ProcessDescription_Carousel_Media_mimeType_operator
+  filesize: Home_ProcessDescription_Carousel_Media_filesize_operator
+  width: Home_ProcessDescription_Carousel_Media_width_operator
+  height: Home_ProcessDescription_Carousel_Media_height_operator
+  focalX: Home_ProcessDescription_Carousel_Media_focalX_operator
+  focalY: Home_ProcessDescription_Carousel_Media_focalY_operator
+  id: Home_ProcessDescription_Carousel_Media_id_operator
+  AND: [Home_ProcessDescription_Carousel_Media_where_and]
+  OR: [Home_ProcessDescription_Carousel_Media_where_or]
 }
 
-input Home_ProcessDescription_Carousel_Icon_alt_operator {
+input Home_ProcessDescription_Carousel_Media_alt_operator {
   equals: String
   not_equals: String
   like: String
@@ -9328,7 +9329,7 @@ input Home_ProcessDescription_Carousel_Icon_alt_operator {
   all: [String]
 }
 
-input Home_ProcessDescription_Carousel_Icon_caption_operator {
+input Home_ProcessDescription_Carousel_Media_caption_operator {
   equals: JSON
   not_equals: JSON
   like: JSON
@@ -9336,7 +9337,7 @@ input Home_ProcessDescription_Carousel_Icon_caption_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_updatedAt_operator {
+input Home_ProcessDescription_Carousel_Media_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -9347,7 +9348,7 @@ input Home_ProcessDescription_Carousel_Icon_updatedAt_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_createdAt_operator {
+input Home_ProcessDescription_Carousel_Media_createdAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -9358,7 +9359,7 @@ input Home_ProcessDescription_Carousel_Icon_createdAt_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_url_operator {
+input Home_ProcessDescription_Carousel_Media_url_operator {
   equals: String
   not_equals: String
   like: String
@@ -9369,7 +9370,7 @@ input Home_ProcessDescription_Carousel_Icon_url_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_filename_operator {
+input Home_ProcessDescription_Carousel_Media_filename_operator {
   equals: String
   not_equals: String
   like: String
@@ -9380,7 +9381,7 @@ input Home_ProcessDescription_Carousel_Icon_filename_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_mimeType_operator {
+input Home_ProcessDescription_Carousel_Media_mimeType_operator {
   equals: String
   not_equals: String
   like: String
@@ -9391,7 +9392,7 @@ input Home_ProcessDescription_Carousel_Icon_mimeType_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_filesize_operator {
+input Home_ProcessDescription_Carousel_Media_filesize_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -9401,7 +9402,7 @@ input Home_ProcessDescription_Carousel_Icon_filesize_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_width_operator {
+input Home_ProcessDescription_Carousel_Media_width_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -9411,7 +9412,7 @@ input Home_ProcessDescription_Carousel_Icon_width_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_height_operator {
+input Home_ProcessDescription_Carousel_Media_height_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -9421,7 +9422,7 @@ input Home_ProcessDescription_Carousel_Icon_height_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_focalX_operator {
+input Home_ProcessDescription_Carousel_Media_focalX_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -9431,7 +9432,7 @@ input Home_ProcessDescription_Carousel_Icon_focalX_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_focalY_operator {
+input Home_ProcessDescription_Carousel_Media_focalY_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -9441,7 +9442,7 @@ input Home_ProcessDescription_Carousel_Icon_focalY_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_id_operator {
+input Home_ProcessDescription_Carousel_Media_id_operator {
   equals: String
   not_equals: String
   like: String
@@ -9452,40 +9453,40 @@ input Home_ProcessDescription_Carousel_Icon_id_operator {
   exists: Boolean
 }
 
-input Home_ProcessDescription_Carousel_Icon_where_and {
-  alt: Home_ProcessDescription_Carousel_Icon_alt_operator
-  caption: Home_ProcessDescription_Carousel_Icon_caption_operator
-  updatedAt: Home_ProcessDescription_Carousel_Icon_updatedAt_operator
-  createdAt: Home_ProcessDescription_Carousel_Icon_createdAt_operator
-  url: Home_ProcessDescription_Carousel_Icon_url_operator
-  filename: Home_ProcessDescription_Carousel_Icon_filename_operator
-  mimeType: Home_ProcessDescription_Carousel_Icon_mimeType_operator
-  filesize: Home_ProcessDescription_Carousel_Icon_filesize_operator
-  width: Home_ProcessDescription_Carousel_Icon_width_operator
-  height: Home_ProcessDescription_Carousel_Icon_height_operator
-  focalX: Home_ProcessDescription_Carousel_Icon_focalX_operator
-  focalY: Home_ProcessDescription_Carousel_Icon_focalY_operator
-  id: Home_ProcessDescription_Carousel_Icon_id_operator
-  AND: [Home_ProcessDescription_Carousel_Icon_where_and]
-  OR: [Home_ProcessDescription_Carousel_Icon_where_or]
+input Home_ProcessDescription_Carousel_Media_where_and {
+  alt: Home_ProcessDescription_Carousel_Media_alt_operator
+  caption: Home_ProcessDescription_Carousel_Media_caption_operator
+  updatedAt: Home_ProcessDescription_Carousel_Media_updatedAt_operator
+  createdAt: Home_ProcessDescription_Carousel_Media_createdAt_operator
+  url: Home_ProcessDescription_Carousel_Media_url_operator
+  filename: Home_ProcessDescription_Carousel_Media_filename_operator
+  mimeType: Home_ProcessDescription_Carousel_Media_mimeType_operator
+  filesize: Home_ProcessDescription_Carousel_Media_filesize_operator
+  width: Home_ProcessDescription_Carousel_Media_width_operator
+  height: Home_ProcessDescription_Carousel_Media_height_operator
+  focalX: Home_ProcessDescription_Carousel_Media_focalX_operator
+  focalY: Home_ProcessDescription_Carousel_Media_focalY_operator
+  id: Home_ProcessDescription_Carousel_Media_id_operator
+  AND: [Home_ProcessDescription_Carousel_Media_where_and]
+  OR: [Home_ProcessDescription_Carousel_Media_where_or]
 }
 
-input Home_ProcessDescription_Carousel_Icon_where_or {
-  alt: Home_ProcessDescription_Carousel_Icon_alt_operator
-  caption: Home_ProcessDescription_Carousel_Icon_caption_operator
-  updatedAt: Home_ProcessDescription_Carousel_Icon_updatedAt_operator
-  createdAt: Home_ProcessDescription_Carousel_Icon_createdAt_operator
-  url: Home_ProcessDescription_Carousel_Icon_url_operator
-  filename: Home_ProcessDescription_Carousel_Icon_filename_operator
-  mimeType: Home_ProcessDescription_Carousel_Icon_mimeType_operator
-  filesize: Home_ProcessDescription_Carousel_Icon_filesize_operator
-  width: Home_ProcessDescription_Carousel_Icon_width_operator
-  height: Home_ProcessDescription_Carousel_Icon_height_operator
-  focalX: Home_ProcessDescription_Carousel_Icon_focalX_operator
-  focalY: Home_ProcessDescription_Carousel_Icon_focalY_operator
-  id: Home_ProcessDescription_Carousel_Icon_id_operator
-  AND: [Home_ProcessDescription_Carousel_Icon_where_and]
-  OR: [Home_ProcessDescription_Carousel_Icon_where_or]
+input Home_ProcessDescription_Carousel_Media_where_or {
+  alt: Home_ProcessDescription_Carousel_Media_alt_operator
+  caption: Home_ProcessDescription_Carousel_Media_caption_operator
+  updatedAt: Home_ProcessDescription_Carousel_Media_updatedAt_operator
+  createdAt: Home_ProcessDescription_Carousel_Media_createdAt_operator
+  url: Home_ProcessDescription_Carousel_Media_url_operator
+  filename: Home_ProcessDescription_Carousel_Media_filename_operator
+  mimeType: Home_ProcessDescription_Carousel_Media_mimeType_operator
+  filesize: Home_ProcessDescription_Carousel_Media_filesize_operator
+  width: Home_ProcessDescription_Carousel_Media_width_operator
+  height: Home_ProcessDescription_Carousel_Media_height_operator
+  focalX: Home_ProcessDescription_Carousel_Media_focalX_operator
+  focalY: Home_ProcessDescription_Carousel_Media_focalY_operator
+  id: Home_ProcessDescription_Carousel_Media_id_operator
+  AND: [Home_ProcessDescription_Carousel_Media_where_and]
+  OR: [Home_ProcessDescription_Carousel_Media_where_or]
 }
 
 type Home_FeaturedProducts {
@@ -9493,12 +9494,201 @@ type Home_FeaturedProducts {
 }
 
 type Home_FeaturedProducts_SliderArray {
+  media(where: Home_FeaturedProducts_SliderArray_Media_where): Media
   title: String
   subtitle: String
   description: String
   buttonText: String
   link: String
   id: String
+}
+
+input Home_FeaturedProducts_SliderArray_Media_where {
+  alt: Home_FeaturedProducts_SliderArray_Media_alt_operator
+  caption: Home_FeaturedProducts_SliderArray_Media_caption_operator
+  updatedAt: Home_FeaturedProducts_SliderArray_Media_updatedAt_operator
+  createdAt: Home_FeaturedProducts_SliderArray_Media_createdAt_operator
+  url: Home_FeaturedProducts_SliderArray_Media_url_operator
+  filename: Home_FeaturedProducts_SliderArray_Media_filename_operator
+  mimeType: Home_FeaturedProducts_SliderArray_Media_mimeType_operator
+  filesize: Home_FeaturedProducts_SliderArray_Media_filesize_operator
+  width: Home_FeaturedProducts_SliderArray_Media_width_operator
+  height: Home_FeaturedProducts_SliderArray_Media_height_operator
+  focalX: Home_FeaturedProducts_SliderArray_Media_focalX_operator
+  focalY: Home_FeaturedProducts_SliderArray_Media_focalY_operator
+  id: Home_FeaturedProducts_SliderArray_Media_id_operator
+  AND: [Home_FeaturedProducts_SliderArray_Media_where_and]
+  OR: [Home_FeaturedProducts_SliderArray_Media_where_or]
+}
+
+input Home_FeaturedProducts_SliderArray_Media_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Home_FeaturedProducts_SliderArray_Media_caption_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Home_FeaturedProducts_SliderArray_Media_where_and {
+  alt: Home_FeaturedProducts_SliderArray_Media_alt_operator
+  caption: Home_FeaturedProducts_SliderArray_Media_caption_operator
+  updatedAt: Home_FeaturedProducts_SliderArray_Media_updatedAt_operator
+  createdAt: Home_FeaturedProducts_SliderArray_Media_createdAt_operator
+  url: Home_FeaturedProducts_SliderArray_Media_url_operator
+  filename: Home_FeaturedProducts_SliderArray_Media_filename_operator
+  mimeType: Home_FeaturedProducts_SliderArray_Media_mimeType_operator
+  filesize: Home_FeaturedProducts_SliderArray_Media_filesize_operator
+  width: Home_FeaturedProducts_SliderArray_Media_width_operator
+  height: Home_FeaturedProducts_SliderArray_Media_height_operator
+  focalX: Home_FeaturedProducts_SliderArray_Media_focalX_operator
+  focalY: Home_FeaturedProducts_SliderArray_Media_focalY_operator
+  id: Home_FeaturedProducts_SliderArray_Media_id_operator
+  AND: [Home_FeaturedProducts_SliderArray_Media_where_and]
+  OR: [Home_FeaturedProducts_SliderArray_Media_where_or]
+}
+
+input Home_FeaturedProducts_SliderArray_Media_where_or {
+  alt: Home_FeaturedProducts_SliderArray_Media_alt_operator
+  caption: Home_FeaturedProducts_SliderArray_Media_caption_operator
+  updatedAt: Home_FeaturedProducts_SliderArray_Media_updatedAt_operator
+  createdAt: Home_FeaturedProducts_SliderArray_Media_createdAt_operator
+  url: Home_FeaturedProducts_SliderArray_Media_url_operator
+  filename: Home_FeaturedProducts_SliderArray_Media_filename_operator
+  mimeType: Home_FeaturedProducts_SliderArray_Media_mimeType_operator
+  filesize: Home_FeaturedProducts_SliderArray_Media_filesize_operator
+  width: Home_FeaturedProducts_SliderArray_Media_width_operator
+  height: Home_FeaturedProducts_SliderArray_Media_height_operator
+  focalX: Home_FeaturedProducts_SliderArray_Media_focalX_operator
+  focalY: Home_FeaturedProducts_SliderArray_Media_focalY_operator
+  id: Home_FeaturedProducts_SliderArray_Media_id_operator
+  AND: [Home_FeaturedProducts_SliderArray_Media_where_and]
+  OR: [Home_FeaturedProducts_SliderArray_Media_where_or]
 }
 
 type Home_CompanyInNumbers {
@@ -10080,6 +10270,7 @@ type HomeDocAccessFields_processDescription_Delete {
 
 type HomeDocAccessFields_processDescription_Fields {
   subtitle: HomeDocAccessFields_processDescription_subtitle
+  description: HomeDocAccessFields_processDescription_description
   carousel: HomeDocAccessFields_processDescription_carousel
 }
 
@@ -10103,6 +10294,29 @@ type HomeDocAccessFields_processDescription_subtitle_Update {
 }
 
 type HomeDocAccessFields_processDescription_subtitle_Delete {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_processDescription_description {
+  create: HomeDocAccessFields_processDescription_description_Create
+  read: HomeDocAccessFields_processDescription_description_Read
+  update: HomeDocAccessFields_processDescription_description_Update
+  delete: HomeDocAccessFields_processDescription_description_Delete
+}
+
+type HomeDocAccessFields_processDescription_description_Create {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_processDescription_description_Read {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_processDescription_description_Update {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_processDescription_description_Delete {
   permission: Boolean!
 }
 
@@ -10132,7 +10346,7 @@ type HomeDocAccessFields_processDescription_carousel_Delete {
 
 type HomeDocAccessFields_processDescription_carousel_Fields {
   title: HomeDocAccessFields_processDescription_carousel_title
-  icon: HomeDocAccessFields_processDescription_carousel_icon
+  media: HomeDocAccessFields_processDescription_carousel_media
   description: HomeDocAccessFields_processDescription_carousel_description
   id: HomeDocAccessFields_processDescription_carousel_id
 }
@@ -10160,26 +10374,26 @@ type HomeDocAccessFields_processDescription_carousel_title_Delete {
   permission: Boolean!
 }
 
-type HomeDocAccessFields_processDescription_carousel_icon {
-  create: HomeDocAccessFields_processDescription_carousel_icon_Create
-  read: HomeDocAccessFields_processDescription_carousel_icon_Read
-  update: HomeDocAccessFields_processDescription_carousel_icon_Update
-  delete: HomeDocAccessFields_processDescription_carousel_icon_Delete
+type HomeDocAccessFields_processDescription_carousel_media {
+  create: HomeDocAccessFields_processDescription_carousel_media_Create
+  read: HomeDocAccessFields_processDescription_carousel_media_Read
+  update: HomeDocAccessFields_processDescription_carousel_media_Update
+  delete: HomeDocAccessFields_processDescription_carousel_media_Delete
 }
 
-type HomeDocAccessFields_processDescription_carousel_icon_Create {
+type HomeDocAccessFields_processDescription_carousel_media_Create {
   permission: Boolean!
 }
 
-type HomeDocAccessFields_processDescription_carousel_icon_Read {
+type HomeDocAccessFields_processDescription_carousel_media_Read {
   permission: Boolean!
 }
 
-type HomeDocAccessFields_processDescription_carousel_icon_Update {
+type HomeDocAccessFields_processDescription_carousel_media_Update {
   permission: Boolean!
 }
 
-type HomeDocAccessFields_processDescription_carousel_icon_Delete {
+type HomeDocAccessFields_processDescription_carousel_media_Delete {
   permission: Boolean!
 }
 
@@ -10282,12 +10496,36 @@ type HomeDocAccessFields_featuredProducts_sliderArray_Delete {
 }
 
 type HomeDocAccessFields_featuredProducts_sliderArray_Fields {
+  media: HomeDocAccessFields_featuredProducts_sliderArray_media
   title: HomeDocAccessFields_featuredProducts_sliderArray_title
   subtitle: HomeDocAccessFields_featuredProducts_sliderArray_subtitle
   description: HomeDocAccessFields_featuredProducts_sliderArray_description
   buttonText: HomeDocAccessFields_featuredProducts_sliderArray_buttonText
   link: HomeDocAccessFields_featuredProducts_sliderArray_link
   id: HomeDocAccessFields_featuredProducts_sliderArray_id
+}
+
+type HomeDocAccessFields_featuredProducts_sliderArray_media {
+  create: HomeDocAccessFields_featuredProducts_sliderArray_media_Create
+  read: HomeDocAccessFields_featuredProducts_sliderArray_media_Read
+  update: HomeDocAccessFields_featuredProducts_sliderArray_media_Update
+  delete: HomeDocAccessFields_featuredProducts_sliderArray_media_Delete
+}
+
+type HomeDocAccessFields_featuredProducts_sliderArray_media_Create {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_featuredProducts_sliderArray_media_Read {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_featuredProducts_sliderArray_media_Update {
+  permission: Boolean!
+}
+
+type HomeDocAccessFields_featuredProducts_sliderArray_media_Delete {
+  permission: Boolean!
 }
 
 type HomeDocAccessFields_featuredProducts_sliderArray_title {
@@ -11681,222 +11919,9 @@ input Footer_NavItems_Link_Icon_where_or {
 }
 
 type Footer_BusinessClub {
-  link: Footer_BusinessClub_Link
+  link: String
   icon(where: Footer_BusinessClub_Icon_where): Media
   id: String
-}
-
-type Footer_BusinessClub_Link {
-  type: Footer_BusinessClub_Link_type
-  newTab: Boolean
-  reference(draft: Boolean): Footer_BusinessClub_Link_Reference_Relationship
-  url: String
-  label: String
-  icon(where: Footer_BusinessClub_Link_Icon_where): Media
-}
-
-enum Footer_BusinessClub_Link_type {
-  reference
-  custom
-}
-
-type Footer_BusinessClub_Link_Reference_Relationship {
-  relationTo: Footer_BusinessClub_Link_Reference_RelationTo
-  value: Footer_BusinessClub_Link_Reference
-}
-
-enum Footer_BusinessClub_Link_Reference_RelationTo {
-  pages
-}
-
-union Footer_BusinessClub_Link_Reference = Page
-
-input Footer_BusinessClub_Link_Icon_where {
-  alt: Footer_BusinessClub_Link_Icon_alt_operator
-  caption: Footer_BusinessClub_Link_Icon_caption_operator
-  updatedAt: Footer_BusinessClub_Link_Icon_updatedAt_operator
-  createdAt: Footer_BusinessClub_Link_Icon_createdAt_operator
-  url: Footer_BusinessClub_Link_Icon_url_operator
-  filename: Footer_BusinessClub_Link_Icon_filename_operator
-  mimeType: Footer_BusinessClub_Link_Icon_mimeType_operator
-  filesize: Footer_BusinessClub_Link_Icon_filesize_operator
-  width: Footer_BusinessClub_Link_Icon_width_operator
-  height: Footer_BusinessClub_Link_Icon_height_operator
-  focalX: Footer_BusinessClub_Link_Icon_focalX_operator
-  focalY: Footer_BusinessClub_Link_Icon_focalY_operator
-  id: Footer_BusinessClub_Link_Icon_id_operator
-  AND: [Footer_BusinessClub_Link_Icon_where_and]
-  OR: [Footer_BusinessClub_Link_Icon_where_or]
-}
-
-input Footer_BusinessClub_Link_Icon_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Footer_BusinessClub_Link_Icon_caption_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Footer_BusinessClub_Link_Icon_where_and {
-  alt: Footer_BusinessClub_Link_Icon_alt_operator
-  caption: Footer_BusinessClub_Link_Icon_caption_operator
-  updatedAt: Footer_BusinessClub_Link_Icon_updatedAt_operator
-  createdAt: Footer_BusinessClub_Link_Icon_createdAt_operator
-  url: Footer_BusinessClub_Link_Icon_url_operator
-  filename: Footer_BusinessClub_Link_Icon_filename_operator
-  mimeType: Footer_BusinessClub_Link_Icon_mimeType_operator
-  filesize: Footer_BusinessClub_Link_Icon_filesize_operator
-  width: Footer_BusinessClub_Link_Icon_width_operator
-  height: Footer_BusinessClub_Link_Icon_height_operator
-  focalX: Footer_BusinessClub_Link_Icon_focalX_operator
-  focalY: Footer_BusinessClub_Link_Icon_focalY_operator
-  id: Footer_BusinessClub_Link_Icon_id_operator
-  AND: [Footer_BusinessClub_Link_Icon_where_and]
-  OR: [Footer_BusinessClub_Link_Icon_where_or]
-}
-
-input Footer_BusinessClub_Link_Icon_where_or {
-  alt: Footer_BusinessClub_Link_Icon_alt_operator
-  caption: Footer_BusinessClub_Link_Icon_caption_operator
-  updatedAt: Footer_BusinessClub_Link_Icon_updatedAt_operator
-  createdAt: Footer_BusinessClub_Link_Icon_createdAt_operator
-  url: Footer_BusinessClub_Link_Icon_url_operator
-  filename: Footer_BusinessClub_Link_Icon_filename_operator
-  mimeType: Footer_BusinessClub_Link_Icon_mimeType_operator
-  filesize: Footer_BusinessClub_Link_Icon_filesize_operator
-  width: Footer_BusinessClub_Link_Icon_width_operator
-  height: Footer_BusinessClub_Link_Icon_height_operator
-  focalX: Footer_BusinessClub_Link_Icon_focalX_operator
-  focalY: Footer_BusinessClub_Link_Icon_focalY_operator
-  id: Footer_BusinessClub_Link_Icon_id_operator
-  AND: [Footer_BusinessClub_Link_Icon_where_and]
-  OR: [Footer_BusinessClub_Link_Icon_where_or]
 }
 
 input Footer_BusinessClub_Icon_where {
@@ -12382,7 +12407,6 @@ type FooterDocAccessFields_businessClub_link {
   read: FooterDocAccessFields_businessClub_link_Read
   update: FooterDocAccessFields_businessClub_link_Update
   delete: FooterDocAccessFields_businessClub_link_Delete
-  fields: FooterDocAccessFields_businessClub_link_Fields
 }
 
 type FooterDocAccessFields_businessClub_link_Create {
@@ -12398,153 +12422,6 @@ type FooterDocAccessFields_businessClub_link_Update {
 }
 
 type FooterDocAccessFields_businessClub_link_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_Fields {
-  type: FooterDocAccessFields_businessClub_link_type
-  newTab: FooterDocAccessFields_businessClub_link_newTab
-  reference: FooterDocAccessFields_businessClub_link_reference
-  url: FooterDocAccessFields_businessClub_link_url
-  label: FooterDocAccessFields_businessClub_link_label
-  icon: FooterDocAccessFields_businessClub_link_icon
-}
-
-type FooterDocAccessFields_businessClub_link_type {
-  create: FooterDocAccessFields_businessClub_link_type_Create
-  read: FooterDocAccessFields_businessClub_link_type_Read
-  update: FooterDocAccessFields_businessClub_link_type_Update
-  delete: FooterDocAccessFields_businessClub_link_type_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_type_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_type_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_type_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_type_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_newTab {
-  create: FooterDocAccessFields_businessClub_link_newTab_Create
-  read: FooterDocAccessFields_businessClub_link_newTab_Read
-  update: FooterDocAccessFields_businessClub_link_newTab_Update
-  delete: FooterDocAccessFields_businessClub_link_newTab_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_newTab_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_newTab_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_newTab_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_reference {
-  create: FooterDocAccessFields_businessClub_link_reference_Create
-  read: FooterDocAccessFields_businessClub_link_reference_Read
-  update: FooterDocAccessFields_businessClub_link_reference_Update
-  delete: FooterDocAccessFields_businessClub_link_reference_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_reference_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_reference_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_reference_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_reference_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_url {
-  create: FooterDocAccessFields_businessClub_link_url_Create
-  read: FooterDocAccessFields_businessClub_link_url_Read
-  update: FooterDocAccessFields_businessClub_link_url_Update
-  delete: FooterDocAccessFields_businessClub_link_url_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_url_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_url_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_url_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_url_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_label {
-  create: FooterDocAccessFields_businessClub_link_label_Create
-  read: FooterDocAccessFields_businessClub_link_label_Read
-  update: FooterDocAccessFields_businessClub_link_label_Update
-  delete: FooterDocAccessFields_businessClub_link_label_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_label_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_label_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_label_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_label_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_icon {
-  create: FooterDocAccessFields_businessClub_link_icon_Create
-  read: FooterDocAccessFields_businessClub_link_icon_Read
-  update: FooterDocAccessFields_businessClub_link_icon_Update
-  delete: FooterDocAccessFields_businessClub_link_icon_Delete
-}
-
-type FooterDocAccessFields_businessClub_link_icon_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_icon_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_icon_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_businessClub_link_icon_Delete {
   permission: Boolean!
 }
 
@@ -16468,6 +16345,7 @@ type HomeFields_processDescription_Delete {
 
 type HomeFields_processDescription_Fields {
   subtitle: HomeFields_processDescription_subtitle
+  description: HomeFields_processDescription_description
   carousel: HomeFields_processDescription_carousel
 }
 
@@ -16491,6 +16369,29 @@ type HomeFields_processDescription_subtitle_Update {
 }
 
 type HomeFields_processDescription_subtitle_Delete {
+  permission: Boolean!
+}
+
+type HomeFields_processDescription_description {
+  create: HomeFields_processDescription_description_Create
+  read: HomeFields_processDescription_description_Read
+  update: HomeFields_processDescription_description_Update
+  delete: HomeFields_processDescription_description_Delete
+}
+
+type HomeFields_processDescription_description_Create {
+  permission: Boolean!
+}
+
+type HomeFields_processDescription_description_Read {
+  permission: Boolean!
+}
+
+type HomeFields_processDescription_description_Update {
+  permission: Boolean!
+}
+
+type HomeFields_processDescription_description_Delete {
   permission: Boolean!
 }
 
@@ -16520,7 +16421,7 @@ type HomeFields_processDescription_carousel_Delete {
 
 type HomeFields_processDescription_carousel_Fields {
   title: HomeFields_processDescription_carousel_title
-  icon: HomeFields_processDescription_carousel_icon
+  media: HomeFields_processDescription_carousel_media
   description: HomeFields_processDescription_carousel_description
   id: HomeFields_processDescription_carousel_id
 }
@@ -16548,26 +16449,26 @@ type HomeFields_processDescription_carousel_title_Delete {
   permission: Boolean!
 }
 
-type HomeFields_processDescription_carousel_icon {
-  create: HomeFields_processDescription_carousel_icon_Create
-  read: HomeFields_processDescription_carousel_icon_Read
-  update: HomeFields_processDescription_carousel_icon_Update
-  delete: HomeFields_processDescription_carousel_icon_Delete
+type HomeFields_processDescription_carousel_media {
+  create: HomeFields_processDescription_carousel_media_Create
+  read: HomeFields_processDescription_carousel_media_Read
+  update: HomeFields_processDescription_carousel_media_Update
+  delete: HomeFields_processDescription_carousel_media_Delete
 }
 
-type HomeFields_processDescription_carousel_icon_Create {
+type HomeFields_processDescription_carousel_media_Create {
   permission: Boolean!
 }
 
-type HomeFields_processDescription_carousel_icon_Read {
+type HomeFields_processDescription_carousel_media_Read {
   permission: Boolean!
 }
 
-type HomeFields_processDescription_carousel_icon_Update {
+type HomeFields_processDescription_carousel_media_Update {
   permission: Boolean!
 }
 
-type HomeFields_processDescription_carousel_icon_Delete {
+type HomeFields_processDescription_carousel_media_Delete {
   permission: Boolean!
 }
 
@@ -16670,12 +16571,36 @@ type HomeFields_featuredProducts_sliderArray_Delete {
 }
 
 type HomeFields_featuredProducts_sliderArray_Fields {
+  media: HomeFields_featuredProducts_sliderArray_media
   title: HomeFields_featuredProducts_sliderArray_title
   subtitle: HomeFields_featuredProducts_sliderArray_subtitle
   description: HomeFields_featuredProducts_sliderArray_description
   buttonText: HomeFields_featuredProducts_sliderArray_buttonText
   link: HomeFields_featuredProducts_sliderArray_link
   id: HomeFields_featuredProducts_sliderArray_id
+}
+
+type HomeFields_featuredProducts_sliderArray_media {
+  create: HomeFields_featuredProducts_sliderArray_media_Create
+  read: HomeFields_featuredProducts_sliderArray_media_Read
+  update: HomeFields_featuredProducts_sliderArray_media_Update
+  delete: HomeFields_featuredProducts_sliderArray_media_Delete
+}
+
+type HomeFields_featuredProducts_sliderArray_media_Create {
+  permission: Boolean!
+}
+
+type HomeFields_featuredProducts_sliderArray_media_Read {
+  permission: Boolean!
+}
+
+type HomeFields_featuredProducts_sliderArray_media_Update {
+  permission: Boolean!
+}
+
+type HomeFields_featuredProducts_sliderArray_media_Delete {
+  permission: Boolean!
 }
 
 type HomeFields_featuredProducts_sliderArray_title {
@@ -17896,7 +17821,6 @@ type FooterFields_businessClub_link {
   read: FooterFields_businessClub_link_Read
   update: FooterFields_businessClub_link_Update
   delete: FooterFields_businessClub_link_Delete
-  fields: FooterFields_businessClub_link_Fields
 }
 
 type FooterFields_businessClub_link_Create {
@@ -17912,153 +17836,6 @@ type FooterFields_businessClub_link_Update {
 }
 
 type FooterFields_businessClub_link_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_Fields {
-  type: FooterFields_businessClub_link_type
-  newTab: FooterFields_businessClub_link_newTab
-  reference: FooterFields_businessClub_link_reference
-  url: FooterFields_businessClub_link_url
-  label: FooterFields_businessClub_link_label
-  icon: FooterFields_businessClub_link_icon
-}
-
-type FooterFields_businessClub_link_type {
-  create: FooterFields_businessClub_link_type_Create
-  read: FooterFields_businessClub_link_type_Read
-  update: FooterFields_businessClub_link_type_Update
-  delete: FooterFields_businessClub_link_type_Delete
-}
-
-type FooterFields_businessClub_link_type_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_type_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_type_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_type_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_newTab {
-  create: FooterFields_businessClub_link_newTab_Create
-  read: FooterFields_businessClub_link_newTab_Read
-  update: FooterFields_businessClub_link_newTab_Update
-  delete: FooterFields_businessClub_link_newTab_Delete
-}
-
-type FooterFields_businessClub_link_newTab_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_newTab_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_newTab_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_reference {
-  create: FooterFields_businessClub_link_reference_Create
-  read: FooterFields_businessClub_link_reference_Read
-  update: FooterFields_businessClub_link_reference_Update
-  delete: FooterFields_businessClub_link_reference_Delete
-}
-
-type FooterFields_businessClub_link_reference_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_reference_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_reference_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_reference_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_url {
-  create: FooterFields_businessClub_link_url_Create
-  read: FooterFields_businessClub_link_url_Read
-  update: FooterFields_businessClub_link_url_Update
-  delete: FooterFields_businessClub_link_url_Delete
-}
-
-type FooterFields_businessClub_link_url_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_url_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_url_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_url_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_label {
-  create: FooterFields_businessClub_link_label_Create
-  read: FooterFields_businessClub_link_label_Read
-  update: FooterFields_businessClub_link_label_Update
-  delete: FooterFields_businessClub_link_label_Delete
-}
-
-type FooterFields_businessClub_link_label_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_label_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_label_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_label_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_icon {
-  create: FooterFields_businessClub_link_icon_Create
-  read: FooterFields_businessClub_link_icon_Read
-  update: FooterFields_businessClub_link_icon_Update
-  delete: FooterFields_businessClub_link_icon_Delete
-}
-
-type FooterFields_businessClub_link_icon_Create {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_icon_Read {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_icon_Update {
-  permission: Boolean!
-}
-
-type FooterFields_businessClub_link_icon_Delete {
   permission: Boolean!
 }
 
@@ -18787,12 +18564,13 @@ input mutationHome_Services_TypingEffectTextArrayInput {
 
 input mutationHome_ProcessDescriptionInput {
   subtitle: String!
+  description: String!
   carousel: [mutationHome_ProcessDescription_CarouselInput]
 }
 
 input mutationHome_ProcessDescription_CarouselInput {
   title: String!
-  icon: String!
+  media: String!
   description: String!
   id: String
 }
@@ -18802,6 +18580,7 @@ input mutationHome_FeaturedProductsInput {
 }
 
 input mutationHome_FeaturedProducts_SliderArrayInput {
+  media: String!
   title: String!
   subtitle: String
   description: String!
@@ -18899,25 +18678,7 @@ enum Footer_NavItems_Link_ReferenceRelationshipInputRelationTo {
 }
 
 input mutationFooter_BusinessClubInput {
-  link: mutationFooter_BusinessClub_LinkInput
+  link: String!
   icon: String!
   id: String
-}
-
-input mutationFooter_BusinessClub_LinkInput {
-  type: String
-  newTab: Boolean
-  reference: Footer_BusinessClub_Link_ReferenceRelationshipInput
-  url: String
-  label: String!
-  icon: String
-}
-
-input Footer_BusinessClub_Link_ReferenceRelationshipInput {
-  relationTo: Footer_BusinessClub_Link_ReferenceRelationshipInputRelationTo
-  value: JSON
-}
-
-enum Footer_BusinessClub_Link_ReferenceRelationshipInputRelationTo {
-  pages
 }
