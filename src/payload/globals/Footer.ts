@@ -43,9 +43,15 @@ export const Footer: GlobalConfig = {
       },
       type: 'array',
       fields: [
-        link({
-          appearances: false,
-        }),
+        {
+          name: 'link',
+          type: 'text',
+          label: {
+            en: 'Link',
+            fr: 'Lien',
+          },
+          required: true,
+        },
         {
           name: 'icon',
           label: {

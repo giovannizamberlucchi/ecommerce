@@ -1,0 +1,89 @@
+@import '../../../_css/common';
+
+.container {
+  display: grid;
+  row-gap: 20px;
+}
+
+.title {
+  & span {
+    color: var(--color-orange-500);
+  }
+}
+
+.subtitle {
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.container-grid-four-column {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 25px;
+  row-gap: 20px;
+
+  @include small-break {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.video {
+  grid-column: span 3;
+  aspect-ratio: 16 / 9;
+}
+
+.description {
+  grid-column: span 1;
+  font-size: 16px;
+  white-space: pre-line;
+}
+
+.text-with-check-icon {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  height: max-content;
+
+  &-item {
+    display: flex;
+    gap: 5px;
+  }
+
+  &-text {
+    font-size: 16px;
+  }
+
+  @include small-break {
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+  }
+}
+
+.check {
+  height: 26px;
+  width: 26px;
+  & path {
+    stroke: var(--color-orange-500);
+    stroke-width: 3;
+  }
+}
+
+.buttons-container {
+  display: grid;
+  row-gap: 20px;
+
+  @include small-break {
+    place-items: center;
+  }
+}
+
+.button {
+  display: block;
+  width: max-content;
+  padding: 12px 24px;
+  font-size: 19px;
+  background: var(--color-orange-500);
+  border-radius: 5px;
+}
