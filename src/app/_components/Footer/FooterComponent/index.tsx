@@ -1,71 +1,91 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Footer, Media } from '../../../../payload/payload-types';
-import { inclusions, noHeaderFooterUrls, profileNavItems } from '../../../constants';
-import { Button } from '../../Button';
+import { Footer, Settings } from '../../../../payload/payload-types';
+import { noHeaderFooterUrls } from '../../../constants';
 import { Gutter } from '../../Gutter';
 
 import classes from './index.module.scss';
+import { LinkedIn } from '../../icons/LinkedIn';
+import { WhatsApp } from '../../icons/WhatsApp';
+import { Mail } from '../../icons/Mail';
+import { Instagram } from '../../icons/Instagram';
+import { Media } from '../../Media';
 
-const FooterComponent = ({ footer }: { footer: Footer }) => {
+const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Settings }) => {
   const pathname = usePathname();
   const navItems = footer?.navItems || [];
 
   return (
     <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : ''}>
-      <Gutter>
-        <ul className={classes.inclusions}>
-          {(inclusions || []).map((inclusion) => (
-            <li key={inclusion.title}>
-              <Image src={inclusion.icon} alt={inclusion.title} width={36} height={36} className={classes.icon} />
+      <Gutter className={classes.footer}>
+        <div className={classes.container}>
+          <p className={classes.title}>Resovalie</p>
 
-              <h5 className={classes.title}>{inclusion.title}</h5>
-              <p>{inclusion.description}</p>
-            </li>
-          ))}
-        </ul>
-      </Gutter>
-
-      <div className={classes.footer}>
-        <Gutter>
-          <div className={classes.wrap}>
-            <Link href="/">
-              <Image src="/resovalie-achat-fond-blanc-rvb.jpg" alt="logo" width={170} height={50} />
-            </Link>
-
-            <p>{footer?.copyright}</p>
-
-            <div className={classes.socialLinks}>
-              {(navItems || []).map((item) => {
-                const icon = item?.link?.icon as Media;
-
-                return (
-                  <Button
-                    key={item.link.label}
-                    el="link"
-                    href={item.link.url}
-                    newTab={true}
-                    className={classes.socialLinkItem}
-                  >
-                    <Image
-                      src={icon?.url}
-                      alt={item.link.label}
-                      width={24}
-                      height={24}
-                      className={classes.socialIcon}
-                    />
-                  </Button>
-                );
-              })}
-            </div>
+          <div>
+            {navItems.map((item, index) => (
+              <Link
+                href={item.link.url || '/'}
+                key={index}
+                target={item.link.newTab && '_blank'}
+                className={classes.link}
+              >
+                {item.link.label}
+              </Link>
+            ))}
           </div>
-        </Gutter>
-      </div>
+
+          <div className={classes['social-media']}>
+            {setting?.socialMedia?.linkedInUrlSlug && (
+              <Link
+                href={`https://ua.linkedin.com/${setting?.socialMedia.linkedInUrlSlug}`}
+                className={classes['social-media-link']}
+              >
+                <LinkedIn className={classes['social-media-icon']} />
+              </Link>
+            )}
+
+            {setting?.socialMedia?.whatsAppUrlSlug && (
+              <Link
+                href={`https://wa.me/${setting?.socialMedia.whatsAppUrlSlug}`}
+                className={classes['social-media-link']}
+              >
+                <WhatsApp className={classes['social-media-icon']} />
+              </Link>
+            )}
+
+            {setting?.contactEmail && (
+              <Link href={`mailto:${setting?.contactEmail}`} className={classes['social-media-link']}>
+                <Mail className={classes['social-media-icon']} />
+              </Link>
+            )}
+
+            {setting?.socialMedia?.instagramUrlSlug && (
+              <Link
+                href={`https://www.instagram.com/${setting?.socialMedia.instagramUrlSlug}/`}
+                className={classes['social-media-link']}
+              >
+                <Instagram className={classes['social-media-icon']} />
+              </Link>
+            )}
+          </div>
+        </div>
+
+        <div className={classes.container}>
+          <p className={classes.title}>Nos Business Clubs</p>
+
+          <div className={classes.club}>
+            {footer?.businessClub?.map((item, index) => (
+              <Link href={item.link} key={index} className={classes['club-link']}>
+                <Media resource={item.icon} imgClassName={classes['club-image']} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </Gutter>
     </footer>
   );
 };
