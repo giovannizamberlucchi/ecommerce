@@ -240,6 +240,15 @@ export const Home: GlobalConfig = {
           type: 'text',
         },
         {
+          name: 'description',
+          label: {
+            en: 'Description',
+            fr: 'Description',
+          },
+          required: true,
+          type: 'text',
+        },
+        {
           name: 'carousel',
           label: {
             en: 'Carousel cards',
@@ -260,7 +269,7 @@ export const Home: GlobalConfig = {
                   type: 'text',
                 },
                 {
-                  name: 'icon',
+                  name: 'media',
                   label: {
                     en: 'Icon',
                     fr: 'Icône',
@@ -308,6 +317,16 @@ export const Home: GlobalConfig = {
           // },
           type: 'array',
           fields: [
+            {
+              type: 'upload',
+              name: 'media',
+              label: {
+                en: 'Image',
+                fr: 'Image',
+              },
+              relationTo: 'media',
+              required: true,
+            },
             {
               type: 'row',
               fields: [
