@@ -1,0 +1,100 @@
+@import '../../../_css/common';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 5px;
+
+  span {
+    color: var(--color-orange-500);
+  }
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.card-slider {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.slider {
+  width: 50%;
+  place-content: center;
+  margin-bottom: 40px;
+
+  @include small-break {
+    width: 100%;
+  }
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  gap: 20px;
+  background-color: var(--color-orange-500);
+  border-radius: 20px;
+  padding: 40px;
+
+  &__title {
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__description {
+    font-size: 20px;
+    white-space: pre-line;
+    text-align: center;
+  }
+
+  &__image-container {
+    position: relative;
+    width: 90px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 15px;
+  }
+
+  &__image {
+    max-width: none;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 40px;
+  row-gap: 20px;
+
+  @include small-break {
+    flex-direction: column;
+  }
+}
+
+.button {
+  display: block;
+  width: max-content;
+  padding: 12px 24px;
+  font-size: 19px;
+  background: var(--color-orange-500);
+  border-radius: 5px;
+}
