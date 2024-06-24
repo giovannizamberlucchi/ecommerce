@@ -193,32 +193,32 @@ export const seed = async (payload: Payload): Promise<void> => {
 
   payload.logger.info(`— Seeding settings...`);
 
-  await payload.updateGlobal({
-    slug: 'settings',
-    data: {
-      productsPage: productsPageDoc.id,
-    },
-  });
+  // await payload.updateGlobal({
+  //   slug: 'settings',
+  //   data: {
+  //     productsPage: productsPageDoc.id,
+  //   },
+  // });
 
   payload.logger.info(`— Seeding header...`);
 
-  await payload.updateGlobal({
-    slug: 'header',
-    data: {
-      navItems: [
-        {
-          link: {
-            type: 'reference',
-            reference: {
-              relationTo: 'pages',
-              value: productsPageDoc.id,
-            },
-            label: 'Shop',
-          },
-        },
-      ],
-    },
-  });
+  // await payload.updateGlobal({
+  //   slug: 'header',
+  //   data: {
+  //     navItems: [
+  //       {
+  //         link: {
+  //           type: 'reference',
+  //           reference: {
+  //             relationTo: 'pages',
+  //             value: productsPageDoc.id,
+  //           },
+  //           label: 'Shop',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // });
 
   payload.logger.info('Seeded database successfully!');
 };
