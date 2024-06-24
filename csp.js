@@ -17,20 +17,16 @@ const policies = {
     'https://checkout.stripe.com',
     'https://js.stripe.com',
     'https://hooks.stripe.com',
+    'https://www.youtube-nocookie.com',
   ],
-  'connect-src': [
-    "'self'",
-    'https://checkout.stripe.com',
-    'https://api.stripe.com',
-    'https://maps.googleapis.com',
-  ],
-}
+  'connect-src': ["'self'", 'https://checkout.stripe.com', 'https://api.stripe.com', 'https://maps.googleapis.com'],
+};
 
 module.exports = Object.entries(policies)
   .map(([key, value]) => {
     if (Array.isArray(value)) {
-      return `${key} ${value.join(' ')}`
+      return `${key} ${value.join(' ')}`;
     }
-    return ''
+    return '';
   })
-  .join('; ')
+  .join('; ');
