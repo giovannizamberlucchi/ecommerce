@@ -11,11 +11,13 @@ type ServicesProps = {
 export const Services: React.FC<ServicesProps> = async ({ services }) => {
   return (
     <Gutter className={classes.container}>
-      <h2 className={classes.title}>
-        Nos <span>Services</span>
-      </h2>
+      <div>
+        <h2 className={classes.title}>
+          Nos <span>Services</span>
+        </h2>
 
-      <p className={classes.subtitle}>{services.subtitle}</p>
+        <p className={classes.subtitle}>{services.subtitle}</p>
+      </div>
 
       <p className={classes.description}>{services.description}</p>
 
@@ -30,7 +32,7 @@ export const Services: React.FC<ServicesProps> = async ({ services }) => {
       </div>
 
       <p className={classes['typing-text']}>
-        Et bien d'autres : <TypingText texts={services.typingEffectTextArray.map((text) => text.text)} />
+        Et bien d'autres: <TypingText texts={services.typingEffectTextArray.map((text) => text.text)} />
       </p>
     </Gutter>
   );

@@ -15,6 +15,7 @@ export const CompanyInNumber: React.FC<CompanyInNumberProps> = ({ numbers }) => 
         <h2 className={classes.title}>
           RESOVALIE <span>ACHATS</span>
         </h2>
+
         <p className={classes.subtitle}>en quelques chiffres</p>
       </Gutter>
 

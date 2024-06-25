@@ -29,9 +29,11 @@ const Home = async () => {
 
       <ProcessDescription processDescription={home.processDescription} />
 
-      <FeaturedProducts products={home.featuredProducts} />
+      <div>
+        <FeaturedProducts products={home.featuredProducts} />
 
-      <CompanyInNumber numbers={home.companyInNumbers.numbers} />
+        <CompanyInNumber numbers={home.companyInNumbers.numbers} />
+      </div>
     </div>
   );
 };
