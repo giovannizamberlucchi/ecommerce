@@ -99,7 +99,7 @@ export const CartPage: React.FC<{
                     <p></p>
                     <p>Quantité</p>
                   </div>
-                  {/* <p className={classes.headersubtotal}>Sous total</p> */}
+                  <p className={classes.headersubtotal}>Sous total</p>
                 </div>
 
                 <ul className={classes.itemsList}>
@@ -135,10 +135,10 @@ export const CartPage: React.FC<{
                   <h6 className={classes.cartTotal}>Récapitulatif</h6>
                 </div>
 
-                {/* <div className={classes.row}>
+                <div className={classes.row}>
                   <p className={classes.cartTotal}>Total</p>
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>
-                </div> */}
+                </div>
 
                 <Button
                   className={classes.checkoutButton}
