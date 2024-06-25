@@ -237,7 +237,8 @@ export interface Product {
       }[]
     | null;
   description: string;
-  price?: string | null;
+  price: string;
+  priceOption: 'oneTime' | 'monthly' | 'yearly';
   suppliers: string | Supplier;
   attributes?:
     | {
@@ -489,6 +490,7 @@ export interface Settings {
  */
 export interface Header {
   id: string;
+  media?: string | Media | null;
   navItems?:
     | {
         link: {
@@ -514,6 +516,7 @@ export interface Header {
  */
 export interface Footer {
   id: string;
+  media?: string | Media | null;
   copyright?: string | null;
   navItems?:
     | {
