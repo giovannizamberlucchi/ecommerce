@@ -20,6 +20,7 @@ export const PRODUCTS = (variables?: Record<string, unknown>) => `#graphql
         title
         description
         price
+        priceOption
         ${PRODUCT_CATEGORIES}
         ${META}
         suppliers {
@@ -66,6 +67,7 @@ export const PRODUCT = `#graphql
         description
         ${PRODUCT_CATEGORIES}
         price
+        priceOption
         suppliers {
           name
           email
