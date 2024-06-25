@@ -237,7 +237,7 @@ export interface Product {
       }[]
     | null;
   description: string;
-  price: string;
+  price: number;
   priceOption: 'oneTime' | 'monthly' | 'yearly';
   suppliers: string | Supplier;
   attributes?:

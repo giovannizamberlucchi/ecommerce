@@ -139,7 +139,7 @@ const Products: CollectionConfig = {
                     en: 'Product price',
                     fr: 'Prix du produit',
                   },
-                  type: 'text',
+                  type: 'number',
                   required: true,
                 },
                 {
