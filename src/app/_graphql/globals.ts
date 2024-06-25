@@ -14,6 +14,7 @@ export const MEDIA = `
 
 export const HEADER = `
   Header {
+    ${MEDIA}
     navItems {
       link ${LINK_FIELDS({ disableAppearance: true })}
 		}
@@ -28,6 +29,7 @@ query Header {
 
 export const FOOTER = `
   Footer {
+    ${MEDIA}
     copyright
     navItems {
       link ${LINK_FIELDS({ disableAppearance: true })}
@@ -69,6 +71,7 @@ export const SETTINGS = `
         description
         ${PRODUCT_CATEGORIES}
         price
+        priceOption
         suppliers {
           name
           email

@@ -12,14 +12,14 @@ import { HeaderNav } from '../Nav';
 
 import classes from './index.module.scss';
 
-const HeaderComponent = ({ header }: { header: Header }) => {
+const HeaderComponent = ({ header, mediaSrc }: { header: Header; mediaSrc: string }) => {
   const pathname = usePathname();
 
   return (
     <nav className={[classes.header, noHeaderFooterUrls.includes(pathname) && classes.hide].filter(Boolean).join(' ')}>
       <Gutter className={classes.wrap}>
         <Link href="/">
-          <Image src="/resovalie-achat-fond-blanc-rvb.jpg" alt="logo" width={170} height={50} />
+          <Image src={mediaSrc} alt="logo" width={170} height={50} />
         </Link>
 
         <HeaderNav header={header} />

@@ -13,6 +13,21 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      label: {
+        en: 'Footer Logo',
+        fr: 'Logo de pied de page',
+      },
+      admin: {
+        description: {
+          en: 'The logo is placed in the footer',
+          fr: 'Le logo est placé en pied de page',
+        },
+      },
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'copyright',
       label: {
         en: 'Copyright',

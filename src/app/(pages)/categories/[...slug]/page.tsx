@@ -178,6 +178,12 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
 
   const sortedCategories = [...sortedTopLevelCategoriesByOrder, ...sortedTopLevelCategoriesByTitle];
 
+  const showProducts: boolean = !subcategories.length
+    ? true
+    : subcategories.length && attributesEntries.length
+      ? true
+      : false;
+
   return (
     <div className={classes.container}>
       <Gutter className={classes.products}>
@@ -211,11 +217,6 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
             subCategoriesClassName={classes['hide-on-mobile']}
           />
 
-          <FeaturedProducts
-            products={category?.featuredProducts as Product[]}
-            className={clsx(page !== '1' && classes.hidden)}
-          />
-
           <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} />
 
           <div
@@ -230,7 +231,12 @@ const Category: React.FC<CategoriesProps> = async ({ params: { slug }, searchPar
 
           <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} />
 
-          <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
+          <FeaturedProducts
+            products={category?.featuredProducts as Product[]}
+            className={clsx(page !== '1' && classes.hidden)}
+          />
+
+          {showProducts && <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />}
         </div>
       </Gutter>
 

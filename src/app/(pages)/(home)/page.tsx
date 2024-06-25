@@ -7,6 +7,8 @@ import { Services } from './Services';
 import { ProcessDescription } from './ProcessDescription';
 import { FeaturedProducts } from './FeaturedProducts';
 import { CompanyInNumber } from './CompanyInNumber';
+import { Metadata } from 'next';
+import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 
 const Home = async () => {
   let home: HomeType | null = null;
@@ -32,6 +34,15 @@ const Home = async () => {
       <CompanyInNumber numbers={home.companyInNumbers.numbers} />
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  title: 'Maison',
+  description: "Page d'accueil.",
+  openGraph: mergeOpenGraph({
+    title: 'Maison',
+    url: '/',
+  }),
 };
 
 export default Home;

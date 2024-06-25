@@ -14,6 +14,21 @@ export const Header: GlobalConfig = {
   fields: [
     {
       label: {
+        en: 'Header Logo',
+        fr: "Logo d'en-tête",
+      },
+      admin: {
+        description: {
+          en: 'The logo is placed in the header and on the Login, Create account, Recover password pages',
+          fr: "Le logo est placé dans l'en-tête et sur les pages Connexion, Créer un compte, Récupérer le mot de passe",
+        },
+      },
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
+      label: {
         en: 'Navigation Items',
         fr: 'Éléments de navigation',
       },
