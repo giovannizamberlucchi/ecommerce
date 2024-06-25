@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Footer, Settings } from '../../../../payload/payload-types';
+import { Footer, Media as MediaType, Settings } from '../../../../payload/payload-types';
 import { noHeaderFooterUrls } from '../../../constants';
 import { Gutter } from '../../Gutter';
 
@@ -14,14 +14,18 @@ import { WhatsApp } from '../../icons/WhatsApp';
 import { Mail } from '../../icons/Mail';
 import { Instagram } from '../../icons/Instagram';
 import { Media } from '../../Media';
+import Image from 'next/image';
 
 const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Settings }) => {
   const pathname = usePathname();
   const navItems = footer?.navItems || [];
 
+  const src = `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${(footer?.media as MediaType)?.filename}`;
+
   return (
     <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : ''}>
       <Gutter className={classes.footer}>
+        <Image src={src} alt="logo" width={250} height={23} className={classes.logo} />
         <div className={classes.container}>
           <p className={classes.title}>Resovalie</p>
 
