@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { Home } from '../../../../payload/payload-types';
 import { Gutter } from '../../../_components/Gutter';
 import classes from './index.module.scss';
-import { A11y, Autoplay, Keyboard, Mousewheel, Pagination, Parallax } from 'swiper/modules';
 import { Slider } from '../../../_components/Slider';
 import { Media } from '../../../_components/Media';
 import Link from 'next/link';
@@ -83,7 +82,6 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
             </>
           ),
         }))}
-        autoplay={true}
       />
     </div>
   );

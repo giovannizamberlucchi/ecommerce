@@ -3,6 +3,7 @@ import { Gutter } from '../../../_components/Gutter';
 import classes from './index.module.scss';
 import { Check } from '../../../_components/icons/Check';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 type HeroProps = {
   hero: Home['hero'];
@@ -11,10 +12,11 @@ type HeroProps = {
 export const Hero: React.FC<HeroProps> = async ({ hero }) => {
   return (
     <Gutter className={classes.container}>
-      <h2 className={classes.title}>
-        Resovalie <span>ACHATS</span>
-      </h2>
       <div>
+        <h2 className={classes.title}>
+          Resovalie <span>ACHATS</span>
+        </h2>
+
         <p className={classes.subtitle}>{hero.subtitle}</p>
       </div>
 
@@ -27,10 +29,23 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
             title="YouTube video player"
             width="100%"
             height="100%"
+            className={classes.iframe}
           />
         </div>
 
-        <p className={classes.description}>{hero.description} </p>
+        <div className={classes['description-container']}>
+          <p className={classes.description}>{hero.description} </p>
+
+          <div className={clsx(classes['buttons-container'], classes['hide-on-mobile'])}>
+            <Link href="/create-account" className={classes.button}>
+              S'inscrire à la centrale
+            </Link>
+
+            <Link href="/login" className={classes.button}>
+              Passer commande
+            </Link>
+          </div>
+        </div>
 
         <div className={classes['text-with-check-icon']}>
           {hero.textWithCheckIconArray.map(({ text }, index) => (
@@ -41,7 +56,7 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
           ))}
         </div>
 
-        <div className={classes['buttons-container']}>
+        <div className={clsx(classes['buttons-container'], classes['hide-on-desktop'])}>
           <Link href="/create-account" className={classes.button}>
             S'inscrire à la centrale
           </Link>
