@@ -24,7 +24,7 @@ const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Setting
 
   return (
     <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : ''}>
-      <Gutter className={classes.footer}>
+      <Gutter className={classes.footer} left right>
         <Image src={src} alt="logo" width={250} height={23} className={classes.logo} />
         <div className={classes.container}>
           <p className={classes.title}>Resovalie</p>
