@@ -14,6 +14,8 @@ import { getMeUser } from '../../../_utilities/getMeUser';
 import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph';
 
 import classes from './index.module.scss';
+import { formatCurrency } from '../../../_utilities/currency';
+import { getPriceOption } from '../../../_utilities/price';
 
 export default async function Order({ params: { id } }) {
   const { token } = await getMeUser({
@@ -71,7 +73,7 @@ export default async function Order({ params: { id } }) {
             const {
               quantity,
               product,
-              product: { id, title, meta },
+              product: { id, title, price, priceOption, meta },
             } = item;
 
             const isLast = index === (order?.items?.length || 0) - 1;
@@ -103,7 +105,8 @@ export default async function Order({ params: { id } }) {
                       </Link>
                     </h5>
                     <p>{`Quantité: ${quantity}`}</p>
-                    <Price product={product} button={false} quantity={quantity} />
+                    {/* <Price product={product} button={false} quantity={quantity} /> */}
+                    <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>
                   </div>
                 </div>
                 {!isLast && <HR />}
