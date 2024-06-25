@@ -53,7 +53,6 @@ export const Settings: GlobalConfig = {
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
-      maxRows: 6,
     },
     {
       name: 'contactEmail',
