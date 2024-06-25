@@ -217,19 +217,17 @@ export const CartProvider = (props) => {
 
     const newTotal =
       cart?.items?.reduce((acc, item) => {
-        return (
-          acc +
-          (typeof item.product === 'object'
-            ? item?.product?.price || 0 * (typeof item?.quantity === 'number' ? item?.quantity : 0)
-            : 0)
-        );
+        return acc + (typeof item.product === 'object' ? item.product.price * item.quantity || 0 : 0);
       }, 0) || 0;
 
     setTotal({
-      formatted: newTotal.toLocaleString('en-US', {
+      formatted: new Intl.NumberFormat('fr-FR', {
         style: 'currency',
-        currency: 'EUR',
-      }),
+        currency: 'USD',
+        currencyDisplay: 'code',
+      })
+        .format(newTotal)
+        .replace('USD', '€ HT'),
       raw: newTotal,
     });
   }, [cart, hasInitialized]);
