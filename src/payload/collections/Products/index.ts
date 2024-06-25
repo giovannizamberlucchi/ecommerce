@@ -131,12 +131,51 @@ const Products: CollectionConfig = {
           },
           fields: [
             {
-              name: 'price',
-              label: {
-                en: 'Product price',
-                fr: 'Prix du produit',
-              },
-              type: 'text',
+              type: 'row',
+              fields: [
+                {
+                  name: 'price',
+                  label: {
+                    en: 'Product price',
+                    fr: 'Prix du produit',
+                  },
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'priceOption',
+                  label: {
+                    en: 'Price option',
+                    fr: 'Options de prix',
+                  },
+                  type: 'select',
+                  required: true,
+                  defaultValue: 'oneTime',
+                  options: [
+                    {
+                      label: {
+                        en: 'One Time',
+                        fr: 'Une fois',
+                      },
+                      value: 'oneTime',
+                    },
+                    {
+                      label: {
+                        en: 'Monthly',
+                        fr: 'Mensuel',
+                      },
+                      value: 'monthly',
+                    },
+                    {
+                      label: {
+                        en: 'Yearly',
+                        fr: 'Annuel',
+                      },
+                      value: 'yearly',
+                    },
+                  ],
+                },
+              ],
             },
             {
               label: {
