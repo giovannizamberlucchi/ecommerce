@@ -71,6 +71,7 @@ export const SETTINGS = `
         description
         ${PRODUCT_CATEGORIES}
         price
+        priceOption
         suppliers {
           name
           email
