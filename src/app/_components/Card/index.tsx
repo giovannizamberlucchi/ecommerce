@@ -5,6 +5,8 @@ import { Media } from '../Media';
 
 import classes from './index.module.scss';
 import clsx from 'clsx';
+import { formatCurrency } from '../../_utilities/currency';
+import { getPriceOption } from '../../_utilities/price';
 
 export const Card: React.FC<{
   alignItems?: 'center';
@@ -19,7 +21,7 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, price, description } = {},
+    doc: { slug, title, categories, meta, price, priceOption, description } = {},
     className,
   } = props;
 
@@ -38,8 +40,9 @@ export const Card: React.FC<{
 
       <div className={classes.content}>
         {titleToUse && <p className={classes.title}>{titleToUse}</p>}
-        {/* {price && <h6>{price} €</h6>} */}
         {description && <p className={classes.description}>{description}</p>}
+
+        <p>{`${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>
       </div>
     </Link>
   );
