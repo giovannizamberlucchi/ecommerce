@@ -52,12 +52,9 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
 
   let cmsPage: Page | null = null;
   let categories: Category[] | null = null;
-  let productsData: PaginatedDocs<Product> | null = null;
   let attributesForProducts: Attribute[] | null = null;
   let allProductsAttributes: Product[] | null = null;
   let settings: Settings | null = null;
-
-  const limit = 12;
 
   const attributesEntries = Object.entries(searchParams)
     .map<[string, string[]]>(([key, value]) => [key, Array.isArray(value) ? value : [value]])
@@ -71,12 +68,12 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     {} as Record<string, string[]>,
   );
 
-  const sortingObject = {
-    asc: 'title',
-    desc: '-title',
-    new: '-createdAt',
-    old: 'createdAt',
-  };
+  // const sortingObject = {
+  //   asc: 'title',
+  //   desc: '-title',
+  //   new: '-createdAt',
+  //   old: 'createdAt',
+  // };
 
   try {
     cmsPage = await fetchDoc<Page>({
@@ -101,14 +98,6 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
       }
     });
 
-    const sort = sortingObject[searchParams.sort] || sortingObject.new;
-    productsData = await fetchDocs<Product>('products', isDraftMode, {
-      attributes,
-      page: Number(page),
-      limit: limit,
-      sort,
-    });
-
     allProductsAttributes = (await fetchDocs<Product>('products-attributes', isDraftMode)).docs;
 
     settings = await fetchSettings();
@@ -116,15 +105,8 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
     console.log(error);
   }
 
-  if (!categories || !productsData || Number(page) > productsData?.totalPages) return notFound();
+  if (!categories) return notFound();
 
-  if (settings?.featuredProducts && page === '1') {
-    productsData.docs = productsData.docs.filter((product) => {
-      return !settings.featuredProducts.some(
-        (featuredProduct) => typeof featuredProduct === 'object' && featuredProduct.id === product.id,
-      );
-    });
-  }
   const productsAttributesObject: Record<string, string[]> = {};
 
   (allProductsAttributes || []).map((product) =>
@@ -166,7 +148,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
           className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--desktop'])}
         >
           {/* <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--desktop']} /> */}
-          <SortingSelect />
+          {/* <SortingSelect /> */}
         </div>
 
         <div>
@@ -180,13 +162,6 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         <div>
           {(cmsPage?.layout || [])?.length > 0 && <Blocks blocks={cmsPage?.layout} disableTopPadding={true} />}
 
-          <FeaturedProducts
-            products={settings?.featuredProducts as Product[]}
-            className={clsx(page !== '1' && classes.hidden)}
-          />
-
-          {/* <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} /> */}
-
           <div
             className={clsx(classes['container-attributes-sorting'], classes['container-attributes-sorting--mobile'])}
           >
@@ -197,9 +172,14 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
             <SortingSelect />
           </div>
 
-          {/* <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} /> */}
+          <FeaturedProducts
+            products={settings?.featuredProducts as Product[]}
+            className={clsx(page !== '1' && classes.hidden)}
+          />
 
-          <CollectionProducts page={Number(page)} productsData={productsData} limit={limit} />
+          {/* <Filter attributes={productsAttributesEntries} className={classes['hide-on-mobile']} /> */}
+
+          {/* <AttributesPillsList attributes={attributesEntries} className={classes['attributes-pill--mobile']} /> */}
         </div>
       </Gutter>
 
