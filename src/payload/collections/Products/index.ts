@@ -45,37 +45,6 @@ const Products: CollectionConfig = {
     update: admins,
     delete: admins,
   },
-  endpoints: [
-    {
-      path: '/fix',
-      method: 'get',
-      handler: async ({ payload }, res) => {
-        const { docs } = await payload.find({
-          collection: 'products',
-          limit: 1000,
-        });
-
-        await Promise.all(
-          docs.map(
-            async (doc) =>
-              await payload.update({
-                collection: 'products',
-                id: doc.id,
-                data: {
-                  ...doc,
-                  price:
-                    doc.price && typeof doc.price === 'string'
-                      ? parseFloat(`${doc.price}`.replaceAll(' ', '').replaceAll(',', '.'))
-                      : 0,
-                },
-              }),
-          ),
-        );
-
-        payload.logger.info('Fixed prices');
-      },
-    },
-  ],
   fields: [
     {
       label: {
