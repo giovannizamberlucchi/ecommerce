@@ -2,6 +2,8 @@ import { Category, Product } from '../../../payload/payload-types';
 import { AddToCartButton } from '../../_components/AddToCartButton';
 import { Gutter } from '../../_components/Gutter';
 import { Price } from '../../_components/Price';
+import { formatCurrency } from '../../_utilities/currency';
+import { getPriceOption } from '../../_utilities/price';
 import { MediaWrapper } from './MediaWrapper';
 
 import classes from './index.module.scss';
@@ -9,7 +11,7 @@ import classes from './index.module.scss';
 export const ProductHero: React.FC<{
   product: Product;
 }> = ({ product }) => {
-  const { title, categories, description, meta: { image: metaImage } = {} } = product;
+  const { title, categories, description, price, priceOption, meta: { image: metaImage } = {} } = product;
 
   return (
     <Gutter className={classes.productHero}>
@@ -31,7 +33,7 @@ export const ProductHero: React.FC<{
               return (
                 <p key={index} className={classes.category}>
                   {titleToUse} {!isLast && <>, &nbsp;</>}
-                  <span className={classes.separator}>|</span>
+                  {!isLast && <span className={classes.separator}>|</span>}
                 </p>
               );
             })}
@@ -49,6 +51,8 @@ export const ProductHero: React.FC<{
             <p>{description}</p>
           </div>
         )}
+
+        <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>
       </div>
     </Gutter>
   );
