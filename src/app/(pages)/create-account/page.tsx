@@ -10,6 +10,8 @@ import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph';
 import CreateAccountForm from './CreateAccountForm';
 
 import classes from './index.module.scss';
+import { Header, Media } from '../../../payload/payload-types';
+import { fetchHeader } from '../../_api/fetchGlobals';
 
 export default async function CreateAccount() {
   await getMeUser({
@@ -18,17 +20,21 @@ export default async function CreateAccount() {
     )}`,
   });
 
+  let header: Header | null = null;
+
+  try {
+    header = await fetchHeader();
+  } catch (error) {
+    console.error(error);
+  }
+
+  const src = `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${(header?.media as Media)?.filename}`;
+
   return (
     <section className={classes.createAccount}>
       <div className={classes.heroImg}>
         <Link href="/">
-          <Image
-            src="/resovalie-achat-fond-blanc-rvb.jpg"
-            alt="logo"
-            width={250}
-            height={23}
-            className={classes.logo}
-          />
+          <Image src={src} alt="logo" width={250} height={23} className={classes.logo} />
         </Link>
       </div>
 
