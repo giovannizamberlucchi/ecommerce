@@ -57,14 +57,15 @@ const Products: CollectionConfig = {
 
         await Promise.all(
           docs.map(
-            async ({ id, price }) =>
+            async (doc) =>
               await payload.update({
                 collection: 'products',
-                id,
+                id: doc.id,
                 data: {
+                  ...doc,
                   price:
-                    price && typeof price === 'string'
-                      ? parseFloat(`${price}`.replaceAll(' ', '').replaceAll(',', '.'))
+                    doc.price && typeof doc.price === 'string'
+                      ? parseFloat(`${doc.price}`.replaceAll(' ', '').replaceAll(',', '.'))
                       : 0,
                 },
               }),
