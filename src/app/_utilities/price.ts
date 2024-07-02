@@ -1,5 +1,5 @@
 const priceOption = {
-  oneTime: 'Une fois',
+  oneTime: '',
   monthly: 'Mensuel',
   yearly: 'Annuel',
 };
