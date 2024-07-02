@@ -140,7 +140,6 @@ const Products: CollectionConfig = {
                     fr: 'Prix du produit',
                   },
                   type: 'number',
-                  required: true,
                 },
                 {
                   name: 'priceOption',
@@ -149,7 +148,6 @@ const Products: CollectionConfig = {
                     fr: 'Options de prix',
                   },
                   type: 'select',
-                  required: true,
                   defaultValue: 'oneTime',
                   options: [
                     {
