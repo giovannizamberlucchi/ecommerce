@@ -103,3 +103,19 @@
     border-radius: 10px;
   }
 }
+
+.bottom-container {
+  display: flex;
+  gap: 20px;
+}
+
+.bottom-link {
+  display: block;
+  color: var(--color-base-500);
+  width: max-content;
+  transition: color 0.1s ease-in;
+
+  &:hover {
+    color: var(--color-orange-500);
+  }
+}

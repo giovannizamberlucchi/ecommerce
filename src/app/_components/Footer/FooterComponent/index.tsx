@@ -89,6 +89,12 @@ const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Setting
             ))}
           </div>
         </div>
+
+        <div className={classes['bottom-container']}>
+          <Link href={'/cookie-policy'} className={classes['bottom-link']}>
+            Mentions legales
+          </Link>
+        </div>
       </Gutter>
     </footer>
   );
