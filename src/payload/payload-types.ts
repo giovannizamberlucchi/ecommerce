@@ -162,7 +162,7 @@ export interface Page {
           }
       )[]
     | null;
-  slug?: string | null;
+  slug: string;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -237,8 +237,8 @@ export interface Product {
       }[]
     | null;
   description: string;
-  price: number;
-  priceOption: 'oneTime' | 'monthly' | 'yearly';
+  price?: number | null;
+  priceOption?: ('oneTime' | 'monthly' | 'yearly') | null;
   suppliers: string | Supplier;
   attributes?:
     | {
@@ -249,7 +249,7 @@ export interface Product {
     | null;
   categories?: (string | Category)[] | null;
   relatedProducts?: (string | Product)[] | null;
-  slug?: string | null;
+  slug: string;
   meta?: {
     title?: string | null;
     description?: string | null;
