@@ -45,7 +45,7 @@ export const Card: React.FC<{
         {titleToUse && <p className={classes.title}>{titleToUse}</p>}
         {description && <p className={classes.description}>{description}</p>}
 
-        {typeof price === 'number' && <p>{`${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
+        {price && <p>{`${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
       </div>
     </Link>
   );

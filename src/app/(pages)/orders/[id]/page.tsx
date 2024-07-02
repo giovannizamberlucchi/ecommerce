@@ -106,9 +106,7 @@ export default async function Order({ params: { id } }) {
                     </h5>
                     <p>{`Quantité: ${quantity}`}</p>
                     {/* <Price product={product} button={false} quantity={quantity} /> */}
-                    {typeof price === 'number' && (
-                      <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>
-                    )}
+                    {price && <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
                   </div>
                 </div>
                 {!isLast && <HR />}

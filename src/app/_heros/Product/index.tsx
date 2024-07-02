@@ -52,7 +52,7 @@ export const ProductHero: React.FC<{
           </div>
         )}
 
-        {typeof price === 'number' && <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
+        {price && <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
       </div>
     </Gutter>
   );
