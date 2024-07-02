@@ -131,15 +131,11 @@ export const CartPage: React.FC<{
               </div>
 
               <div className={classes.summary}>
+                <div className={classes.row}>{/* <h6 className={classes.cartTotal}>Récapitulatif</h6> */}</div>
                 <div className={classes.row}>
-                  <h6 className={classes.cartTotal}>Récapitulatif</h6>
+                  {/* <p className={classes.cartTotal}>Total</p> */}
+                  {/* <p className={classes.cartTotal}>{cartTotal.formatted}</p> */}
                 </div>
-
-                <div className={classes.row}>
-                  <p className={classes.cartTotal}>Total</p>
-                  <p className={classes.cartTotal}>{cartTotal.formatted}</p>
-                </div>
-
                 <Button
                   className={classes.checkoutButton}
                   label={isLoading ? 'Chargement...' : 'Demander un devis'}
