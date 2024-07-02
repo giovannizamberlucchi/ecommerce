@@ -12,7 +12,8 @@ import 'swiper/css/mousewheel';
 import 'swiper/css/pagination';
 import 'swiper/css/parallax';
 import deepMerge from '../../../payload/utilities/deepMerge';
-// import classes from './index.module.scss';
+
+import './index.scss';
 
 const defaultProps: SwiperProps = {
   modules: [A11y, Autoplay, Keyboard, Mousewheel, /* Navigation, */ Pagination, Parallax],
