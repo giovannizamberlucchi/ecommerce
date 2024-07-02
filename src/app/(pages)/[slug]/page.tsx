@@ -31,7 +31,7 @@ export const dynamic = 'force-dynamic';
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode();
 
-  if (slug !== 'home' && slug !== '') {
+  if (slug !== 'home' && slug !== '' && slug !== 'cookie-policy') {
     const { user } = await getMeUser({
       nullUserRedirect: `/login?redirect=${encodeURIComponent(`/${slug}`)}`,
     });

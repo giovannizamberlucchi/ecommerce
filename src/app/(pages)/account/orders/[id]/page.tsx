@@ -90,9 +90,7 @@ export default async function Order({ params: { id } }) {
                     </h6>
                     <p>{`Quantité: ${quantity}`}</p>
                     {/* <Price product={product} button={false} quantity={quantity} /> */}
-                    {typeof price === 'number' && (
-                      <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>
-                    )}
+                    {price && <p>{`Prix: ${formatCurrency(price)} ${getPriceOption(priceOption)}`}</p>}
                   </div>
                 </div>
               </Fragment>
@@ -104,7 +102,7 @@ export default async function Order({ params: { id } }) {
       </div>
       <HR className={classes.hr} />
       <div className={classes.total}>
-        {typeof order.total === 'number' && <p>{`Total: ${formatCurrency(order.total)}`}</p>}
+        {/* {typeof order.total === 'number' && <p>{`Total: ${formatCurrency(order.total)}`}</p>} */}
       </div>
     </div>
   );
