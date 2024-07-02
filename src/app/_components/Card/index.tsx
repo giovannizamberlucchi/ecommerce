@@ -21,7 +21,7 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, price, priceOption, description } = {},
+    doc: { slug, title, categories, meta, price, priceOption, description, images } = {},
     className,
   } = props;
 
@@ -34,8 +34,11 @@ export const Card: React.FC<{
   return (
     <Link href={href} className={clsx(classes.card, className)}>
       <div className={classes.mediaWrapper}>
-        {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media imgClassName={classes.image} resource={metaImage} fill />}
+        {!(metaImage || images[0].media) && <div className={classes.placeholder}>Pas d'image</div>}
+        {(metaImage && typeof metaImage !== 'string') ||
+          (images?.[0] && typeof images[0].media !== 'string' && (
+            <Media imgClassName={classes.image} resource={metaImage || images[0].media} fill />
+          ))}
       </div>
 
       <div className={classes.content}>

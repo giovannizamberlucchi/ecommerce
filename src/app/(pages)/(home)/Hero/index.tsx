@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
           <iframe
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
-            src={`https://www.youtube-nocookie.com/embed/${hero.youtubeId}?`}
+            src={`https://www.youtube-nocookie.com/embed/${hero.youtubeId}?modestbranding=1&amp;rel=0`}
             title="YouTube video player"
             width="100%"
             height="100%"
@@ -39,10 +39,6 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
           <div className={clsx(classes['buttons-container'], classes['hide-on-mobile'])}>
             <Link href="/create-account" className={classes.button}>
               S'inscrire à la centrale
-            </Link>
-
-            <Link href="/login" className={classes.button}>
-              Passer commande
             </Link>
           </div>
         </div>
@@ -59,10 +55,6 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
         <div className={clsx(classes['buttons-container'], classes['hide-on-desktop'])}>
           <Link href="/create-account" className={classes.button}>
             S'inscrire à la centrale
-          </Link>
-
-          <Link href="/login" className={classes.button}>
-            Passer commande
           </Link>
         </div>
       </div>

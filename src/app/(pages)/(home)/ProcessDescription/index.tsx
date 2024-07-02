@@ -28,10 +28,6 @@ export const ProcessDescription: React.FC<ProcessDescriptionProps> = async ({ pr
         <Link href="/create-account" className={classes.button}>
           S'inscrire à la centrale
         </Link>
-
-        <Link href="/login" className={classes.button}>
-          Passer commande
-        </Link>
       </div>
     </Gutter>
   );

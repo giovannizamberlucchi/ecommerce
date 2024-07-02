@@ -18,19 +18,19 @@
   font-weight: 700;
 }
 
-.container-grid-four-column {
+.container-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 25px;
   row-gap: 20px;
 
   @include small-break {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
 .video {
-  grid-column: span 3;
+  grid-column: span 3 / span 3;
   aspect-ratio: 16 / 9;
 }
 
@@ -42,18 +42,12 @@
 }
 
 .description-container {
-  grid-column: span 1;
   grid-row: span 2;
-
-  @include small-break {
-    grid-column: span 1;
-  }
 }
 
 .description {
   font-size: 16px;
   white-space: pre-line;
-
   margin-bottom: 20px;
 }
 

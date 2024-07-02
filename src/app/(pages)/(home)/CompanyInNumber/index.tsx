@@ -36,10 +36,6 @@ export const CompanyInNumber: React.FC<CompanyInNumberProps> = ({ numbers }) => 
           <Link href="/create-account" className={classes.button}>
             S'inscrire à la centrale
           </Link>
-
-          <Link href="/login" className={classes.button}>
-            Passer commande
-          </Link>
         </Gutter>
       </div>
     </div>
