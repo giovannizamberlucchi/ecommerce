@@ -33,14 +33,43 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-.slider {
+.container-slider {
   width: 50%;
+  position: relative;
   place-content: center;
   margin-bottom: 40px;
+  margin-right: auto;
+  margin-left: auto;
 
   @include small-break {
     width: 100%;
   }
+}
+
+.slider {
+  width: 100%;
+}
+
+.prev-icon {
+  rotate: 180deg;
+  position: absolute;
+  z-index: 1000;
+  top: 45%;
+  cursor: pointer;
+
+  width: 40px;
+  height: 40px;
+}
+
+.next-icon {
+  position: absolute;
+  z-index: 1000;
+  top: 45%;
+  right: 0;
+  cursor: pointer;
+
+  width: 40px;
+  height: 40px;
 }
 
 .slide {

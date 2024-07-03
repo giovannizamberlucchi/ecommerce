@@ -6,6 +6,7 @@ import classes from './index.module.scss';
 import { Slider } from '../../../_components/Slider';
 import { Media } from '../../../_components/Media';
 import Link from 'next/link';
+import { Chevron } from '../../../_components/icons/Chevron';
 
 type FeaturedProductsProps = {
   products: Home['featuredProducts'];
@@ -14,6 +15,8 @@ type FeaturedProductsProps = {
 export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) => {
   return (
     <div className={classes.height}>
+      <Chevron className={clsx('swiper-button image-swiper-button-prev', classes['prev-icon'])} />
+      <Chevron className={clsx('swiper-button image-swiper-button-next', classes['next-icon'])} />
       <Slider
         className={classes.slider}
         slides={(products.sliderArray || []).map((product, idx) => ({
