@@ -43,6 +43,10 @@
 
 .description-container {
   grid-row: span 2;
+
+  @include small-break {
+    grid-row: span 3;
+  }
 }
 
 .description {
@@ -88,17 +92,19 @@
 
   @include small-break {
     place-items: center;
+    grid-row: span 3;
   }
 }
 
 .button {
   display: block;
-  width: 80%;
+  width: 100%;
   padding: 12px 24px;
   font-size: 19px;
   background: var(--color-orange-500);
   border-radius: 5px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .hide-on-mobile {

@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = async ({ hero }) => {
         <p className={classes.subtitle}>{hero.subtitle}</p>
       </div>
 
-      <div className={classes['container-grid-four-column']}>
+      <div className={classes['container-grid']}>
         <div className={classes.video}>
           <iframe
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
