@@ -49,6 +49,10 @@
 
   width: 60px;
   height: 60px;
+
+  @include small-break {
+    display: none;
+  }
 }
 
 .next-icon {
@@ -60,6 +64,10 @@
 
   width: 60px;
   height: 60px;
+
+  @include small-break {
+    display: none;
+  }
 }
 
 .swiper-shutters-image-clones {

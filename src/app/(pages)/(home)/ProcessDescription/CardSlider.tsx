@@ -16,8 +16,6 @@ type CardSliderProps = {
 
 export const CardSlider: React.FC<CardSliderProps> = ({ carousel }) => (
   <div className={classes['container-slider']}>
-    <Chevron className={clsx('swiper-button image-swiper-button-prev', classes['prev-icon'])} />
-    <Chevron className={clsx('swiper-button image-swiper-button-next', classes['next-icon'])} />
     <Slider
       className={classes.slider}
       slides={(carousel || []).map((item, index) => ({
@@ -45,8 +43,8 @@ export const CardSlider: React.FC<CardSliderProps> = ({ carousel }) => (
       effect={'cards'}
       grabCursor={true}
       navigation={{
-        nextEl: '.image-swiper-button-next',
-        prevEl: '.image-swiper-button-prev',
+        nextEl: '.image-swiper-button-next-process-description',
+        prevEl: '.image-swiper-button-prev-process-description',
         disabledClass: 'swiper-button-disabled',
       }}
       modules={[A11y, Autoplay, Keyboard, Mousewheel, EffectCards, Navigation]}

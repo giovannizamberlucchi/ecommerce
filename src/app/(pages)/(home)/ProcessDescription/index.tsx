@@ -4,6 +4,8 @@ import { Gutter } from '../../../_components/Gutter';
 
 import classes from './index.module.scss';
 import { CardSlider } from './CardSlider';
+import clsx from 'clsx';
+import { Chevron } from '../../../_components/icons/Chevron';
 
 type ProcessDescriptionProps = {
   processDescription: Home['processDescription'];
@@ -21,6 +23,9 @@ export const ProcessDescription: React.FC<ProcessDescriptionProps> = async ({ pr
       <p className={classes.description}>{processDescription.description}</p>
 
       <div className={classes['card-slider']}>
+        <Chevron className={clsx('swiper-button image-swiper-button-prev-process-description', classes['prev-icon'])} />
+        <Chevron className={clsx('swiper-button image-swiper-button-next-process-description', classes['next-icon'])} />
+
         <CardSlider carousel={processDescription.carousel} />
       </div>
 
