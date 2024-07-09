@@ -169,7 +169,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
               attributes={productsAttributesEntries}
               className={classes['container-attributes-list--mobile']}
             /> */}
-            <SortingSelect />
+            {/* <SortingSelect /> */}
           </div>
 
           <FeaturedProducts
