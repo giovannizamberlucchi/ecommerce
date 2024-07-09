@@ -27,9 +27,7 @@ const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Setting
       <Gutter className={classes.footer} left right>
         <Image src={src} alt="logo" width={250} height={23} className={classes.logo} />
         <div className={classes.container}>
-          <p className={classes.title}>Resovalie</p>
-
-          <div>
+          <div className={classes['navigation-item']}>
             {navItems.map((item, index) => (
               <Link
                 href={item.link.url || '/'}
@@ -75,18 +73,6 @@ const FooterComponent = ({ footer, setting }: { footer: Footer; setting: Setting
                 <Instagram className={classes['social-media-icon']} />
               </Link>
             )}
-          </div>
-        </div>
-
-        <div className={classes.container}>
-          <p className={classes.title}>Nos Business Clubs</p>
-
-          <div className={classes.club}>
-            {footer?.businessClub?.map((item, index) => (
-              <Link href={item.link} key={index} className={classes['club-link']}>
-                <Media resource={item.icon} imgClassName={classes['club-image']} />
-              </Link>
-            ))}
           </div>
         </div>
 

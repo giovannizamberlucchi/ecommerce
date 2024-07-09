@@ -534,13 +534,6 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
-  businessClub?:
-    | {
-        link: string;
-        icon: string | Media;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
