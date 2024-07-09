@@ -34,17 +34,6 @@ export const FOOTER = `
     navItems {
       link ${LINK_FIELDS({ disableAppearance: true })}
 		}
-    businessClub {
-      link
-      icon {
-          alt
-          width
-          height
-          url
-          filename
-        }
-    
-    }
   }
 `;
 
