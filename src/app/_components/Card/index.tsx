@@ -35,10 +35,9 @@ export const Card: React.FC<{
     <Link href={href} className={clsx(classes.card, className)}>
       <div className={classes.mediaWrapper}>
         {!(metaImage || images[0].media) && <div className={classes.placeholder}>Pas d'image</div>}
-        {(metaImage && typeof metaImage !== 'string') ||
-          (images?.[0] && typeof images[0].media !== 'string' && (
-            <Media imgClassName={classes.image} resource={metaImage || images[0].media} fill />
-          ))}
+        {(metaImage && typeof metaImage !== 'string') || (images.length && typeof images[0].media !== 'string') ? (
+          <Media imgClassName={classes.image} resource={metaImage || images[0].media} fill />
+        ) : null}
       </div>
 
       <div className={classes.content}>
